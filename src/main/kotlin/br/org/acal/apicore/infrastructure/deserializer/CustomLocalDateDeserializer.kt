@@ -1,0 +1,16 @@
+package br.org.acal.apicore.infrastructure.deserializer
+
+import com.fasterxml.jackson.core.JsonParser
+import com.fasterxml.jackson.databind.DeserializationContext
+import com.fasterxml.jackson.databind.JsonDeserializer
+import java.time.LocalDate
+import java.time.LocalDate.parse
+import java.time.format.DateTimeFormatter.ISO_DATE
+
+class CustomLocalDateDeserializer : JsonDeserializer<LocalDate>() {
+
+    override fun deserialize(p: JsonParser?, ctxt: DeserializationContext?): LocalDate =
+        parse(p?.text, ISO_DATE)
+
+}
+

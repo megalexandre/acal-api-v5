@@ -1,0 +1,17 @@
+server:
+    port: 8080
+
+spring:
+    config.import:
+        - application.log.yml
+    profiles:
+        active: local
+    data:
+        mongodb:
+            uri: mongodb://root:example@localhost:27017/
+            database: acal_db
+
+    jackson:
+        time-zone: America/Sao_Paulo
+        serialization:
+            write-dates-as-timestamps: false

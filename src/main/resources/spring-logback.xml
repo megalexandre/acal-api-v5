@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- Inclua as configurações padrão do Spring Boot -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+
+    <!-- Defina o nível de log para o pacote do Spring Data -->
+    <logger name="org.springframework.data" level="DEBUG" />
+
+    <!-- Defina o nível de log para o pacote da sua aplicação (opcional) -->
+    <logger name="com.example" level="DEBUG" />
+
+    <!-- Defina as cores para os diferentes níveis de log -->
+    <property name="CONSOLE_LOG_PATTERN" value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID}){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n%wEx"/>
+
+    <!-- Saída de log para o console -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Configuração das cores para os níveis de log -->
+    <root level="INFO">
+        <appender-ref ref="console" />
+    </root>
+
+    <!-- Configuração de cores para mensagens de erro (ERROR) -->
+    <logger name="org.springframework" level="ERROR">
+        <appender-ref ref="console" />
+    </logger>
+
+    <!-- Condicionalmente inclua a configuração do Logback apenas se o perfil for "local" -->
+    <springProfile name="local">
+        <root level="INFO">
+            <appender-ref ref="console" />
+        </root>
+    </springProfile>
+
+</configuration>

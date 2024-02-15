@@ -1,0 +1,4 @@
+logging:
+    logs:
+        level.org.springframework.data.mongodb.core: INFO
+        level.org.springframework.data: INFO
