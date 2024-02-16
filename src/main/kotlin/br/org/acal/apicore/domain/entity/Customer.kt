@@ -8,16 +8,15 @@ import java.time.LocalDateTime
 data class Customer (
 
     val id: String,
+    val legacyId: String?,
     val name: String,
     val documentNumber: DocumentNumber,
     var birthDay: LocalDate? = null,
     val phoneNumbers: List<PhoneNumber>? = null,
     val active: Boolean,
 
-    override val createdAt: LocalDateTime,
-    override val createdBy: String?,
 
-): Entity {
+){
 
     val type: PersonType = documentNumber.type
 

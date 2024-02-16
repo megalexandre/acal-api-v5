@@ -8,9 +8,8 @@ import br.org.acal.apicore.application.rest.customer.response.CustomerFindAllRes
 import br.org.acal.apicore.application.rest.customer.response.CustomerGetResponse
 import br.org.acal.apicore.application.rest.customer.response.CustomerPaginateResponse
 import br.org.acal.apicore.common.util.ResponseEntityUtil.Companion.created
-import br.org.acal.apicore.domain.dto.pagination.LimitOffset
-import br.org.acal.apicore.domain.dto.pagination.SortField
-import br.org.acal.apicore.domain.entity.Customer
+import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffset
+import br.org.acal.apicore.domain.dto.pagination.pages.SortField
 import br.org.acal.apicore.domain.usecases.customer.CustomerCreateUsecase
 import br.org.acal.apicore.domain.usecases.customer.CustomerFindAllByFilterUsecase
 import br.org.acal.apicore.domain.usecases.customer.CustomerFindAllUsecase
@@ -129,5 +128,20 @@ class CustomerController(
             })
         )
     }
+
+    /*
+    @PostMapping("migrate")
+    fun migrate(@Valid @RequestBody request: List<CustomerCreateRequest>): ResponseEntity<Unit> {
+        logger.info { "Creating Post/ customer $request" }
+        return created(
+            migrate.execute(request.toEntity())
+        ).also {
+           logger.info{" migrated "}
+        }
+    }
+    */
+
+
 }
+
 

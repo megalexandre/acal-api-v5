@@ -1,4 +1,8 @@
 logging:
+    level:
+        org.springframework.data.mongodb.core.MongoTemplate: DEBUG
     logs:
         level.org.springframework.data.mongodb.core: INFO
         level.org.springframework.data: INFO
+
+

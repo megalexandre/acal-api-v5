@@ -1,12 +1,13 @@
-package br.org.acal.apicore.domain.dto.pagination.customer
+package br.org.acal.apicore.domain.dto.pagination.link
 
 import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffset
 import br.org.acal.apicore.domain.dto.pagination.pages.PageFilter
 import br.org.acal.apicore.domain.dto.pagination.pages.SortField
 
-class CustomerPageFilter(
+class LinkPageFilter(
 
-    override val filter: CustomerFilter? = null,
+    override val filter: LinkFilter? = null,
     override val limitOffset: LimitOffset? = null,
     override val sortField: SortField? = null,
-    ): PageFilter(limitOffset, sortField)
+
+): PageFilter(limitOffset, sortField)

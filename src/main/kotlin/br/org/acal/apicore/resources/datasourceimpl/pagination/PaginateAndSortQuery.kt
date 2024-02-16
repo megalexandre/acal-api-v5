@@ -1,7 +1,7 @@
 package br.org.acal.apicore.resources.datasourceimpl.pagination
 
-import br.org.acal.apicore.domain.dto.pagination.DefaultFilter
-import br.org.acal.apicore.domain.dto.pagination.LimitOffset
+import br.org.acal.apicore.domain.dto.pagination.pages.DefaultFilter
+import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffset
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.data.domain.Sort.Direction.ASC

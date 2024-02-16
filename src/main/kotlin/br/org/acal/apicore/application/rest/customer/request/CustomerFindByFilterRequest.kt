@@ -15,8 +15,8 @@ data class CustomerFindByFilterRequest (
 
     override fun toEntity(): CustomerFilter = CustomerFilter(
         id = id,
-        name = name,
-        documentNumber = documentNumber,
+        name = name?.trim(),
+        documentNumber = documentNumber?.trim(),
     )
 
 }

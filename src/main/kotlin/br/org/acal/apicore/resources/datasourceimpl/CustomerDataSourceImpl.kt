@@ -1,11 +1,11 @@
 package br.org.acal.apicore.resources.datasourceimpl
 
 import br.org.acal.apicore.domain.datasource.CustomerDataSource
-import br.org.acal.apicore.domain.dto.pagination.DefaultFilter
-import br.org.acal.apicore.domain.dto.pagination.LimitOffset
-import br.org.acal.apicore.domain.dto.pagination.PageFilter
 import br.org.acal.apicore.domain.dto.pagination.customer.CustomerFilter
 import br.org.acal.apicore.domain.dto.pagination.customer.CustomerPageFilter
+import br.org.acal.apicore.domain.dto.pagination.pages.DefaultFilter
+import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffset
+import br.org.acal.apicore.domain.dto.pagination.pages.PageFilter
 import br.org.acal.apicore.domain.entity.Customer
 import br.org.acal.apicore.domain.entity.DocumentNumber
 import br.org.acal.apicore.resources.datasourceimpl.pagination.CustomerQuery

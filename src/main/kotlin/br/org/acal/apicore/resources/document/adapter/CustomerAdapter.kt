@@ -7,23 +7,21 @@ import org.springframework.data.domain.Page
 
 fun Customer.toDocument() = CustomerDocument(
     id = id,
+    legacyId = legacyId,
     name = name,
     documentNumber = documentNumber.number,
     phoneNumbers = phoneNumbers,
     birthDay = birthDay,
-    createdAt =  createdAt,
-    createdBy = createdBy,
     active = active
 )
 
 fun CustomerDocument.toEntity() = Customer(
     id = id,
+    legacyId = legacyId,
     name = name,
     documentNumber = DocumentNumber(documentNumber),
     birthDay = birthDay,
     phoneNumbers = phoneNumbers,
-    createdAt =  createdAt,
-    createdBy = createdBy,
     active = active,
 )
 

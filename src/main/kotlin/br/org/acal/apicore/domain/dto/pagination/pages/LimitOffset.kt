@@ -1,4 +1,4 @@
-package br.org.acal.apicore.domain.dto.pagination
+package br.org.acal.apicore.domain.dto.pagination.pages
 
 class LimitOffset (
     val offset: Int? = 0,

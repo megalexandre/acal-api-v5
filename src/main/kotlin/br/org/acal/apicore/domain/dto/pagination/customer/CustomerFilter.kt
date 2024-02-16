@@ -1,6 +1,6 @@
 package br.org.acal.apicore.domain.dto.pagination.customer
 
-import br.org.acal.apicore.domain.dto.pagination.DefaultFilter
+import br.org.acal.apicore.domain.dto.pagination.pages.DefaultFilter
 import br.org.acal.apicore.domain.entity.PhoneNumber
 import java.time.LocalDate
 import java.time.LocalDateTime
