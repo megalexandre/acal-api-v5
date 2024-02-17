@@ -12,7 +12,6 @@ data class CustomerGetResponse (
     var birthDay: LocalDate? = null,
     val preferentialNumber: String? = null,
     val phoneNumbers: List<PhoneNumber>? = null,
-    val createdAt: LocalDateTime,
     val active: Boolean,
 ) {
     constructor(customer: Customer) : this(
@@ -22,7 +21,6 @@ data class CustomerGetResponse (
         birthDay = customer.birthDay,
         phoneNumbers = customer.phoneNumbers,
         preferentialNumber = customer.phoneNumbers?.first { it.preferential }?.number,
-        createdAt = customer.createdAt,
         active = customer.active,
     )
 }

@@ -16,13 +16,7 @@ class LinkCreateUsecase(
     @Transactional
     override fun execute(input: List<Link>): Unit =
         input.forEach{ link ->
-            valid(link).let {
-                dataSource.save(link)
-            }
+            dataSource.save(link)
         }
-
-    private fun valid(link: Link) {
-
-    }
 
 }
