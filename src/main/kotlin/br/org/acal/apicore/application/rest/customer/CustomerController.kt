@@ -129,19 +129,6 @@ class CustomerController(
         )
     }
 
-    /*
-    @PostMapping("migrate")
-    fun migrate(@Valid @RequestBody request: List<CustomerCreateRequest>): ResponseEntity<Unit> {
-        logger.info { "Creating Post/ customer $request" }
-        return created(
-            migrate.execute(request.toEntity())
-        ).also {
-           logger.info{" migrated "}
-        }
-    }
-    */
-
-
 }
 
 

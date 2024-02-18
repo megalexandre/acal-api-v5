@@ -5,13 +5,18 @@ import java.math.BigDecimal
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 
-@Document(collection = "area")
+@Document(collection = "category")
 data class CategoryDocument (
 
     @Id
     val id: String,
     val name: String,
     val type: CategoryType,
-    val value: BigDecimal,
+    val values: List<CategoryValuesDocument>,
 
+)
+
+data class CategoryValuesDocument(
+    val name: String,
+    val value: BigDecimal,
 )
