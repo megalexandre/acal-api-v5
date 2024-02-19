@@ -4,6 +4,7 @@ import br.org.acal.apicore.domain.entity.InvoiceNumber
 import br.org.acal.apicore.domain.entity.Reference
 import java.time.LocalDateTime
 import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
 @Document(collection = "invoice")
 data class InvoiceDocument(
@@ -12,6 +13,7 @@ data class InvoiceDocument(
     val id: String,
 
     val reference: Reference,
+    @Indexed(unique = true)
     val invoiceNumber: InvoiceNumber,
     val emission: LocalDateTime,
     val dueDate: LocalDateTime,

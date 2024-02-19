@@ -140,8 +140,4 @@ class CustomerController(
         createLot.execute(request.toEntity())
     }
 
-
-
 }
-
-
