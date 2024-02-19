@@ -1,4 +1,4 @@
-package br.org.acal.apicore.domain.dto.pagination.link
+package br.org.acal.apicore.domain.dto.pagination.invoice
 
 import br.org.acal.apicore.domain.dto.pagination.pages.DefaultFilter
 

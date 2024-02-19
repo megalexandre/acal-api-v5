@@ -1,15 +1,13 @@
 package br.org.acal.apicore.resources.datasourceimpl
 
 import br.org.acal.apicore.domain.datasource.CategoryDataSource
-import br.org.acal.apicore.domain.dto.pagination.link.CategoryFilter
-import br.org.acal.apicore.domain.dto.pagination.link.LinkPageFilter
+import br.org.acal.apicore.domain.dto.pagination.category.CategoryFilter
+import br.org.acal.apicore.domain.dto.pagination.category.CategoryPageFilter
 import br.org.acal.apicore.domain.dto.pagination.pages.DefaultFilter
 import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffset
 import br.org.acal.apicore.domain.dto.pagination.pages.PageFilter
-import br.org.acal.apicore.domain.entity.Address
 import br.org.acal.apicore.domain.entity.Category
 import br.org.acal.apicore.resources.datasourceimpl.pagination.CategoryQuery
-import br.org.acal.apicore.resources.datasourceimpl.pagination.LinkQuery
 import br.org.acal.apicore.resources.document.CategoryDocument
 import br.org.acal.apicore.resources.document.adapter.toDocument
 import br.org.acal.apicore.resources.document.adapter.toEntity
@@ -32,8 +30,8 @@ class CategoryDataSourceImpl(
                 .query(filter as CategoryFilter), CategoryDocument::class.java).map { it.toEntity() }
 
     override fun paginateByFilter(filter: PageFilter): Page<Category> {
-        val categoryPageFilter: LinkPageFilter = filter as LinkPageFilter
-        val categoryQuery = LinkQuery()
+        val categoryPageFilter: CategoryPageFilter = filter as CategoryPageFilter
+        val categoryQuery = CategoryQuery()
         val pageable = categoryQuery.pageRequest(limitOffset = categoryPageFilter.limitOffset ?: LimitOffset())
         val query = categoryQuery.query(categoryPageFilter.filter).with(pageable)
         val countTotalQuery = categoryQuery.query(categoryPageFilter.filter)

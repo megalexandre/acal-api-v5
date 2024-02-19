@@ -1,8 +1,7 @@
 package br.org.acal.apicore.resources.datasourceimpl.pagination
 
 
-import br.org.acal.apicore.domain.dto.pagination.link.CategoryFilter
-import br.org.acal.apicore.domain.dto.pagination.link.InvoiceFilter
+import br.org.acal.apicore.domain.dto.pagination.category.CategoryFilter
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
 

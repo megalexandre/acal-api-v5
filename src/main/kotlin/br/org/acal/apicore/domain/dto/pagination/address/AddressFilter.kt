@@ -1,8 +1,8 @@
-package br.org.acal.apicore.domain.dto.pagination.link
+package br.org.acal.apicore.domain.dto.pagination.address
 
 import br.org.acal.apicore.domain.dto.pagination.pages.DefaultFilter
 
-class CategoryFilter(
+class AddressFilter(
 
     val id: String? = null,
 

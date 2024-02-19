@@ -1,8 +1,7 @@
 package br.org.acal.apicore.resources.datasourceimpl.pagination
 
 
-import br.org.acal.apicore.domain.dto.pagination.link.AddressFilter
-import br.org.acal.apicore.domain.dto.pagination.link.LinkFilter
+import br.org.acal.apicore.domain.dto.pagination.address.AddressFilter
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
 

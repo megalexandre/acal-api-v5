@@ -1,7 +1,7 @@
 package br.org.acal.apicore.resources.datasourceimpl
 
 import br.org.acal.apicore.domain.datasource.AddressDataSource
-import br.org.acal.apicore.domain.dto.pagination.link.AddressFilter
+import br.org.acal.apicore.domain.dto.pagination.address.AddressFilter
 import br.org.acal.apicore.domain.dto.pagination.link.LinkPageFilter
 import br.org.acal.apicore.domain.dto.pagination.pages.DefaultFilter
 import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffset
