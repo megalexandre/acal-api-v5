@@ -6,6 +6,7 @@ import br.org.acal.apicore.domain.dto.pagination.link.LinkPageFilter
 import br.org.acal.apicore.domain.dto.pagination.pages.DefaultFilter
 import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffset
 import br.org.acal.apicore.domain.dto.pagination.pages.PageFilter
+import br.org.acal.apicore.domain.entity.Customer
 import br.org.acal.apicore.domain.entity.Invoice
 import br.org.acal.apicore.resources.datasourceimpl.pagination.InvoiceQuery
 import br.org.acal.apicore.resources.datasourceimpl.pagination.LinkQuery
@@ -47,6 +48,9 @@ class InvoiceDataSourceImpl(
     override fun save(t: Invoice): Invoice =
         repository.save(t.toDocument()).toEntity()
 
+    override fun save(t: List<Invoice>) {
+        repository.saveAll(t.map { it.toDocument() })
+    }
     override fun delete(id: String) {
         repository.deleteById(id)
     }

@@ -51,6 +51,10 @@ class LinkDataSourceImpl(
         repository.deleteById(id)
     }
 
+    override fun save(t: List<Link>) {
+        repository.saveAll(t.map { it.toDocument() })
+    }
+
     override fun findAll(): List<Link> = repository.findAll().map { it.toEntity() }
 
     override fun findById(id: String): Link? = repository.findById(id).map { it.toEntity() }.getOrNull()

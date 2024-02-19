@@ -6,6 +6,7 @@ import br.org.acal.apicore.domain.dto.pagination.customer.CustomerPageFilter
 import br.org.acal.apicore.domain.dto.pagination.pages.DefaultFilter
 import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffset
 import br.org.acal.apicore.domain.dto.pagination.pages.PageFilter
+import br.org.acal.apicore.domain.entity.Category
 import br.org.acal.apicore.domain.entity.Customer
 import br.org.acal.apicore.domain.entity.DocumentNumber
 import br.org.acal.apicore.resources.datasourceimpl.pagination.CustomerQuery
@@ -51,6 +52,10 @@ class CustomerDataSourceImpl(
 
     override fun save(t: Customer): Customer =
         repository.save(t.toDocument()).toEntity()
+
+    override fun save(t: List<Customer>) {
+        repository.saveAll(t.map { it.toDocument() })
+    }
 
     override fun delete(id: String) {
         repository.deleteById(id)

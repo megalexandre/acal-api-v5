@@ -6,6 +6,7 @@ import br.org.acal.apicore.domain.dto.pagination.link.LinkPageFilter
 import br.org.acal.apicore.domain.dto.pagination.pages.DefaultFilter
 import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffset
 import br.org.acal.apicore.domain.dto.pagination.pages.PageFilter
+import br.org.acal.apicore.domain.entity.Address
 import br.org.acal.apicore.domain.entity.Category
 import br.org.acal.apicore.resources.datasourceimpl.pagination.CategoryQuery
 import br.org.acal.apicore.resources.datasourceimpl.pagination.LinkQuery
@@ -46,6 +47,10 @@ class CategoryDataSourceImpl(
 
     override fun save(t: Category): Category =
         repository.save(t.toDocument()).toEntity()
+
+    override fun save(t: List<Category>) {
+        repository.saveAll(t.map { it.toDocument() })
+    }
 
     override fun delete(id: String) {
         repository.deleteById(id)

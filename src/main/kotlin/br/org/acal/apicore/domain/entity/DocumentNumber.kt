@@ -27,6 +27,8 @@ data class DocumentNumber(
         UNKNOWN -> false
     }
 
+    val isInvalid: Boolean = !isValid
+
     override fun toString(): String = when(number.length > MAXIMUM_SIZE){
         true -> number.substring(0, MAXIMUM_SIZE) + "*".repeat(number.length - 3)
         false -> number

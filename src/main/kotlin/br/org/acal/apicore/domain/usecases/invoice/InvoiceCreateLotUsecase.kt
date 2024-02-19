@@ -8,11 +8,14 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class InvoiceCreateUsecase(
+class InvoiceCreateLotUsecase(
     private val dataSource: InvoiceDataSource
-) : Usecase<Invoice, Invoice>, Sl4jLogger() {
+) : Usecase<List<Invoice>, Unit>, Sl4jLogger() {
 
     @Transactional
-    override fun execute(input: Invoice) = dataSource.save(input)
+    override fun execute(input: List<Invoice>) {
+        dataSource.save(input)
+    }
+
 
 }

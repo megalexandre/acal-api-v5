@@ -15,7 +15,7 @@ class  CategoryCreateLotUsecase(
 
     @Transactional
     override fun execute(input: List<Category>) {
-        input.forEach { dataSource.save(it) }
+        dataSource.save(input)
     }
 
 }

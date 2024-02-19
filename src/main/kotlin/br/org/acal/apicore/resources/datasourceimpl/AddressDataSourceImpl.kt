@@ -47,6 +47,10 @@ class AddressDataSourceImpl(
     override fun save(t: Address): Address =
         repository.save(t.toDocument()).toEntity()
 
+    override fun save(t: List<Address>) {
+        repository.saveAll(t.map { it.toDocument() })
+    }
+
     override fun delete(id: String) {
         repository.deleteById(id)
     }
