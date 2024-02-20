@@ -8,6 +8,7 @@ data class InvoiceNumber(
     val month: Month,
     val number: String,
 ) {
+
     companion object{
         private const val YEAR_INDEX = 0
         private const val MONTH_INDEX = 1
@@ -23,10 +24,13 @@ data class InvoiceNumber(
         month = Month.of(number.split(STRING_SEPARATOR)[MONTH_INDEX].toInt()),
         number = number.split(STRING_SEPARATOR)[NUMBER_INDEX],
     )
+
     val value: String
-        get() = month.value.toString().padStart(MONTH_PAD_SIZE,PAD_CHAR) + STRING_SEPARATOR +
-                "${year.value}" + STRING_SEPARATOR +
+        get() = "${year.value}" + STRING_SEPARATOR +
+                month.value.toString().padStart(MONTH_PAD_SIZE,PAD_CHAR) + STRING_SEPARATOR +
                 number.padStart(NUMBER_PAD_SIZE, PAD_CHAR)
 
+    val reference: Reference
+        get() = Reference(year = year, month = month)
 
 }

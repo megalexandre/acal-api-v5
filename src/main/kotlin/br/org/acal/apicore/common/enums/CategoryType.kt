@@ -4,12 +4,10 @@ enum class CategoryType(val value: String) {
 
     FOUNDING("Sócio Fundador"),
     EFFECTIVE("Sócio Efetivo"),
-    TEMPORARY("Temporario");
+    TEMPORARY("Temporário");
 
     companion object{
-        fun get(value: String?): CategoryType? {
-            return entries.find { it.value == value }
-        }
+        fun get(value: String?): CategoryType? = entries.find { it.value.lowercase() == value?.lowercase() }
     }
 
 }

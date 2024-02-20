@@ -9,19 +9,24 @@ import org.springframework.validation.annotation.Validated
 @Validated
 data class AddressCreateRequest (
 
-    val area: Area,
+    val id: String?,
+    val area: Area?,
+
+    val areaId: String?,
+    val areaName: String?,
+
     val number: String,
-    val letter: String,
-    val hasHydrometer: Boolean,
+    val letter: String?,
+    val hasHydrometer: Boolean?,
 
 ): RequestAdapter<Address> {
 
     override fun toEntity(): Address = Address(
-        id = random(),
+        id = id ?: random(),
         number = number,
-        letter = letter,
-        hasHydrometer = hasHydrometer,
-        area = area,
+        letter = letter ?: "A",
+        hasHydrometer = hasHydrometer ?: true,
+        area = area ?: Area(id = areaId ?: throw RuntimeException(), name = areaName ?: throw RuntimeException()),
     )
 }
 
