@@ -138,15 +138,17 @@ from enderecopessoa ep
 alter table categoriasocio add column ulid text;
 update categoriasocio set ulid = ulid() ;
 
+
+
 drop view if exists category;
 CREATE VIEW category AS
 select
 	cs.ulid as id,
 	cs.nome as name,
 	CASE
-		WHEN g.id = 1 THEN 'Sócio Fundador'
-		WHEN g.id = 2 THEN 'Sócio Efetivo'
-		ELSE  'Temporário'
+		WHEN g.id = 1 THEN 'FOUNDING'
+		WHEN g.id = 2 THEN 'EFFECTIVE'
+		ELSE  'TEMPORARY'
 	END AS type,
 
     t.valor as water,
