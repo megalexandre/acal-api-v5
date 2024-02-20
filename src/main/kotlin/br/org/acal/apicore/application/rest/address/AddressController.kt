@@ -1,8 +1,10 @@
 package br.org.acal.apicore.application.rest.address
 
 import br.org.acal.apicore.application.rest.address.request.AddressCreateRequest
+import br.org.acal.apicore.application.rest.address.request.toEntity
 import br.org.acal.apicore.common.util.ResponseEntityUtil.Companion.created
 import br.org.acal.apicore.domain.entity.Address
+import br.org.acal.apicore.domain.usecases.address.AddressCreateLotUsecase
 import br.org.acal.apicore.domain.usecases.address.AddressCreateUsecase
 import br.org.acal.apicore.infrastructure.Sl4jLogger
 import jakarta.validation.Valid
@@ -17,15 +19,18 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("address", consumes = [APPLICATION_JSON_VALUE], produces = [APPLICATION_JSON_VALUE])
 class AddressController(
     private val create: AddressCreateUsecase,
+    private val createLot: AddressCreateLotUsecase,
 ): Sl4jLogger() {
 
     @PostMapping
-    fun create(@Valid @RequestBody request: AddressCreateRequest): ResponseEntity<Address> {
-        return created(
-            create.execute(request.toEntity())
-        )
-    }
+    fun create(@Valid @RequestBody request: AddressCreateRequest): ResponseEntity<Address> = created(
+        create.execute(request.toEntity())
+    )
 
+    @PostMapping("lot")
+    fun lot(@Valid @RequestBody request: List<AddressCreateRequest>){
+       createLot.execute(request.toEntity())
+    }
 
 }
 

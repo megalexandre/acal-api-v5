@@ -17,7 +17,7 @@ CREATE FUNCTION person_name(p_id INT) RETURNS TEXT DETERMINISTIC
 BEGIN
     DECLARE nome_completo TEXT;
 
-    SELECT TRIM(CONCAT(TRIM(nome), ' ', TRIM(sobrenome)))
+    SELECT REPLACE(TRIM(CONCAT(TRIM(nome), ' ', TRIM(sobrenome))),"  "," ")
     INTO nome_completo
     FROM pessoa
     WHERE id = p_id;
@@ -106,13 +106,18 @@ update pessoa set ulid = ulid() ;
 
 drop view if exists customer;
 CREATE VIEW customer AS
-SELECT 
-    p.ulid AS id,
-    person_name(p.id) AS name,
-    localdate(p.dataNasc) AS birthday,
-    document(p.id) AS document
-FROM pessoa p
-WHERE document(p.id) != '';
+    SELECT
+        p.ulid AS id,
+        p.id AS legacy_id,
+        PERSON_NAME(p.id) AS name,
+        LOCALDATE(p.dataNasc) AS birthDay,
+        DOCUMENT(p.id) AS document
+    FROM
+        pessoa p
+    WHERE
+        DOCUMENT(p.id) != ''
+        order by PERSON_NAME(p.id);
+
 
  -- ---------------------------------------------------------------------------------------
 alter table endereco add column ulid text;
@@ -123,13 +128,14 @@ update enderecopessoa set ulid = ulid() ;
 
 drop view if exists address;
 CREATE VIEW address AS
-select 
+select
+	ep.idPessoa,
 	ep.ulid as id,
+    normalize(ep.Numero) as number,
     e.ulid as areaId,
-	trim(trim(e.tipo)), ' ',concat(trim(e.nome)) as areaName,
-    normalize(ep.Numero) as number
-from enderecopessoa ep 
-	inner join endereco e on e.id  = ep.id
+    trim(concat(trim(e.tipo), ' ',trim(e.nome))) as areaName
+from enderecopessoa ep
+	left join endereco e on e.id  = ep.idEndereco
     where ep.inativo = 0
     order by e.tipo, e.nome
 
@@ -158,3 +164,20 @@ select
 from categoriasocio cs
 inner join grupo g on g.id = cs.group_id
 inner join taxa t on t.id = cs.taxasId;
+-- ----------------------------------------------
+
+drop view if exists link;
+CREATE VIEW link AS
+select
+	ep.ulid as id,
+	ep.ulid as address,
+    p.ulid as customer,
+    cs.ulid as category
+
+from enderecopessoa ep
+	inner join endereco e on ep.idEndereco = e.id
+	inner join pessoa p on ep.idPessoa = p.id
+    inner join categoriasocio cs on ep.idCategoriaSocio = cs.id
+
+
+-- ----------------------------------------------

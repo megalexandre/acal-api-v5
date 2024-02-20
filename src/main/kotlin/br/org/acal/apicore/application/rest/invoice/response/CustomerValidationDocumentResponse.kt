@@ -12,7 +12,7 @@ class CustomerValidationDocumentResponse(
 ){
     constructor(customerValidationDocument: CustomerValidationDocument): this(
         valid = customerValidationDocument.valid,
-        invalid= customerValidationDocument.valid,
+        invalid= customerValidationDocument.invalid,
         validCustomer = customerValidationDocument.validCustomer.map { CustomerValidResponse(it) },
         inValidCustomer = customerValidationDocument.inValidCustomer.map { CustomerInvalidResponse(it) },
     )
@@ -22,14 +22,16 @@ class CustomerValidationDocumentResponse(
 }
 
 class CustomerValidResponse(
+    val id: String,
     val name: String,
-    var birthDay: LocalDate?,
-    val documentNumber: String,
+    val birthDay: LocalDate?,
+    val document: String,
 ){
     constructor(customer: Customer) : this(
+        id = customer.id,
         name = customer.name,
         birthDay = customer.birthDay,
-        documentNumber = customer.documentNumber.number
+        document = customer.documentNumber.number
     )
 }
 

@@ -4,26 +4,24 @@ import br.org.acal.apicore.application.rest.components.adapter.RequestAdapter
 import br.org.acal.apicore.domain.entity.Customer
 import br.org.acal.apicore.domain.entity.DocumentNumber
 import br.org.acal.apicore.domain.entity.PhoneNumber
-import io.azam.ulidj.ULID.random
 import java.time.LocalDate
 import org.springframework.validation.annotation.Validated
 
 @Validated
 data class CustomerValidRequest (
 
-    val legacyId: String?,
+    val id: String,
     val name: String,
     var birthDay: LocalDate?,
-    val documentNumber: String,
+    val document: String,
     val phoneNumbers: List<PhoneNumber>?,
 
     ): RequestAdapter<Customer> {
 
     override fun toEntity(): Customer = Customer(
-        id = random(),
-        legacyId = legacyId,
+        id = id,
         name = name,
-        documentNumber = DocumentNumber(documentNumber),
+        documentNumber = DocumentNumber(document),
         birthDay = birthDay,
         phoneNumbers = phoneNumbers,
         active = true,

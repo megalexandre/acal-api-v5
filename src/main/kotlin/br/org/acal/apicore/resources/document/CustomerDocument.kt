@@ -11,8 +11,6 @@ data class CustomerDocument(
     @Id
     val id: String,
 
-    val legacyId: String?,
-
     val name: String,
 
     val documentNumber: String,

@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page
 
 fun Customer.toDocument() = CustomerDocument(
     id = id,
-    legacyId = legacyId,
     name = name,
     documentNumber = documentNumber.number,
     phoneNumbers = phoneNumbers,
@@ -17,7 +16,6 @@ fun Customer.toDocument() = CustomerDocument(
 
 fun CustomerDocument.toEntity() = Customer(
     id = id,
-    legacyId = legacyId,
     name = name,
     documentNumber = DocumentNumber(documentNumber),
     birthDay = birthDay,

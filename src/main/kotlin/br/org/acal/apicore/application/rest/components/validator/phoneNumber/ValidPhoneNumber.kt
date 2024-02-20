@@ -8,8 +8,6 @@ import jakarta.validation.ConstraintValidatorContext
 
 class ValidPhoneNumber : ConstraintValidator<PhoneNumberValidator, List<PhoneNumber>?>, Sl4jLogger()  {
 
-    override fun initialize(constraintAnnotation: PhoneNumberValidator) {}
-
     override fun isValid(value: List<PhoneNumber>?, context: ConstraintValidatorContext): Boolean {
         context.disableDefaultConstraintViolation()
 

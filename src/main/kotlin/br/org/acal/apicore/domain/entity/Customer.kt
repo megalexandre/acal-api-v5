@@ -6,7 +6,6 @@ import java.time.LocalDate
 data class Customer (
 
     val id: String,
-    val legacyId: String?,
     val name: String,
     val documentNumber: DocumentNumber,
     var birthDay: LocalDate? = null,
