@@ -3,6 +3,7 @@ package br.org.acal.apicore.application.rest.link
 import br.org.acal.apicore.application.rest.link.request.LinkCreateLotRequest
 import br.org.acal.apicore.application.rest.link.request.LinkCreateRequest
 import br.org.acal.apicore.application.rest.link.request.toEntity
+import br.org.acal.apicore.application.rest.link.response.LinkFindAllResponse
 import br.org.acal.apicore.common.util.ResponseEntityUtil.Companion.created
 import br.org.acal.apicore.domain.usecases.link.LinkCreateLotUsecase
 import br.org.acal.apicore.domain.usecases.link.LinkCreateUsecase
@@ -30,7 +31,7 @@ class LinkController(
     fun findAll(): ResponseEntity<List<Any>> {
         logger.info { "Querying link Get/" }
         return ResponseEntity.ok(
-            findAll.execute(Unit).also {
+            findAll.execute(Unit).map { LinkFindAllResponse(it) }.also {
                 logger.info { "Find all link: size ${it.size}" }
             }
         )

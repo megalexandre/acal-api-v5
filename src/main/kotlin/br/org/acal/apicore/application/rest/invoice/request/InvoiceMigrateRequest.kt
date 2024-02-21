@@ -5,6 +5,7 @@ import br.org.acal.apicore.application.rest.components.validator.invoiceNumber.I
 import br.org.acal.apicore.common.enums.Reason
 import br.org.acal.apicore.domain.entity.Invoice
 import br.org.acal.apicore.domain.entity.InvoiceDetail
+import br.org.acal.apicore.domain.entity.InvoiceMigrate
 import br.org.acal.apicore.domain.entity.InvoiceNumber
 import br.org.acal.apicore.domain.entity.Reference
 import io.azam.ulidj.ULID.random
@@ -13,25 +14,24 @@ import java.time.LocalDateTime
 import org.springframework.validation.annotation.Validated
 
 @Validated
-data class InvoiceCreateRequest (
+data class InvoiceMigrateRequest (
 
     val id: String?,
     val linkId: String,
     val reference: String,
-
-    @InvoiceNumberValidator
-    val invoiceNumber: String,
+    
+    val invoiceNumber: String ?,
 
     val emission: LocalDateTime,
     val dueDate: LocalDateTime,
     val invoiceDetails: List<InvoiceDetailRequest>,
 
-    ): RequestAdapter<Invoice> {
+    ): RequestAdapter<InvoiceMigrate> {
 
-    override fun toEntity(): Invoice = Invoice(
+    override fun toEntity(): InvoiceMigrate = InvoiceMigrate(
         id = id ?: random(),
         reference = Reference(reference),
-        invoiceNumber = InvoiceNumber(invoiceNumber),
+        invoiceNumber = invoiceNumber?.let { InvoiceNumber(it) },
         emission = emission,
         dueDate = dueDate,
         linkId = linkId,
@@ -40,21 +40,5 @@ data class InvoiceCreateRequest (
 
 }
 
-data class InvoiceDetailRequest(
 
-    val reason: Reason,
-    val value: BigDecimal,
-    val dataPaid: LocalDateTime?,
-
-): RequestAdapter<InvoiceDetail> {
-
-    override fun toEntity(): InvoiceDetail = InvoiceDetail(
-        reason = reason,
-        value = value,
-        dataPaid = dataPaid,
-    )
-
-}
-
-
-fun List<InvoiceCreateRequest>.toEntity(): List<Invoice> = map { it.toEntity() }
+fun List<InvoiceMigrateRequest>.toEntity(): List<InvoiceMigrate> = map { it.toEntity() }

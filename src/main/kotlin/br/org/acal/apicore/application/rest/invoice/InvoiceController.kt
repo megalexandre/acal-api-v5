@@ -1,10 +1,12 @@
 package br.org.acal.apicore.application.rest.invoice
 
 import br.org.acal.apicore.application.rest.invoice.request.InvoiceCreateRequest
+import br.org.acal.apicore.application.rest.invoice.request.InvoiceMigrateRequest
 import br.org.acal.apicore.application.rest.invoice.request.toEntity
 import br.org.acal.apicore.application.rest.invoice.response.InvoiceCreateResponse
 import br.org.acal.apicore.domain.usecases.invoice.InvoiceCreateLotUsecase
 import br.org.acal.apicore.domain.usecases.invoice.InvoiceCreateUsecase
+import br.org.acal.apicore.domain.usecases.invoice.InvoiceMigrateUsecase
 import jakarta.validation.Valid
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.web.bind.annotation.PostMapping
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController
 class InvoiceController(
     private val create: InvoiceCreateUsecase,
     private val createLot: InvoiceCreateLotUsecase,
+    private val migrate: InvoiceMigrateUsecase,
 ){
     @PostMapping
     fun create(@Valid @RequestBody request: InvoiceCreateRequest): InvoiceCreateResponse =
@@ -26,6 +29,11 @@ class InvoiceController(
     @PostMapping("lot")
     fun createLot(@Valid @RequestBody request: List<InvoiceCreateRequest>) {
         createLot.execute(request.toEntity())
+    }
+
+    @PostMapping("migrate")
+    fun migrate(@Valid @RequestBody request: List<InvoiceMigrateRequest>) {
+        migrate.execute(request.toEntity())
     }
 
 }

@@ -1,6 +1,24 @@
 use acal;
 SET SQL_SAFE_UPDATES = 0;
 -- ---------------------------------------------------------------------------------------
+drop function if exists format_reference;
+
+DELIMITER //
+CREATE FUNCTION format_reference(entrada TEXT) RETURNS TEXT DETERMINISTIC
+BEGIN
+    DECLARE saida TEXT;
+
+    -- Remove todos os caracteres não numéricos
+    SET saida = REPLACE(SUBSTRING(entrada, 1, 7), "-",".");
+
+    RETURN saida;
+END //
+DELIMITER ;
+
+-- ---------------------------------------------------------------------------------------
+
+
+
 drop function if exists ulid;
 DELIMITER //
 CREATE FUNCTION ulid () RETURNS CHAR(26) DETERMINISTIC
@@ -140,11 +158,8 @@ from enderecopessoa ep
     order by e.tipo, e.nome
 
 -- -------------------------------------
-
 alter table categoriasocio add column ulid text;
 update categoriasocio set ulid = ulid() ;
-
-
 
 drop view if exists category;
 CREATE VIEW category AS
@@ -181,3 +196,21 @@ from enderecopessoa ep
 
 
 -- ----------------------------------------------
+alter table conta add column ulid text;
+update conta set ulid = ulid() ;
+
+drop view if exists invoice;
+CREATE VIEW invoice AS
+
+select
+	c.ulid as id,
+    format_reference(c.dataReferente) as reference,
+    localdate(c.dataGerada) as emission,
+	localdate(c.dataVence) as dueDate,
+    ep.ulid as linkId,
+    c.valorTaxa as water,
+    c.valorOutros as category
+from conta c
+	inner join enderecopessoa ep on c.idEnderecoPessoa = ep.id
+	inner join categoriasocio cs on cs.id = ep.idCategoriaSocio
+----------------
