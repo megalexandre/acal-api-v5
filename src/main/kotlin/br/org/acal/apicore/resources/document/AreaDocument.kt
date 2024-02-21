@@ -10,4 +10,5 @@ class AreaDocument(
     val id: String,
 
     val name: String,
+
 )

@@ -18,6 +18,7 @@ data class AddressCreateRequest (
     val number: String,
     val letter: String?,
     val hasHydrometer: Boolean?,
+    val active: Boolean?,
 
 ): RequestAdapter<Address> {
 
@@ -27,6 +28,7 @@ data class AddressCreateRequest (
         letter = letter ?: "A",
         hasHydrometer = hasHydrometer ?: true,
         area = area ?: Area(id = areaId ?: throw RuntimeException(), name = areaName ?: throw RuntimeException()),
+        active = active ?: true,
     )
 }
 

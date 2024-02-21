@@ -10,6 +10,7 @@ fun Address.toDocument() = AddressDocument(
     number = number,
     letter = letter,
     hasHydrometer = hasHydrometer,
+    active = active,
 )
 
 fun AddressDocument.toEntity() = Address(
@@ -18,6 +19,7 @@ fun AddressDocument.toEntity() = Address(
     number = number,
     letter = letter,
     hasHydrometer = hasHydrometer,
+    active = active,
 )
 
 fun Page<AddressDocument>.toEntity() = map { it.toEntity()  }

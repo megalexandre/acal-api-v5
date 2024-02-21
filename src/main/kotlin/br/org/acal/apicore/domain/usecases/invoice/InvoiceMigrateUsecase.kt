@@ -1,7 +1,6 @@
 package br.org.acal.apicore.domain.usecases.invoice
 
 import br.org.acal.apicore.domain.Usecase
-import br.org.acal.apicore.domain.datasource.InvoiceDataSource
 import br.org.acal.apicore.domain.entity.InvoiceMigrate
 import br.org.acal.apicore.infrastructure.Sl4jLogger
 import org.springframework.stereotype.Service
@@ -14,7 +13,7 @@ class InvoiceMigrateUsecase(
 
     @Transactional
     override fun execute(input: List<InvoiceMigrate>) {
-        create.execute(input)
+        throw RuntimeException("")
     }
 
 

@@ -8,5 +8,6 @@ data class Address(
     val number: String,
     val letter: String,
     val hasHydrometer: Boolean,
+    val active: Boolean,
 
 )

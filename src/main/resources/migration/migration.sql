@@ -129,12 +129,14 @@ CREATE VIEW customer AS
         p.id AS legacy_id,
         PERSON_NAME(p.id) AS name,
         LOCALDATE(p.dataNasc) AS birthDay,
-        DOCUMENT(p.id) AS document
+        DOCUMENT(p.id) AS document,
+        CASE WHEN p.status = 1 THEN TRUE ELSE FALSE END AS 'active'
     FROM
         pessoa p
     WHERE
         DOCUMENT(p.id) != ''
-        order by PERSON_NAME(p.id);
+        order by PERSON_NAME(p.id)
+        limit 1000000;
 
 
  -- ---------------------------------------------------------------------------------------
@@ -151,11 +153,12 @@ select
 	ep.ulid as id,
     normalize(ep.Numero) as number,
     e.ulid as areaId,
-    trim(concat(trim(e.tipo), ' ',trim(e.nome))) as areaName
+    trim(concat(trim(e.tipo), ' ',trim(e.nome))) as areaName,
+    CASE WHEN  ep.inativo = 0 THEN TRUE ELSE FALSE END AS 'active'
 from enderecopessoa ep
 	left join endereco e on e.id  = ep.idEndereco
-    where ep.inativo = 0
     order by e.tipo, e.nome
+
 
 -- -------------------------------------
 alter table categoriasocio add column ulid text;

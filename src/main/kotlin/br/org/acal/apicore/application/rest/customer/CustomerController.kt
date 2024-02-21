@@ -2,6 +2,7 @@ package br.org.acal.apicore.application.rest.customer
 
 import br.org.acal.apicore.application.rest.customer.request.CustomerCreateRequest
 import br.org.acal.apicore.application.rest.customer.request.CustomerFindByFilterRequest
+import br.org.acal.apicore.application.rest.customer.request.CustomerMigrateRequest
 import br.org.acal.apicore.application.rest.customer.request.CustomerPaginateByFilterRequest
 import br.org.acal.apicore.application.rest.customer.request.CustomerValidRequest
 import br.org.acal.apicore.application.rest.customer.request.toEntity
@@ -136,6 +137,12 @@ class CustomerController(
 
     @PostMapping("lot")
     fun createLot(@Valid @RequestBody request: List<CustomerCreateRequest>) {
+        logger.info { "Creating Post/ customer $request" }
+        createLot.execute(request.toEntity())
+    }
+
+    @PostMapping("migrate")
+    fun migrate(@Valid @RequestBody request: List<CustomerMigrateRequest>) {
         logger.info { "Creating Post/ customer $request" }
         createLot.execute(request.toEntity())
     }
