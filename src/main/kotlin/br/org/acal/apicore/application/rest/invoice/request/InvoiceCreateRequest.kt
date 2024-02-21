@@ -9,6 +9,7 @@ import br.org.acal.apicore.domain.entity.InvoiceNumber
 import br.org.acal.apicore.domain.entity.Reference
 import io.azam.ulidj.ULID.random
 import java.math.BigDecimal
+import java.time.LocalDate
 import java.time.LocalDateTime
 import org.springframework.validation.annotation.Validated
 
@@ -23,7 +24,7 @@ data class InvoiceCreateRequest (
     val invoiceNumber: String,
 
     val emission: LocalDateTime,
-    val dueDate: LocalDateTime,
+    val dueDate: LocalDate,
     val invoiceDetails: List<InvoiceDetailRequest>,
 
     ): RequestAdapter<Invoice> {

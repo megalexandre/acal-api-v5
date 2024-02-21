@@ -59,6 +59,18 @@ END //
 DELIMITER ;
 
  -- ---------------------------------------------------------------------------------------
+DROP FUNCTION IF EXISTS localdatetime;
+DELIMITER //
+CREATE FUNCTION localdatetime(data_param DATETIME) RETURNS VARCHAR(19) DETERMINISTIC
+BEGIN
+    DECLARE data_formatada VARCHAR(19);
+
+    SET data_formatada = DATE_FORMAT(data_param, '%Y-%m-%dT%H:%i:%s');
+
+    RETURN data_formatada;
+END //
+DELIMITER ;
+ -- ---------------------------------------------------------------------------------------
  
 drop function if exists normalize;
 DELIMITER //
@@ -208,12 +220,18 @@ CREATE VIEW invoice AS
 select
 	c.ulid as id,
     format_reference(c.dataReferente) as reference,
-    localdate(c.dataGerada) as emission,
+    localdatetime(c.dataGerada) as emission,
 	localdate(c.dataVence) as dueDate,
     ep.ulid as linkId,
     c.valorTaxa as water,
-    c.valorOutros as category
+    c.valorOutros as category,
+    localdatetime(c.dataPag) as dataPaid
 from conta c
 	inner join enderecopessoa ep on c.idEnderecoPessoa = ep.id
 	inner join categoriasocio cs on cs.id = ep.idCategoriaSocio
+
+
+
+
+
 ----------------

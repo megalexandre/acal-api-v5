@@ -12,6 +12,6 @@ data class AddressDocument(
     val number: String,
     val letter: String,
     val hasHydrometer: Boolean,
-    val active: Boolean,
+    val active: Boolean? = false,
 
 )

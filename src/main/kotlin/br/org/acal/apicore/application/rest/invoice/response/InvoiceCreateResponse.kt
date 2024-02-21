@@ -1,6 +1,7 @@
 package br.org.acal.apicore.application.rest.invoice.response
 
 import br.org.acal.apicore.domain.entity.Invoice
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 data class InvoiceCreateResponse(
@@ -8,7 +9,7 @@ data class InvoiceCreateResponse(
     val reference: String,
     val invoiceNumber: String,
     val emission: LocalDateTime,
-    val dueDate: LocalDateTime,
+    val dueDate: LocalDate,
     val linkId: String,
 ) {
 

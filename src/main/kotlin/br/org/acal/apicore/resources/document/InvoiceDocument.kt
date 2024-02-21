@@ -2,6 +2,7 @@ package br.org.acal.apicore.resources.document
 
 import br.org.acal.apicore.common.enums.Reason
 import java.math.BigDecimal
+import java.time.LocalDate
 import java.time.LocalDateTime
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.Indexed
@@ -16,7 +17,7 @@ data class InvoiceDocument(
     val reference: String,
     val invoiceNumber: String,
     val emission: LocalDateTime,
-    val dueDate: LocalDateTime,
+    val dueDate: LocalDate,
     val linkId: String,
     val invoiceDetails: List<InvoiceDetailDocument>
 )

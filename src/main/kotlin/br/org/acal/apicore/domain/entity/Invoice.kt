@@ -1,9 +1,9 @@
 package br.org.acal.apicore.domain.entity
 
 import java.math.BigDecimal
-import java.time.Duration
+import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.LocalDateTime.now
+import java.time.temporal.ChronoUnit.DAYS
 
 data class Invoice(
 
@@ -11,7 +11,7 @@ data class Invoice(
     val reference: Reference,
     val invoiceNumber: InvoiceNumber,
     val emission: LocalDateTime,
-    val dueDate: LocalDateTime,
+    val dueDate: LocalDate,
     val linkId: String,
     val invoiceDetails: List<InvoiceDetail>,
 ) {
@@ -31,10 +31,10 @@ data class Invoice(
 
     val isPayed: Boolean = invoiceDetails.all { it.isPaid }
 
-    val isOverDue: Boolean = dueDate.isBefore(now()) && !isPayed
+    val isOverDue: Boolean = dueDate.isBefore(LocalDate.now()) && !isPayed
 
     val daysInOverDue: Long = when(isOverDue){
-        true -> Duration.between(dueDate, now()).toDays()
+        true -> DAYS.between(dueDate, LocalDate.now())
         false -> 0
     }
 
