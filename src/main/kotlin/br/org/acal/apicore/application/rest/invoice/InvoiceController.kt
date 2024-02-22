@@ -39,5 +39,4 @@ class InvoiceController(
         migrate.execute(request.toEntity())
     }
 
-
 }

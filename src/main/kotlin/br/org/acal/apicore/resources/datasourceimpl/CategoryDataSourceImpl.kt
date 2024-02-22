@@ -1,5 +1,6 @@
 package br.org.acal.apicore.resources.datasourceimpl
 
+import br.org.acal.apicore.common.enums.CategoryType
 import br.org.acal.apicore.domain.datasource.CategoryDataSource
 import br.org.acal.apicore.domain.dto.pagination.category.CategoryFilter
 import br.org.acal.apicore.domain.dto.pagination.category.CategoryPageFilter
@@ -42,6 +43,9 @@ class CategoryDataSourceImpl(
 
         return page.toEntity()
     }
+
+    override fun findByNameAndType(name: String, type: CategoryType): Category? =
+        repository.findByNameAndType(name = name, type = type)
 
     override fun save(t: Category): Category =
         repository.save(t.toDocument()).toEntity()

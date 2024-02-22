@@ -36,6 +36,7 @@ class LinkController(
             }
         )
     }
+
     @PostMapping
     fun lot(@Valid @RequestBody request: LinkCreateRequest) {
         create.execute(request.toEntity())

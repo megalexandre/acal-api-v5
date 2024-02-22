@@ -26,7 +26,6 @@ class AddressController(
     fun create(@Valid @RequestBody request: AddressCreateRequest): ResponseEntity<Address> = created(
         create.execute(request.toEntity())
     )
-
     @PostMapping("lot")
     fun lot(@Valid @RequestBody request: List<AddressCreateRequest>){
        createLot.execute(request.toEntity())
