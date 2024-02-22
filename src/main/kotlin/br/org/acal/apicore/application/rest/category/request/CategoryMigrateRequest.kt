@@ -9,25 +9,33 @@ import java.math.BigDecimal
 import org.springframework.validation.annotation.Validated
 
 @Validated
-data class CategoryCreateRequest (
+data class CategoryMigrateRequest (
 
+    val id: String?,
     val name: String,
     val type: CategoryType,
-    val values: List<CategoryCreateValuesRequest>,
+
+    val water: BigDecimal?,
+    val partnership: BigDecimal?
 
 ): RequestAdapter<Category> {
+     val getValues: List<CategoryValues>
+         get() = listOf(
+             CategoryValues(name = "water", value = water?: BigDecimal.ZERO),
+             CategoryValues(name = "partnership", value = partnership?: BigDecimal.ZERO)
+         )
 
     override fun toEntity(): Category = Category(
-        id = random(),
+        id = id ?: random(),
         name = name,
         type = type,
-        values = values.map { CategoryValues(name = it.name, value = it.value) }
+        values = getValues,
     )
 }
 
-data class CategoryCreateValuesRequest(
+data class CategoryValuesRequest(
     val name: String,
     val value: BigDecimal,
 )
 
-fun List<CategoryCreateRequest>.toEntity(): List<Category> = map { it.toEntity() }
+fun List<CategoryMigrateRequest>.toEntity(): List<Category> = map { it.toEntity() }

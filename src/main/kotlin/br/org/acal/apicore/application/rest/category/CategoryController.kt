@@ -2,8 +2,10 @@ package br.org.acal.apicore.application.rest.category
 
 import br.org.acal.apicore.application.rest.category.request.CategoryCreateRequest
 import br.org.acal.apicore.application.rest.category.request.CategoryFilterRequest
+import br.org.acal.apicore.application.rest.category.request.CategoryMigrateRequest
 import br.org.acal.apicore.application.rest.category.request.CategoryPaginateRequest
 import br.org.acal.apicore.application.rest.category.request.toEntity
+import br.org.acal.apicore.application.rest.category.response.CategoryCreateResponse
 import br.org.acal.apicore.application.rest.category.response.CategoryFindResponse
 import br.org.acal.apicore.application.rest.category.response.CategoryGetResponse
 import br.org.acal.apicore.application.rest.category.response.CategoryPaginateResponse
@@ -106,11 +108,14 @@ class CategoryController(
     }
 
     @PostMapping
-    fun create(@Valid @RequestBody request: CategoryCreateRequest): ResponseEntity<Category> {
-        return created(
-            create.execute(request.toEntity())
-        )
-    }
+    fun create(@Valid @RequestBody request: CategoryCreateRequest): ResponseEntity<CategoryCreateResponse> = created(
+        CategoryCreateResponse(create.execute(request.toEntity()))
+    )
+
+    @PostMapping("/migrate")
+    fun migrate(@Valid @RequestBody request: CategoryMigrateRequest): ResponseEntity<Category> = created(
+        create.execute(request.toEntity())
+    )
 
     @PostMapping("lot")
     fun createLot(@Valid @RequestBody request: List<CategoryCreateRequest>) {
@@ -118,11 +123,9 @@ class CategoryController(
     }
 
     @GetMapping
-    fun findAll(): ResponseEntity<List<CategoryGetResponse>> {
-        return ok(
-            findAll.execute(Unit).map { CategoryGetResponse(it) }
-        )
-    }
+    fun findAll(): ResponseEntity<List<CategoryGetResponse>> = ok(
+        findAll.execute(Unit).map { CategoryGetResponse(it) }
+    )
 }
 
 
