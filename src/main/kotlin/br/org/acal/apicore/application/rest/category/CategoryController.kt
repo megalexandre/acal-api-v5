@@ -9,6 +9,11 @@ import br.org.acal.apicore.application.rest.category.response.CategoryCreateResp
 import br.org.acal.apicore.application.rest.category.response.CategoryFindResponse
 import br.org.acal.apicore.application.rest.category.response.CategoryGetResponse
 import br.org.acal.apicore.application.rest.category.response.CategoryPaginateResponse
+import br.org.acal.apicore.common.enums.Fixtures.Companion.FIND
+import br.org.acal.apicore.common.enums.Fixtures.Companion.ID
+import br.org.acal.apicore.common.enums.Fixtures.Companion.LOT
+import br.org.acal.apicore.common.enums.Fixtures.Companion.MIGRATE
+import br.org.acal.apicore.common.enums.Fixtures.Companion.PAGINATE
 import br.org.acal.apicore.common.util.ResponseEntityUtil.Companion.created
 import br.org.acal.apicore.domain.entity.Category
 import br.org.acal.apicore.domain.usecases.category.CategoryCreateLotUsecase
@@ -42,25 +47,41 @@ class CategoryController(
     private val findAllByFilter: CategoryFindAllByFilterUsecase,
 ): Sl4jLogger() {
 
-    @GetMapping("paginate")
+    @GetMapping(PAGINATE)
     fun paginateByFilter(
         request: CategoryPaginateRequest
     ): ResponseEntity<Page<CategoryPaginateResponse>> = run {
         logger.info { "Getting category /paginate by filter $request" }
         ok(paginate.execute(input = request.toEntity()).map { CategoryPaginateResponse(it) } .also {
-            logger.info { "Returning category /paginate size: ${it.size}"}
+            logger.info { "Returned category /paginate size: ${it.size}"}
         })
     }
 
-    @GetMapping("/find")
+    @GetMapping(FIND)
     fun findAllByFilter(
         request: CategoryFilterRequest
     ): ResponseEntity<List<CategoryFindResponse>> = run  {
         logger.info { "Finding category by filter $request"}
         ok(findAllByFilter.execute(request.toEntity()).map { CategoryFindResponse(it) }
             .also {
-                logger.info { "Returning finding category by filter, size: ${it.size}"}
+                logger.info { "Returned find category by filter, size: ${it.size}"}
         })
+    }
+    @GetMapping(ID)
+    fun get(@Valid @PathVariable id: String): ResponseEntity<CategoryGetResponse> = run {
+        logger.info { "Getting category Get/$id" }
+        ok(CategoryGetResponse(get.execute(id).also {
+            logger.info { "Returned category $it" }
+        }))
+    }
+    @PostMapping(MIGRATE)
+    fun migrate(@Valid @RequestBody request: CategoryMigrateRequest): ResponseEntity<Category> = created(
+        create.execute(request.toEntity())
+    )
+
+    @PostMapping(LOT)
+    fun createLot(@Valid @RequestBody request: List<CategoryMigrateRequest>) {
+        createLot.execute(request.toEntity())
     }
 
     @GetMapping
@@ -68,27 +89,9 @@ class CategoryController(
         findAll.execute(Unit).map { CategoryGetResponse(it) }
     )
 
-    @GetMapping("/{id}")
-    fun get(@Valid @PathVariable id: String): ResponseEntity<CategoryGetResponse> = run {
-        logger.info { "Getting category Get/$id" }
-        ok(CategoryGetResponse(get.execute(id).also {
-            logger.info { "Returning category $it" }
-        }))
-    }
-
     @PostMapping
     fun create(@Valid @RequestBody request: CategoryCreateRequest): ResponseEntity<CategoryCreateResponse> = created(
         CategoryCreateResponse(create.execute(request.toEntity()))
     )
-
-    @PostMapping("/migrate")
-    fun migrate(@Valid @RequestBody request: CategoryMigrateRequest): ResponseEntity<Category> = created(
-        create.execute(request.toEntity())
-    )
-
-    @PostMapping("lot")
-    fun createLot(@Valid @RequestBody request: List<CategoryMigrateRequest>) {
-        createLot.execute(request.toEntity())
-    }
 
 }
