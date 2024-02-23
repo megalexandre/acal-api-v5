@@ -10,8 +10,6 @@ import br.org.acal.apicore.application.rest.category.response.CategoryFindRespon
 import br.org.acal.apicore.application.rest.category.response.CategoryGetResponse
 import br.org.acal.apicore.application.rest.category.response.CategoryPaginateResponse
 import br.org.acal.apicore.common.util.ResponseEntityUtil.Companion.created
-import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffset
-import br.org.acal.apicore.domain.dto.pagination.pages.SortField
 import br.org.acal.apicore.domain.entity.Category
 import br.org.acal.apicore.domain.usecases.category.CategoryCreateLotUsecase
 import br.org.acal.apicore.domain.usecases.category.CategoryCreateUsecase
@@ -23,7 +21,6 @@ import br.org.acal.apicore.infrastructure.Sl4jLogger
 import br.org.acal.apicore.infrastructure.info
 import jakarta.validation.Valid
 import org.springframework.data.domain.Page
-import org.springframework.data.domain.Sort.Direction
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.ok
@@ -32,7 +29,6 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -48,63 +44,31 @@ class CategoryController(
 
     @GetMapping("paginate")
     fun paginateByFilter(
-        @RequestParam(required = false) id: String?,
-        @RequestParam(required = false) name: String?,
-        @RequestParam(required = false) type: String?,
-        @RequestParam(required = false) offset: Int?,
-        @RequestParam(required = false) size: Int?,
-        @RequestParam(required = false) field: String?,
-        @RequestParam(required = false) direction: Direction?,
-    ): ResponseEntity<Page<CategoryPaginateResponse>> {
-        val request = CategoryPaginateRequest(
-            filter = CategoryFilterRequest(
-                id = id,
-                name = name,
-                type = type,
-            ),
-            limitOffset = LimitOffset(offset = offset, size = size),
-            sortField = SortField(field = field, direction = direction),
-        ).also {
-            logger.info {
-                "Getting Paginate/ category by: $it"
-            }
-        }
-
-        return ok(
-            paginate.execute(input = request.toEntity()).map { CategoryPaginateResponse(it) } .also {
-                logger.info { "Returning category /paginate $it"}
-            }
-        )
+        request: CategoryPaginateRequest
+    ): ResponseEntity<Page<CategoryPaginateResponse>> = run {
+        logger.info { "Getting category /paginate by filter $request" }
+        ok(paginate.execute(input = request.toEntity()).map { CategoryPaginateResponse(it) } .also {
+            logger.info { "Returning category /paginate size: ${it.size}"}
+        })
     }
 
     @GetMapping("/find")
     fun findAllByFilter(
-        @RequestParam(required = false) id: String?,
-        @RequestParam(required = false) name: String?,
-        @RequestParam(required = false) type: String?,
-    ): ResponseEntity<List<CategoryFindResponse>> {
-
-        return ok(
-            findAllByFilter.execute(
-                CategoryFilterRequest(
-                    id = id,
-                    name = name,
-                    type = type,
-                ).toEntity()).map { CategoryFindResponse(it) }
-                .also {
-                    logger.info { "Returning category /find ${it.size}"}
-                }
-        )
+        request: CategoryFilterRequest
+    ): ResponseEntity<List<CategoryFindResponse>> = run  {
+        logger.info { "Finding category by filter $request"}
+        ok(findAllByFilter.execute(request.toEntity()).map { CategoryFindResponse(it) }
+            .also {
+                logger.info { "Returning finding category by filter, size: ${it.size}"}
+        })
     }
 
     @GetMapping("/{id}")
-    fun get(@Valid @PathVariable id: String): ResponseEntity<CategoryGetResponse> {
+    fun get(@Valid @PathVariable id: String): ResponseEntity<CategoryGetResponse> = run {
         logger.info { "Getting category Get/$id" }
-        return ok(
-            CategoryGetResponse(get.execute(id).also {
-                logger.info { "Returning category $it" }
-            })
-        )
+        ok(CategoryGetResponse(get.execute(id).also {
+            logger.info { "Returning category $it" }
+        }))
     }
 
     @PostMapping
@@ -118,7 +82,7 @@ class CategoryController(
     )
 
     @PostMapping("lot")
-    fun createLot(@Valid @RequestBody request: List<CategoryCreateRequest>) {
+    fun createLot(@Valid @RequestBody request: List<CategoryMigrateRequest>) {
         createLot.execute(request.toEntity())
     }
 

@@ -8,8 +8,7 @@ data class CNPJ(
     }
 
     val valid: Boolean
-        get() = this.valid()
-    private fun valid(): Boolean = isValidCNPJ(number)
+        get() = isValidCNPJ(number)
 
     private fun isValidCNPJ(cnpj: String): Boolean {
         if (cnpj.length != 14) return false
@@ -41,7 +40,7 @@ data class CNPJ(
     }
 
     override fun toString(): String = when (number.length > MAXIMUM_SIZE) {
-        true ->  number.substring(0, MAXIMUM_SIZE)
+        true ->  number.substring(0, MAXIMUM_SIZE) + "*".repeat(number.length - MAXIMUM_SIZE)
         false -> number
     }
 }

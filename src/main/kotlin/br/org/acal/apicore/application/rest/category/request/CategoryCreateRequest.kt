@@ -5,6 +5,7 @@ import br.org.acal.apicore.common.enums.CategoryType
 import br.org.acal.apicore.domain.entity.Category
 import br.org.acal.apicore.domain.entity.CategoryValues
 import io.azam.ulidj.ULID.random
+import jakarta.validation.constraints.DecimalMin
 import java.math.BigDecimal
 import org.springframework.validation.annotation.Validated
 
@@ -25,8 +26,10 @@ data class CategoryCreateRequest (
     )
 }
 
+@Validated
 data class CategoryCreateValuesRequest(
     val name: String,
+    @DecimalMin(value = "0.0", inclusive = false,  message = "category value can't be less then zero")
     val value: BigDecimal,
 )
 

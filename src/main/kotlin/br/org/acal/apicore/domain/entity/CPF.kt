@@ -11,9 +11,9 @@ data class CPF(
     }
 
     val valid: Boolean
-        get() = this.valid()
+        get() = this.validCPF()
 
-    private fun valid(): Boolean {
+    private fun validCPF(): Boolean {
 
         val clean: String = number.replace(CPF_REGEX.toRegex(), EMPTY).also {
 

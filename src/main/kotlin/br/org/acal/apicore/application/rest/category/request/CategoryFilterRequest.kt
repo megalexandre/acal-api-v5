@@ -1,21 +1,22 @@
 package br.org.acal.apicore.application.rest.category.request
 
 import br.org.acal.apicore.application.rest.components.adapter.RequestAdapter
-import br.org.acal.apicore.common.enums.CategoryType
+import br.org.acal.apicore.common.enums.CategoryType.Companion.get
 import br.org.acal.apicore.domain.dto.pagination.category.CategoryFilter
+import org.springframework.web.bind.annotation.RequestParam
 
 class CategoryFilterRequest(
 
-    val id: String? = null,
-    val name: String? = null,
-    val type: String? = null,
+    @RequestParam(required = false) val id: String?,
+    @RequestParam(required = false) val name: String?,
+    @RequestParam(required = false) val type: String?,
 
-): RequestAdapter<CategoryFilter> {
+    ): RequestAdapter<CategoryFilter> {
 
     override fun toEntity(): CategoryFilter = CategoryFilter(
         id = id,
         name = name,
-        type = CategoryType.get(type),
+        type = get(type),
     )
 }
 
