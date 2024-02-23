@@ -63,6 +63,11 @@ class CategoryController(
         })
     }
 
+    @GetMapping
+    fun findAll(): ResponseEntity<List<CategoryGetResponse>> = ok(
+        findAll.execute(Unit).map { CategoryGetResponse(it) }
+    )
+
     @GetMapping("/{id}")
     fun get(@Valid @PathVariable id: String): ResponseEntity<CategoryGetResponse> = run {
         logger.info { "Getting category Get/$id" }
@@ -86,10 +91,4 @@ class CategoryController(
         createLot.execute(request.toEntity())
     }
 
-    @GetMapping
-    fun findAll(): ResponseEntity<List<CategoryGetResponse>> = ok(
-        findAll.execute(Unit).map { CategoryGetResponse(it) }
-    )
 }
-
-
