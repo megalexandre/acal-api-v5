@@ -39,7 +39,10 @@ dependencies {
 	implementation("com.google.code.gson:gson")
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 	implementation("org.springframework.data:spring-data-mongodb")
+
+
 	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
+
 
 	//test
 	testImplementation("io.rest-assured:kotlin-extensions")
@@ -60,8 +63,19 @@ dependencies {
 	testImplementation("org.mockito:mockito-core")
 
 	testImplementation("io.mockk:mockk")
-	testImplementation("org.wiremock:wiremock:3.3.1")
+	testImplementation("org.wiremock:wiremock:3.4.2")
 	testImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")
+
+	//teste cubumber
+	implementation("io.cucumber:cucumber-java:7.15.0")
+	implementation("io.cucumber:cucumber-java8:7.15.0")
+	implementation("io.cucumber:cucumber-core:7.15.0")
+	implementation("io.cucumber:cucumber-junit:7.15.0")
+	implementation("io.cucumber:cucumber-spring:7.15.0")
+	implementation("io.cucumber:cucumber-guice:7.15.0")
+	implementation("io.cucumber:cucumber-picocontainer:7.15.0")
+	implementation("io.cucumber:cucumber-testng:7.15.0")
+	implementation("io.cucumber:cucumber-junit-platform-engine:7.15.0")
 
 }
 

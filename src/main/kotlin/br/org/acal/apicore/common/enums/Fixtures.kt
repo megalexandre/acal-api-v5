@@ -4,7 +4,7 @@ class Fixtures {
     companion object {
 
         const val PAGINATE = "/paginate"
-        const val FIND = ""
+        const val FIND = "/find"
         const val ID = "/{id}"
         const val MIGRATE = "/migrate"
         const val LOT = "/lot"

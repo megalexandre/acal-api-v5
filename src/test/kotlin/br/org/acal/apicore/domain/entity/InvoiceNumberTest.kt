@@ -16,7 +16,7 @@ class InvoiceNumberTest{
             number = "1"
         )
 
-        assertEquals("01.2000.000001", firstJanuaryOf2000.value)
+        assertEquals("2000.01.000001", firstJanuaryOf2000.value)
     }
 
 }
