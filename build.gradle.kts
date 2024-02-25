@@ -40,6 +40,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 	implementation("org.springframework.data:spring-data-mongodb")
 
+	//metrics
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
 
 	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 
