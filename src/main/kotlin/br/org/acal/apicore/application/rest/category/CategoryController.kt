@@ -96,9 +96,7 @@ class CategoryController(
     @GetMapping
     fun findAll(): ResponseEntity<List<CategoryGetResponse>> = run{
         logger.info { "Finding all categories" }
-        ok(
-            findAll.execute(Unit).map { CategoryGetResponse(it) }
-        ).also {
+        ok(findAll.execute(Unit).map { CategoryGetResponse(it) }).also {
             logger.info { "Find all categories by size: $it" }
         }
     }

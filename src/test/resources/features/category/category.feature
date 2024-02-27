@@ -1,5 +1,9 @@
 Feature: Testing Category API
 
+  Scenario: Getting a category
+    When I send a GET request to "category"
+    Then the response status code should be 200
+
   Scenario: Saving a category
     When I send a POST request to "category"
     """

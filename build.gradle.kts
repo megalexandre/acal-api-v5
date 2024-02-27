@@ -11,6 +11,7 @@ group = "br.org.acal"
 version = "0.0.1-SNAPSHOT"
 val cumcumber_version = "7.15.0"
 val wiremock_version = "3.4.0"
+val test_container_version = "3.2.3"
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_17
@@ -57,24 +58,20 @@ dependencies {
 	testImplementation("org.mockito:mockito-core")
 
 	testImplementation("org.junit.jupiter:junit-jupiter")
-
 	testImplementation("io.mockk:mockk:1.12.2")
+	testImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")
+
+	//teste container
 	testImplementation("org.springframework.boot:spring-boot-testcontainers")
 	testImplementation("org.testcontainers:junit-jupiter")
 	testImplementation("org.testcontainers:testcontainers")
 	testImplementation("org.testcontainers:mongodb")
-	testImplementation("org.mockito:mockito-core")
-
-	testImplementation("io.mockk:mockk")
-	//testImplementation("org.wiremock:wiremock:$wiremock_version")
-	testImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")
 
 	//teste cubumber
-	implementation("io.cucumber:cucumber-java:$cumcumber_version")
-	implementation("io.cucumber:cucumber-java8:$cumcumber_version")
-	implementation("io.cucumber:cucumber-junit:$cumcumber_version")
-	implementation("io.cucumber:cucumber-spring:$cumcumber_version")
-
+	testImplementation("io.cucumber:cucumber-java:$cumcumber_version")
+	testImplementation("io.cucumber:cucumber-java8:$cumcumber_version")
+	testImplementation("io.cucumber:cucumber-junit:$cumcumber_version")
+	testImplementation("io.cucumber:cucumber-spring:$cumcumber_version")
 }
 
 

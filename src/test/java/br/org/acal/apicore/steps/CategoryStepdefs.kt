@@ -14,9 +14,16 @@ class CategoryStepdefs: StepDefs() {
         response = executePost(url, body)
     }
 
+    @When("I send a GET request to {string}")
+    fun iSendAGETRequestTo(url: String) {
+        response = executeGet(url)
+    }
+
     @Then("the response status code should be {int}")
     fun theResponseStatusCodeShouldBe(status: Int) {
         assertEquals(status, response?.statusCode)
     }
+
+
 
 }
