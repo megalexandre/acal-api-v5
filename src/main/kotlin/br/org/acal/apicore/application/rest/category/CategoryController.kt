@@ -75,23 +75,40 @@ class CategoryController(
         }))
     }
     @PostMapping(MIGRATE)
-    fun migrate(@Valid @RequestBody request: CategoryMigrateRequest): ResponseEntity<Category> = created(
-        create.execute(request.toEntity())
-    )
+    fun migrate(@Valid @RequestBody request: CategoryMigrateRequest): ResponseEntity<Category> = run{
+        logger.info { "Migrating category $request" }
+        created(
+            create.execute(request.toEntity())
+        ).also {
+            logger.info { "Migrated category $it" }
+        }
+    }
+
 
     @PostMapping(LOT)
-    fun createLot(@Valid @RequestBody request: List<CategoryMigrateRequest>) {
-        createLot.execute(request.toEntity())
+    fun createLot(@Valid @RequestBody request: List<CategoryMigrateRequest>) = run {
+        logger.info { "Posting lot category $request" }
+        createLot.execute(request.toEntity()).also {
+            logger.info { "Posted lot category $request" }
+        }
     }
 
     @GetMapping
-    fun findAll(): ResponseEntity<List<CategoryGetResponse>> = ok(
-        findAll.execute(Unit).map { CategoryGetResponse(it) }
-    )
+    fun findAll(): ResponseEntity<List<CategoryGetResponse>> = run{
+        logger.info { "Finding all categories" }
+        ok(
+            findAll.execute(Unit).map { CategoryGetResponse(it) }
+        ).also {
+            logger.info { "Find all categories by size: $it" }
+        }
+    }
 
     @PostMapping
-    fun create(@Valid @RequestBody request: CategoryCreateRequest): ResponseEntity<CategoryCreateResponse> = created(
-        CategoryCreateResponse(create.execute(request.toEntity()))
-    )
-
+    fun create(@Valid @RequestBody request: CategoryCreateRequest): ResponseEntity<CategoryCreateResponse> = run {
+        logger.info { "Posting category $request" }
+        created(
+            CategoryCreateResponse(create.execute(request.toEntity()))).also {
+                logger.info { "Posted category $it" }
+            }
+    }
 }
