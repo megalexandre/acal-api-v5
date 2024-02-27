@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
 import org.springframework.boot.test.web.server.LocalServerPort
-import org.springframework.context.annotation.ComponentScan
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.containers.GenericContainer
@@ -19,7 +18,6 @@ import org.testcontainers.junit.jupiter.Testcontainers
 
 @Testcontainers
 @SpringBootTest(webEnvironment = RANDOM_PORT, classes = [ApiCoreApplication::class])
-@ComponentScan(basePackageClasses = [ApiCoreApplication::class])
 class ApplicationTests {
 
 	@Autowired

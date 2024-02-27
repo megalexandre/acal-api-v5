@@ -9,6 +9,8 @@ plugins {
 
 group = "br.org.acal"
 version = "0.0.1-SNAPSHOT"
+val cumcumber_version = "7.15.0"
+val wiremock_version = "3.4.0"
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_17
@@ -42,7 +44,6 @@ dependencies {
 
 	//metrics
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
-
 	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 
 
@@ -65,21 +66,17 @@ dependencies {
 	testImplementation("org.mockito:mockito-core")
 
 	testImplementation("io.mockk:mockk")
-	testImplementation("org.wiremock:wiremock:3.4.2")
+	//testImplementation("org.wiremock:wiremock:$wiremock_version")
 	testImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")
 
 	//teste cubumber
-	implementation("io.cucumber:cucumber-java:7.15.0")
-	implementation("io.cucumber:cucumber-java8:7.15.0")
-	implementation("io.cucumber:cucumber-core:7.15.0")
-	implementation("io.cucumber:cucumber-junit:7.15.0")
-	implementation("io.cucumber:cucumber-spring:7.15.0")
-	implementation("io.cucumber:cucumber-guice:7.15.0")
-	implementation("io.cucumber:cucumber-picocontainer:7.15.0")
-	implementation("io.cucumber:cucumber-testng:7.15.0")
-	implementation("io.cucumber:cucumber-junit-platform-engine:7.15.0")
+	implementation("io.cucumber:cucumber-java:$cumcumber_version")
+	implementation("io.cucumber:cucumber-java8:$cumcumber_version")
+	implementation("io.cucumber:cucumber-junit:$cumcumber_version")
+	implementation("io.cucumber:cucumber-spring:$cumcumber_version")
 
 }
+
 
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
