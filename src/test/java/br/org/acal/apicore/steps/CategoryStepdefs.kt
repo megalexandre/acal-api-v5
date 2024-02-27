@@ -5,7 +5,7 @@ import io.cucumber.java.en.When
 import io.restassured.response.Response
 import org.junit.jupiter.api.Assertions.assertEquals
 
-class CategoryStepdefs: SpringIT() {
+class CategoryStepdefs: StepDefs() {
 
     var response: Response? = null
 

@@ -7,9 +7,6 @@ import com.google.gson.GsonBuilder
 import io.cucumber.spring.CucumberContextConfiguration
 import io.restassured.RestAssured
 import io.restassured.builder.RequestSpecBuilder
-import io.restassured.module.kotlin.extensions.Given
-import io.restassured.module.kotlin.extensions.When
-import io.restassured.response.Response
 import io.restassured.specification.RequestSpecification
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
@@ -64,7 +61,7 @@ class SpringIT {
 
 
     @LocalServerPort
-    private var serverPort = -1;
+    var serverPort = -1;
 
     @BeforeEach
     fun setup(){
@@ -83,29 +80,5 @@ class SpringIT {
 
     val gson: Gson = GsonBuilder()
         .create()
-
-
-    fun executeGet(url: String): Response {
-        val header = mutableMapOf<String,String>()
-        header["Content-Type"] = "application/json"
-
-        return Given {
-            headers(header)
-        } When {
-            get("http://localhost:$serverPort/$url")
-        }
-    }
-
-    fun executePost(url: String, body: String): Response {
-        val header = mutableMapOf<String,String>()
-        header["Content-Type"] = "application/json"
-
-        return Given {
-            headers(header)
-            body(body)
-        } When {
-            post("http://localhost:$serverPort/$url")
-        }
-    }
 
 }
