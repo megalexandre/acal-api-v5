@@ -82,8 +82,6 @@ class SpringIT {
     }
 
     val gson: Gson = GsonBuilder()
-        //.registerTypeAdapter(LocalDate::class.java, LocalDateTypeAdapter())
-        //.registerTypeAdapter(LocalDateTime::class.java, LocalDateTimeTypeAdapter())
         .create()
 
 
@@ -94,7 +92,19 @@ class SpringIT {
         return Given {
             headers(header)
         } When {
-            get("http://localhost:$serverPort/todo")
+            get("http://localhost:$serverPort/$url")
+        }
+    }
+
+    fun executePost(url: String, body: String): Response {
+        val header = mutableMapOf<String,String>()
+        header["Content-Type"] = "application/json"
+
+        return Given {
+            headers(header)
+            body(body)
+        } When {
+            post("http://localhost:$serverPort/$url")
         }
     }
 
