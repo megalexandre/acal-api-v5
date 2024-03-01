@@ -84,7 +84,6 @@ class CategoryController(
         }
     }
 
-
     @PostMapping(LOT)
     fun createLot(@Valid @RequestBody request: List<CategoryMigrateRequest>) = run {
         logger.info { "Posting lot category $request" }
@@ -109,4 +108,5 @@ class CategoryController(
                 logger.info { "Posted category $it" }
             }
     }
+
 }

@@ -3,9 +3,8 @@ package br.org.acal.apicore;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.containers.MongoDBContainer;
 
-public abstract class MongoContainer_ {
+public abstract class MongoContainer {
 
     public static final GenericContainer DB_CONTAINER;
     private static final String USERNAME = "root";

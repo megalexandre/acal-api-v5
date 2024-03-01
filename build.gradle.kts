@@ -22,33 +22,43 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter")
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
+	//Spring
+	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
+
+
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("jakarta.validation:jakarta.validation-api")
+
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib")
 
+
+	//log
 	implementation("ch.qos.logback:logback-classic")
 	implementation("org.slf4j:slf4j-api")
 
 	//ULID
 	implementation("io.azam.ulidj:ulidj:1.0.4")
 
+	//Serialization
 	implementation("com.google.code.gson:gson")
+
+	//database
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 	implementation("org.springframework.data:spring-data-mongodb")
 
 	//metrics
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
+
+	//test
+	//test startup
 	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 
 
-	//test
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.rest-assured:kotlin-extensions")
 	testImplementation("org.springframework.boot:spring-boot-starter-test"){
 		exclude(module = "junit")

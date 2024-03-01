@@ -1,7 +1,7 @@
 package br.org.acal.apicore.steps
 
 import br.org.acal.apicore.ApiCoreApplication
-import br.org.acal.apicore.MongoContainer_
+import br.org.acal.apicore.MongoContainer
 import br.org.acal.apicore.resources.repository.CategoryRepository
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -20,7 +20,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 @SpringBootTest(webEnvironment = RANDOM_PORT, classes = [ApiCoreApplication::class])
 @CucumberContextConfiguration
 @ExtendWith(SpringExtension::class)
-class SpringIT: MongoContainer_() {
+class SpringIT: MongoContainer() {
 
     @Autowired
     private lateinit var categoryRepository: CategoryRepository
