@@ -1,24 +1,40 @@
 package br.org.acal.apicore
 
-import org.springframework.test.context.DynamicPropertyRegistry
-import org.springframework.test.context.DynamicPropertySource
-import org.testcontainers.containers.GenericContainer
+class MongoContainer {
+    /*
+     @get:Rule
+     val mongoDbContainer: GenericContainer<*> = GenericContainer("mongo:4.0.10")
+         .withExposedPorts(27017)
+         .withReuse(true)
+         .withEnv("MONGO_INITDB_ROOT_USERNAME", USERNAME)
+         .withEnv("MONGO_INITDB_ROOT_PASSWORD", PASSWORD)
 
-abstract class MongoContainer {
+     @BeforeAll
+     fun setup() {
+         mongoDbContainer.start()
+
+         val mongoDbUrl = mongoDbContainer.getReplicaSetUrl()
+         val mongoDbUsername = mongoDbContainer.username
+         val mongoDbPassword = mongoDbContainer.password
+
+         System.setProperty("spring.data.mongodb.uri", mongoDbUrl)
+         System.setProperty("spring.data.mongodb.username", mongoDbUsername)
+         System.setProperty("spring.data.mongodb.password", mongoDbPassword)
+     }
+
+
     companion object {
         var DB_CONTAINER: GenericContainer<*>? = null
         private const val USERNAME = "root"
         private const val PASSWORD = "example"
 
         init {
-            DB_CONTAINER = GenericContainer("mongo:4.0.10")
-                .withExposedPorts(27017)
-                .withReuse(true)
-                .withEnv("MONGO_INITDB_ROOT_USERNAME", USERNAME)
-                .withEnv("MONGO_INITDB_ROOT_PASSWORD", PASSWORD)
+            DB_CONTAINER =
+
             DB_CONTAINER!!.start()
         }
 
+        @PostConstruct
         @DynamicPropertySource
         fun overrideProps(registry: DynamicPropertyRegistry) {
             registry.add(
@@ -32,5 +48,7 @@ abstract class MongoContainer {
                         "/"
             }
         }
+
     }
+     */
 }

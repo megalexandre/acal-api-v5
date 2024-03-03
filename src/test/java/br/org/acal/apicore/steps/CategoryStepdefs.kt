@@ -1,28 +1,29 @@
 package br.org.acal.apicore.steps
 
+import io.cucumber.java.en.And
 import io.cucumber.java.en.Then
 import io.cucumber.java.en.When
 import io.restassured.response.Response
-import org.junit.jupiter.api.Assertions.assertEquals
 
 class CategoryStepdefs: StepDefs() {
 
     var response: Response? = null
 
-    @When("I send a POST request to {string}")
-    fun iSendAPOSTRequestTo(url: String, body: String)  {
-        response = executePost(url, body)
+    @When("o banco de dados está vazio")
+    fun oBancoDeDadosEstaVazio() {
+        super.resetDatabase()
     }
 
-    @When("I send a GET request to {string}")
-    fun iSendAGETRequestTo(url: String) {
-        response = executeGet(url)
+    @And("uma categoria como nome {string} e tipo {string} é salva")
+    fun umaCategoriaComoNomeETipoESalva(name: String, type: String) {
     }
 
-    @Then("the response status code should be {int}")
-    fun theResponseStatusCodeShouldBe(status: Int) {
-        assertEquals(status, response?.statusCode)
+    @Then("o status de de resposta deve ser {int}")
+    fun oStatusDeDeRespostaDeveSer(status: Int) {
+
     }
 
-
+    @And("deve haver uma categoria salva com nome {string} e tipo {string}")
+    fun deveHaverUmaCategoriaSalvaComNomeETipo(name: String, type: String) {
+    }
 }
