@@ -1,36 +1,36 @@
-package br.org.acal.apicore;
+package br.org.acal.apicore
 
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.containers.GenericContainer;
+import org.springframework.test.context.DynamicPropertyRegistry
+import org.springframework.test.context.DynamicPropertySource
+import org.testcontainers.containers.GenericContainer
 
-public abstract class MongoContainer {
+abstract class MongoContainer {
+    companion object {
+        var DB_CONTAINER: GenericContainer<*>? = null
+        private const val USERNAME = "root"
+        private const val PASSWORD = "example"
 
-    public static final GenericContainer DB_CONTAINER;
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "example";
-
-    static  {
-        DB_CONTAINER = new GenericContainer("mongo:4.0.10")
+        init {
+            DB_CONTAINER = GenericContainer("mongo:4.0.10")
                 .withExposedPorts(27017)
                 .withReuse(true)
                 .withEnv("MONGO_INITDB_ROOT_USERNAME", USERNAME)
-                .withEnv("MONGO_INITDB_ROOT_PASSWORD", PASSWORD);
+                .withEnv("MONGO_INITDB_ROOT_PASSWORD", PASSWORD)
+            DB_CONTAINER!!.start()
+        }
 
-
-        DB_CONTAINER.start();
-
-    }
-
-    @DynamicPropertySource
-    public static void overrideProps(DynamicPropertyRegistry registry) {
-        registry.add("spring.data.mongodb.uri", () ->
-            "mongodb://" +
-                    USERNAME + ":" +
-                    PASSWORD + "@" +
-                    DB_CONTAINER.getHost() + ":" +
-                    DB_CONTAINER.getMappedPort(27017) +
-                "/"
-        );
+        @DynamicPropertySource
+        fun overrideProps(registry: DynamicPropertyRegistry) {
+            registry.add(
+                "spring.data.mongodb.uri"
+            ) {
+                "mongodb://" +
+                        USERNAME + ":" +
+                        PASSWORD + "@" +
+                        DB_CONTAINER!!.host + ":" +
+                        DB_CONTAINER!!.getMappedPort(27017) +
+                        "/"
+            }
+        }
     }
 }
