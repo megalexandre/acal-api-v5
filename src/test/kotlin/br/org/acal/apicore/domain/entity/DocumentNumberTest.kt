@@ -83,6 +83,6 @@ class DocumentNumberTest{
 
     @Test
     fun `when we have a invalid document should return the same content`(){
-        assertEquals("000" ,DocumentNumber("000").toString())
+        assertEquals("00" ,DocumentNumber("00").toString())
     }
 }
