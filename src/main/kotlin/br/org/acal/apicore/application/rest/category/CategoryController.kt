@@ -9,6 +9,7 @@ import br.org.acal.apicore.application.rest.category.response.CategoryCreateResp
 import br.org.acal.apicore.application.rest.category.response.CategoryFindResponse
 import br.org.acal.apicore.application.rest.category.response.CategoryGetResponse
 import br.org.acal.apicore.application.rest.category.response.CategoryPaginateResponse
+import br.org.acal.apicore.application.rest.components.validator.ulid.ULIDValidator
 import br.org.acal.apicore.common.enums.Fixtures.Companion.FIND
 import br.org.acal.apicore.common.enums.Fixtures.Companion.ID
 import br.org.acal.apicore.common.enums.Fixtures.Companion.LOT
@@ -67,13 +68,15 @@ class CategoryController(
                 logger.info { "Returned find category by filter, size: ${it.size}"}
         })
     }
+
     @GetMapping(ID)
-    fun get(@Valid @PathVariable id: String): ResponseEntity<CategoryGetResponse> = run {
+    fun get(@Valid @PathVariable @ULIDValidator id: String): ResponseEntity<CategoryGetResponse> = run {
         logger.info { "Getting category Get/$id" }
         ok(CategoryGetResponse(get.execute(id).also {
             logger.info { "Returned category $it" }
         }))
     }
+
     @PostMapping(MIGRATE)
     fun migrate(@Valid @RequestBody request: CategoryMigrateRequest): ResponseEntity<Category> = run{
         logger.info { "Migrating category $request" }

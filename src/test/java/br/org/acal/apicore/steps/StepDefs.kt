@@ -6,12 +6,13 @@ import io.restassured.response.Response
 
 class StepDefs: SpringIT() {
 
-    fun executeGet(url: String): Response {
+    fun executeGet(url: String, filter: Map<String, String> = mapOf()): Response {
         val header = mutableMapOf<String,String>()
         header["Content-Type"] = "application/json"
 
         return Given {
             headers(header)
+            params(filter)
         } When {
             get("http://localhost:$serverPort/$url")
         }

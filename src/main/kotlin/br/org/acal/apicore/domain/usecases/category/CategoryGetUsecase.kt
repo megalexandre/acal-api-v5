@@ -4,7 +4,7 @@ import br.org.acal.apicore.domain.Usecase
 import br.org.acal.apicore.domain.datasource.CategoryDataSource
 import br.org.acal.apicore.domain.entity.Category
 import br.org.acal.apicore.infrastructure.Sl4jLogger
-import br.org.acal.apicore.infrastructure.exception.InvalidUsecaseException
+import br.org.acal.apicore.infrastructure.exception.DataNotFoundException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -16,6 +16,6 @@ class  CategoryGetUsecase(
 
     @Transactional
     override fun execute(input: String): Category =
-        dataSource.findById(input) ?: throw InvalidUsecaseException("does not exists category with id: $input")
+        dataSource.findById(input) ?: throw DataNotFoundException("does not exists category with id: $input")
 
 }

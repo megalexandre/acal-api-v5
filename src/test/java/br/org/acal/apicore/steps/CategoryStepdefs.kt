@@ -1,9 +1,17 @@
 package br.org.acal.apicore.steps
 
 import br.org.acal.apicore.application.rest.category.request.CategoryCreateValuesRequest
+import br.org.acal.apicore.application.rest.category.response.CategoryFindResponse
 import br.org.acal.apicore.common.enums.CategoryType
+import br.org.acal.apicore.common.enums.CategoryType.EFFECTIVE
+import br.org.acal.apicore.common.enums.CategoryType.FOUNDING
+import br.org.acal.apicore.common.enums.CategoryType.TEMPORARY
 import br.org.acal.apicore.resources.document.adapter.toEntity
+import br.org.acal.apicore.stub.categoryDocumentStub
+import br.org.acal.apicore.stub.listOfCategoryDocumentFromAllTypesStub
+import io.azam.ulidj.ULID.random
 import io.cucumber.java.en.And
+import io.cucumber.java.en.Given
 import io.cucumber.java.en.Then
 import io.cucumber.java.en.When
 import io.restassured.response.Response
@@ -99,4 +107,79 @@ class CategoryStepdefs: StepDefs() {
             )
         ))
     }
+
+    @Given("o banco de possui uma categoria com id {string}")
+    fun oBancoDePossuiUmaCategoriaComId(id: String) {
+        categoryRepository.save(
+            categoryDocumentStub.copy(
+                id = id
+            )
+        )
+    }
+
+    @When("eu busco uma categoria por id {string}")
+    fun euBuscoUmaCategoriaPorId(id: String) {
+        response = executeGet("category/$id")
+    }
+
+    @Given("o banco de dados possui tres categoria sendo uma de cada tipo")
+    fun oBancoDeDadosPossuiTresCategoriaSendoUmaDeCadaTipo() {
+        categoryRepository.deleteAll()
+        categoryRepository.saveAll(listOfCategoryDocumentFromAllTypesStub)
+    }
+
+    @When("eu filtro sem nenhum parametros")
+    fun euFiltroSemNenhumParametros() {
+        response = executeGet("category/find")
+    }
+
+    @When("eu filtro por tipo {string}")
+    fun euFiltroPorTipo(type: String) {
+        response = executeGet("category/find", mapOf(
+            "type" to type
+        ))
+    }
+    @When("eu filtro por nome {string}")
+    fun euFiltroPorNome(name: String) {
+        response = executeGet("category/find", mapOf(
+            "name" to name
+        ))
+    }
+
+    @And("o tamanho da lista de resposta deve ser {int}")
+    fun oTamanhoDaListaDeRespostaDeveSer(size: Int) {
+
+        val data: List<CategoryFindResponse> = gson.fromJson(
+            response?.body?.asString(),
+            Array<CategoryFindResponse>::class.java).asList()
+
+        assertEquals(size, data.size)
+    }
+
+
+    @Given("o banco de dados possui tres categoria como residente, restaurante e temporario")
+    fun oBancoDeDadosPossuiTresCategoriaComoResidenteRestauranteETemporario() {
+        categoryRepository.deleteAll()
+        categoryRepository.saveAll(
+            listOf(
+                categoryDocumentStub.copy(
+                    id = random(),
+                    name = "residente",
+                    type = EFFECTIVE
+                ),
+                categoryDocumentStub.copy(
+                    id = random(),
+                    name = "restaurante",
+                    type = FOUNDING
+                ),
+                categoryDocumentStub.copy(
+                    id = random(),
+                    name = "temporario",
+                    type = TEMPORARY
+                )
+            )
+        )
+    }
+
+
 }

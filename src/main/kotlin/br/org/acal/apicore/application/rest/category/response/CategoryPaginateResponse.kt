@@ -2,7 +2,6 @@ package br.org.acal.apicore.application.rest.category.response
 
 import br.org.acal.apicore.domain.entity.Category
 import java.math.BigDecimal
-import java.math.RoundingMode.HALF_UP
 
 data class CategoryPaginateResponse (
     val id: String,
@@ -15,7 +14,7 @@ data class CategoryPaginateResponse (
         id = category.id,
         name = category.name,
         type = category.type.value,
-        total = category.total.setScale(2, HALF_UP),
+        total = category.total,
         values = category.values.map { CategoryValuesResponse(it.name, it.value) }
     )
 }

@@ -17,6 +17,20 @@ class CategoryQuery: PaginateAndSortQuery<CategoryFilter>() {
                 )
             }
 
+            if (type != null) {
+                addCriteria(
+                    Criteria
+                        .where("type").`is`(type)
+                )
+            }
+
+            if (name != null) {
+                addCriteria(
+                    Criteria
+                        .where("name").`is`(name)
+                )
+            }
+
         }}
     }
 

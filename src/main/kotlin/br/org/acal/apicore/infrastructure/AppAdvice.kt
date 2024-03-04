@@ -1,5 +1,7 @@
 package br.org.acal.apicore.infrastructure
 
+import br.org.acal.apicore.common.util.ResponseEntityUtil
+import br.org.acal.apicore.infrastructure.exception.DataNotFoundException
 import br.org.acal.apicore.infrastructure.exception.InvalidUsecaseException
 import java.time.LocalDateTime
 import org.slf4j.Logger
@@ -19,6 +21,14 @@ class AppAdvice {
 			"time" to LocalDateTime.now().toString(),
 			"message" to ex.message
 		)
+	)
+
+	@ExceptionHandler(value = [DataNotFoundException::class])
+	fun e2 (ex: RuntimeException) = ResponseEntityUtil.noContent(
+		mapOf(
+			"time" to LocalDateTime.now().toString(),
+			"message" to ex.message
+		).toString()
 	)
 
 }
