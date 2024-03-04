@@ -4,7 +4,6 @@ import br.org.acal.apicore.application.rest.category.request.CategoryCreateReque
 import br.org.acal.apicore.application.rest.category.request.CategoryFilterRequest
 import br.org.acal.apicore.application.rest.category.request.CategoryMigrateRequest
 import br.org.acal.apicore.application.rest.category.request.CategoryPaginateRequest
-import br.org.acal.apicore.application.rest.category.request.toEntity
 import br.org.acal.apicore.application.rest.category.response.CategoryCreateResponse
 import br.org.acal.apicore.application.rest.category.response.CategoryFindResponse
 import br.org.acal.apicore.application.rest.category.response.CategoryGetResponse
@@ -12,12 +11,10 @@ import br.org.acal.apicore.application.rest.category.response.CategoryPaginateRe
 import br.org.acal.apicore.application.rest.components.validator.ulid.ULIDValidator
 import br.org.acal.apicore.common.enums.Fixtures.Companion.FIND
 import br.org.acal.apicore.common.enums.Fixtures.Companion.ID
-import br.org.acal.apicore.common.enums.Fixtures.Companion.LOT
 import br.org.acal.apicore.common.enums.Fixtures.Companion.MIGRATE
 import br.org.acal.apicore.common.enums.Fixtures.Companion.PAGINATE
 import br.org.acal.apicore.common.util.ResponseEntityUtil.Companion.created
 import br.org.acal.apicore.domain.entity.Category
-import br.org.acal.apicore.domain.usecases.category.CategoryCreateLotUsecase
 import br.org.acal.apicore.domain.usecases.category.CategoryCreateUsecase
 import br.org.acal.apicore.domain.usecases.category.CategoryFindAllByFilterUsecase
 import br.org.acal.apicore.domain.usecases.category.CategoryFindAllUsecase
@@ -42,7 +39,6 @@ import org.springframework.web.bind.annotation.RestController
 class CategoryController(
     private val get: CategoryGetUsecase,
     private val create: CategoryCreateUsecase,
-    private val createLot: CategoryCreateLotUsecase,
     private val findAll: CategoryFindAllUsecase,
     private val paginate: CategoryPaginateByFilterUsecase,
     private val findAllByFilter: CategoryFindAllByFilterUsecase,
@@ -84,14 +80,6 @@ class CategoryController(
             create.execute(request.toEntity())
         ).also {
             logger.info { "Migrated category $it" }
-        }
-    }
-
-    @PostMapping(LOT)
-    fun createLot(@Valid @RequestBody request: List<CategoryMigrateRequest>) = run {
-        logger.info { "Posting lot category $request" }
-        createLot.execute(request.toEntity()).also {
-            logger.info { "Posted lot category $request" }
         }
     }
 
