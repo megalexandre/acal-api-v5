@@ -27,7 +27,7 @@ import org.testcontainers.junit.jupiter.Testcontainers
 class SpringIT {
 
     @Autowired
-    private lateinit var categoryRepository: CategoryRepository
+    lateinit var categoryRepository: CategoryRepository
 
     @LocalServerPort
     var serverPort = -1;

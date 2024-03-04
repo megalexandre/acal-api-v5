@@ -1,4 +1,4 @@
-package stub
+package br.org.acal.apicore.stub
 
 import br.org.acal.apicore.application.rest.category.request.CategoryCreateRequest
 import br.org.acal.apicore.application.rest.category.request.CategoryCreateValuesRequest

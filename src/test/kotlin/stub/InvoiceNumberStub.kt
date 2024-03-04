@@ -1,4 +1,4 @@
-package br.org.acal.apicore.domain.entity.stub
+package stub
 
 import br.org.acal.apicore.domain.entity.InvoiceNumber
 import java.time.LocalDateTime.now

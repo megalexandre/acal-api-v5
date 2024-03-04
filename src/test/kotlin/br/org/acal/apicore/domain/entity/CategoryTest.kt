@@ -1,10 +1,10 @@
 package br.org.acal.apicore.domain.entity
 
-import br.org.acal.apicore.domain.entity.stub.categoryStub
 import java.math.BigDecimal
 import java.math.RoundingMode.HALF_UP
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import stub.categoryStub
 
 class CategoryTest{
 
