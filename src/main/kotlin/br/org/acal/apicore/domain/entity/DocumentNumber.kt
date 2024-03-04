@@ -9,10 +9,9 @@ data class DocumentNumber(
     val number: String
 ){
     companion object{
-        private const val MAXIMUM_SIZE = 3
+        private const val MAXIMUM_LOG_SIZE = 3
         private const val CPF_SIZE = 11
         private const val CNPJ_SIZE = 14
-
     }
 
     val type: PersonType = when(number.length){
@@ -29,8 +28,8 @@ data class DocumentNumber(
 
     val isInvalid: Boolean = !isValid
 
-    override fun toString(): String = when(number.length > MAXIMUM_SIZE){
-        true -> number.substring(0, MAXIMUM_SIZE) + "*".repeat(number.length - 3)
+    override fun toString(): String = when(number.length >= MAXIMUM_LOG_SIZE){
+        true -> number.substring(0, MAXIMUM_LOG_SIZE) + "*".repeat(number.length - 3)
         false -> number
     }
 }
