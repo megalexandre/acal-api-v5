@@ -9,5 +9,7 @@ class Fixtures {
         const val MIGRATE = "/migrate"
         const val LOT = "/lot"
         const val SEPARATOR = "."
+
+        const val REFERENCE_REGEX = """^\d{4}\.(0[1-9]|1[0-2])$"""
     }
 }

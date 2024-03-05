@@ -31,7 +31,7 @@ data class InvoiceCreateRequest (
 
     override fun toEntity(): Invoice = Invoice(
         id = id ?: random(),
-        reference = Reference(reference),
+        reference = Reference.of(reference),
         invoiceNumber = InvoiceNumber(invoiceNumber),
         emission = emission,
         dueDate = dueDate,
