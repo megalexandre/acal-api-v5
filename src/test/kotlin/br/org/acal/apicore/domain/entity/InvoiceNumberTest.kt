@@ -24,7 +24,7 @@ class InvoiceNumberTest{
 
 
     @Test
-    fun test(){
+    fun `when create a invoice number should format de value`(){
         val firstJanuaryOf2000 = invoiceNumberStub.copy(
             year = Year.of(2000),
             month = Month.JANUARY,
