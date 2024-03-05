@@ -31,7 +31,7 @@ data class InvoiceMigrateRequest (
     override fun toEntity(): InvoiceMigrate = InvoiceMigrate(
         id = id ?: random(),
         reference = Reference.of(reference),
-        invoiceNumber = invoiceNumber?.let { InvoiceNumber(it) },
+        invoiceNumber = invoiceNumber?.let { InvoiceNumber.of(it) },
         emission = emission,
         dueDate = dueDate,
         linkId = linkId,

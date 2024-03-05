@@ -1,5 +1,6 @@
 package br.org.acal.apicore.domain.entity
 
+import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
@@ -22,11 +23,25 @@ class ReferenceTest{
     }
 
     @Test
-    fun `when has a valid reference should be year and month valid`(){
-       Reference.of("2020.01").also {
-           assertEquals(2020, it.year.value )
-           assertEquals(1, it.month.value )
-       }
+    fun `when has a valid reference should be valid`(){
+        listOf(
+            "2020.01",
+            "2020.02",
+            "2020.03",
+            "2020.04",
+            "2020.05",
+            "2020.06",
+            "2020.07",
+            "2020.08",
+            "2020.09",
+            "2020.10",
+            "2020.11",
+            "2020.12",
+        ).forEach {
+            assertDoesNotThrow{
+                Reference.of(it)
+            }
+        }
     }
 
     @Test

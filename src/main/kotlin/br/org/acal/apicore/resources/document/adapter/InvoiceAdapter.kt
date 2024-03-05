@@ -19,8 +19,8 @@ fun Invoice.toDocument() = InvoiceDocument(
 
 fun InvoiceDocument.toEntity() = Invoice(
     id = id,
-    reference = InvoiceNumber(invoiceNumber).reference,
-    invoiceNumber = InvoiceNumber(invoiceNumber),
+    reference = InvoiceNumber.of(invoiceNumber).reference,
+    invoiceNumber = InvoiceNumber.of(invoiceNumber),
     emission = emission,
     dueDate = dueDate,
     linkId = linkId,

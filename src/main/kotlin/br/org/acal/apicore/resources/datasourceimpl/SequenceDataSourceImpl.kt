@@ -13,14 +13,14 @@ class SequenceDataSourceImpl(
     companion object{
         private const val INITIAL_VALUE = 1L
     }
-    override fun next(id: String): Long {
-        val sequence: SequenceDocument? = repository.findById(id).orElse(null)
+    override fun next(value: String): Long {
+        val sequence: SequenceDocument? = repository.findById(value).orElse(null)
 
         return if (sequence != null) {
             repository.save(sequence.copy(value = sequence.value +1))
             sequence.value
         } else {
-            repository.save(SequenceDocument(id = id, value = INITIAL_VALUE))
+            repository.save(SequenceDocument(id = value, value = INITIAL_VALUE))
             INITIAL_VALUE
         }
     }

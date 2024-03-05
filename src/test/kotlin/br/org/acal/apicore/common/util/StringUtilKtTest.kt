@@ -8,7 +8,22 @@ class StringUtilKtTest {
 
     @Test
     fun `when the string matches regex expression should be true`() {
-        assertTrue("2020.01".isValidReference())
+        listOf(
+            "2020.01",
+            "2020.02",
+            "2020.03",
+            "2020.04",
+            "2020.05",
+            "2020.06",
+            "2020.07",
+            "2020.08",
+            "2020.09",
+            "2020.10",
+            "2020.11",
+            "2020.12",
+        ).forEach {
+            assertTrue(it.isValidReference())
+        }
     }
 
     @Test

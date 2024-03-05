@@ -8,6 +8,12 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
 
+data class InvoiceDetailDocument(
+    val reason: Reason,
+    val value: BigDecimal,
+    val dataPaid: LocalDateTime?,
+)
+
 @Document(collection = "invoice")
 data class InvoiceDocument(
 
@@ -20,10 +26,4 @@ data class InvoiceDocument(
     val dueDate: LocalDate,
     val linkId: String,
     val invoiceDetails: List<InvoiceDetailDocument>
-)
-
-data class InvoiceDetailDocument(
-    val reason: Reason,
-    val value: BigDecimal,
-    val dataPaid: LocalDateTime?,
 )

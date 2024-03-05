@@ -17,13 +17,18 @@ data class InvoiceNumber(
         private const val MONTH_PAD_SIZE = 2
         private const val NUMBER_PAD_SIZE = 6
         private const val PAD_CHAR = '0'
-    }
 
-    constructor(number: String): this (
-        year = Year.of(number.split(STRING_SEPARATOR)[YEAR_INDEX].toInt()),
-        month = Month.of(number.split(STRING_SEPARATOR)[MONTH_INDEX].toInt()),
-        number = number.split(STRING_SEPARATOR)[NUMBER_INDEX],
-    )
+        fun of(value: String): InvoiceNumber =
+           runCatching {
+                InvoiceNumber(
+                    year = Year.of(value.split(STRING_SEPARATOR)[YEAR_INDEX].toInt()),
+                    month = Month.of(value.split(STRING_SEPARATOR)[MONTH_INDEX].toInt()),
+                    number = value.split(STRING_SEPARATOR)[NUMBER_INDEX],
+                )
+            }.getOrElse {
+                throw RuntimeException("$value is not a valid InvoiceNumber")
+            }
+        }
 
     val value: String
         get() = "${year.value}" + STRING_SEPARATOR +
