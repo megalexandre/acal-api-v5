@@ -1,10 +1,11 @@
 package br.org.acal.apicore.infrastructure
 
-import br.org.acal.apicore.infrastructure.deserializer.CustomLocalDateDeserializer
-import br.org.acal.apicore.infrastructure.deserializer.CustomLocalDateTimeDeserializer
-import br.org.acal.apicore.infrastructure.serializer.CustomBigDecimalSerializer
-import br.org.acal.apicore.infrastructure.serializer.CustomLocalDateSerializer
-import br.org.acal.apicore.infrastructure.serializer.CustomLocalDateTimeSerializer
+import br.org.acal.apicore.infrastructure.serializable.`in`.CustomLocalDateDeserializer
+import br.org.acal.apicore.infrastructure.serializable.`in`.CustomLocalDateTimeDeserializer
+import br.org.acal.apicore.infrastructure.serializable.out.CustomBigDecimalSerializer
+import br.org.acal.apicore.infrastructure.serializable.out.CustomLocalDateSerializer
+import br.org.acal.apicore.infrastructure.serializable.out.CustomLocalDateTimeSerializer
+import br.org.acal.apicore.infrastructure.serializable.out.CustomYearSerializer
 import com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature.FAIL_ON_EMPTY_BEANS
@@ -18,6 +19,7 @@ import com.fasterxml.jackson.module.kotlin.KotlinModule.Builder
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.Year
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -29,6 +31,7 @@ class ObjectMapperConfig{
             addSerializer(LocalDate::class.java, CustomLocalDateSerializer())
             addSerializer(LocalDateTime::class.java, CustomLocalDateTimeSerializer())
             addSerializer(BigDecimal::class.java, CustomBigDecimalSerializer())
+            addSerializer(Year::class.java, CustomYearSerializer() )
             addDeserializer(LocalDate::class.java, CustomLocalDateDeserializer())
             addDeserializer(LocalDateTime::class.java, CustomLocalDateTimeDeserializer())
         }

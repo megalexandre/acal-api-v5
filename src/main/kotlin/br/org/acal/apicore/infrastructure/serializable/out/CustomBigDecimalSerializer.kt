@@ -1,4 +1,4 @@
-package br.org.acal.apicore.infrastructure.serializer
+package br.org.acal.apicore.infrastructure.serializable.out
 
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.JsonSerializer

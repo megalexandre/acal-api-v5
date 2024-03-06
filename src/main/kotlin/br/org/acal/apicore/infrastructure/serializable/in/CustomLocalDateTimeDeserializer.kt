@@ -1,4 +1,4 @@
-package br.org.acal.apicore.infrastructure.deserializer
+package br.org.acal.apicore.infrastructure.serializable.`in`
 
 import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationContext

@@ -7,7 +7,7 @@ import br.org.acal.apicore.application.rest.link.response.LinkFindAllResponse
 import br.org.acal.apicore.common.util.ResponseEntityUtil.Companion.created
 import br.org.acal.apicore.domain.usecases.link.LinkCreateLotUsecase
 import br.org.acal.apicore.domain.usecases.link.LinkCreateUsecase
-import br.org.acal.apicore.domain.usecases.link.LinkFindUsecase
+import br.org.acal.apicore.domain.usecases.link.LinkFindAllUsecase
 import br.org.acal.apicore.infrastructure.Sl4jLogger
 import br.org.acal.apicore.infrastructure.info
 import jakarta.validation.Valid
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController
 class LinkController(
     private val create: LinkCreateUsecase,
     private val createLot: LinkCreateLotUsecase,
-    private val findAll: LinkFindUsecase,
+    private val findAll: LinkFindAllUsecase,
 ): Sl4jLogger() {
 
     @GetMapping

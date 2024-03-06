@@ -57,5 +57,4 @@ data class InvoiceDetailRequest(
 
 }
 
-
 fun List<InvoiceCreateRequest>.toEntity(): List<Invoice> = map { it.toEntity() }

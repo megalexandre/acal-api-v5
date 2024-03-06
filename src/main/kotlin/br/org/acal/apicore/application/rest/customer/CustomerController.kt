@@ -10,7 +10,7 @@ import br.org.acal.apicore.application.rest.customer.response.CustomerCreateResp
 import br.org.acal.apicore.application.rest.customer.response.CustomerFindAllResponse
 import br.org.acal.apicore.application.rest.customer.response.CustomerGetResponse
 import br.org.acal.apicore.application.rest.customer.response.CustomerPaginateResponse
-import br.org.acal.apicore.application.rest.invoice.response.CustomerValidationDocumentResponse
+import br.org.acal.apicore.application.rest.customer.response.CustomerValidationDocumentResponse
 import br.org.acal.apicore.common.util.ResponseEntityUtil.Companion.created
 import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffset
 import br.org.acal.apicore.domain.dto.pagination.pages.SortField

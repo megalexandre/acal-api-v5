@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 
 
 @Service
-class LinkFindUsecase(
+class LinkFindAllUsecase(
     private val dataSource: LinkDataSource
 ) : Usecase<Unit, List<Link>>, Sl4jLogger() {
 

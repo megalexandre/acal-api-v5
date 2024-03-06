@@ -1,4 +1,4 @@
-package br.org.acal.apicore.application.rest.invoice.response
+package br.org.acal.apicore.application.rest.customer.response
 
 import br.org.acal.apicore.domain.dto.customer.CustomerValidationDocument
 import br.org.acal.apicore.domain.entity.Customer

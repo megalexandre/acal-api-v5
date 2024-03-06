@@ -5,15 +5,20 @@ import br.org.acal.apicore.application.rest.invoice.request.InvoiceCreateRequest
 import br.org.acal.apicore.application.rest.invoice.request.InvoiceMigrateRequest
 import br.org.acal.apicore.application.rest.invoice.request.toEntity
 import br.org.acal.apicore.application.rest.invoice.response.InvoiceCreateResponse
+import br.org.acal.apicore.application.rest.invoice.response.InvoiceGetResponse
 import br.org.acal.apicore.domain.usecases.invoice.InvoiceCreateLotUsecase
 import br.org.acal.apicore.domain.usecases.invoice.InvoiceCreateUsecase
+import br.org.acal.apicore.domain.usecases.invoice.InvoiceGetUsecase
 import br.org.acal.apicore.domain.usecases.invoice.InvoiceMigrateUsecase
 import br.org.acal.apicore.domain.usecases.invoice.InvoicePayUsecase
+import br.org.acal.apicore.domain.usecases.link.LinkGetUsecase
 import br.org.acal.apicore.infrastructure.Sl4jLogger
 import br.org.acal.apicore.infrastructure.info
 import jakarta.validation.Valid
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
+import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.ok
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -28,8 +33,26 @@ class InvoiceController(
     private val create: InvoiceCreateUsecase,
     private val createLot: InvoiceCreateLotUsecase,
     private val migrate: InvoiceMigrateUsecase,
-    private val pay: InvoicePayUsecase
+    private val pay: InvoicePayUsecase,
+    private val get: InvoiceGetUsecase,
+    private val linkGet: LinkGetUsecase,
 ): Sl4jLogger() {
+
+    @GetMapping("/{id}")
+    fun getById(@Valid @PathVariable @ULIDValidator id: String): ResponseEntity<InvoiceGetResponse> {
+        logger.info { "starting getting invoice by: $id" }
+
+        val invoice = get.execute(id)
+        val link = linkGet.execute(invoice.linkId)
+
+        return ok(InvoiceGetResponse.of(
+            invoice = invoice,
+            link = link
+        )).also {
+            logger.info { "returning invoice from id: $id" }
+        }
+
+    }
 
     @PatchMapping("pay/{id}")
     fun pay(@Valid @PathVariable @ULIDValidator id: String) = run{

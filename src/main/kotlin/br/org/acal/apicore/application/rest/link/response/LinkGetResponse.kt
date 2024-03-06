@@ -5,7 +5,7 @@ import br.org.acal.apicore.application.rest.category.response.CategoryFindRespon
 import br.org.acal.apicore.application.rest.customer.response.CustomerFindAllResponse
 import br.org.acal.apicore.domain.entity.Link
 
-data class LinkFindAllResponse (
+data class LinkGetResponse (
 
     val id: String,
     val customer: CustomerFindAllResponse,

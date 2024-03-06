@@ -11,13 +11,13 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class InvoicePayUsecase(
     private val dataSource: InvoiceDataSource,
-    private val invoiceGetUsecase: InvoiceGetUsecase
+    private val get: InvoiceGetUsecase
 ) : Usecase<String, Boolean>, Sl4jLogger() {
 
     @Transactional
     override fun execute(input: String): Boolean {
 
-        invoiceGetUsecase.execute(input).let  {
+        get.execute(input).let  {
 
             if(it.isPayed){
                 throw InvalidUsecaseException("this invoice $input already is paid")
