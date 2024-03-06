@@ -44,6 +44,10 @@ class InvoiceDataSourceImpl(
         return page.toEntity()
     }
 
+    override fun existsInvoiceForReferenceAndLink(invoice: Invoice): Boolean {
+        return false
+    }
+
     override fun save(t: Invoice): Invoice =
         repository.save(t.toDocument()).toEntity()
 

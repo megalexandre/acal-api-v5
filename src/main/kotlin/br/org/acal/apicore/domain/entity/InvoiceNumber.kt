@@ -20,10 +20,12 @@ data class InvoiceNumber(
 
         fun of(value: String): InvoiceNumber =
            runCatching {
+               val values = value.split(STRING_SEPARATOR)
+
                 InvoiceNumber(
-                    year = Year.of(value.split(STRING_SEPARATOR)[YEAR_INDEX].toInt()),
-                    month = Month.of(value.split(STRING_SEPARATOR)[MONTH_INDEX].toInt()),
-                    number = value.split(STRING_SEPARATOR)[NUMBER_INDEX],
+                    year = Year.of(values[YEAR_INDEX].toInt()),
+                    month = Month.of(values[MONTH_INDEX].toInt()),
+                    number = values[NUMBER_INDEX],
                 )
             }.getOrElse {
                 throw RuntimeException("$value is not a valid InvoiceNumber")
