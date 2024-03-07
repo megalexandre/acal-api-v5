@@ -1,6 +1,8 @@
 package stub
 
 import br.org.acal.apicore.domain.entity.Invoice
+import br.org.acal.apicore.resources.document.InvoiceDocument
+import br.org.acal.apicore.resources.document.adapter.toDocument
 import io.azam.ulidj.ULID.random
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -43,4 +45,15 @@ val invoiceOverDueStub = Invoice(
     dueDate = LocalDate.now().minusMonths(1),
     linkId = random(),
     invoiceDetails = listOf(invoiceDetailPaidStub),
+)
+
+val invoiceDocumentStub = InvoiceDocument(
+
+    id = random(),
+    reference = referenceCurrentStub.value,
+    invoiceNumber = invoiceNumberStub.value,
+    emission = LocalDateTime.now(),
+    dueDate = LocalDate.now(),
+    linkId = random(),
+    invoiceDetails = listOf(invoiceDetailPaidStub.toDocument())
 )

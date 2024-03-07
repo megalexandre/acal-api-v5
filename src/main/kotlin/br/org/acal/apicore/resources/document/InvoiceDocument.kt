@@ -19,8 +19,9 @@ data class InvoiceDocument(
 
     @Id
     val id: String,
-    @Indexed(unique = true)
     val reference: String,
+
+    @Indexed(unique = true)
     val invoiceNumber: String,
     val emission: LocalDateTime,
     val dueDate: LocalDate,

@@ -3,6 +3,8 @@ package br.org.acal.apicore.steps
 import br.org.acal.apicore.ApiCoreApplication
 import br.org.acal.apicore.MongoDBTestContainerConfig
 import br.org.acal.apicore.resources.repository.CategoryRepository
+import br.org.acal.apicore.resources.repository.InvoiceRepository
+import br.org.acal.apicore.resources.repository.LinkRepository
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import io.cucumber.spring.CucumberContextConfiguration
@@ -27,7 +29,17 @@ import org.testcontainers.junit.jupiter.Testcontainers
 class SpringIT {
 
     @Autowired
+    lateinit var stepShared: StepShared
+
+    @Autowired
     lateinit var categoryRepository: CategoryRepository
+
+    @Autowired
+    lateinit var invoiceRepository: InvoiceRepository
+
+    @Autowired
+    lateinit var linkRepository: LinkRepository
+
 
     @LocalServerPort
     var serverPort = -1;
@@ -46,6 +58,8 @@ class SpringIT {
 
     fun resetDatabase(){
         categoryRepository.deleteAll()
+        invoiceRepository.deleteAll()
+        linkRepository.deleteAll()
     }
 
     val gson: Gson = GsonBuilder()

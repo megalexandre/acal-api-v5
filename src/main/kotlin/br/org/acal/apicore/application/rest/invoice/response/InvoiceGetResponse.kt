@@ -19,7 +19,7 @@ data class InvoiceGetResponse(
     val emission: LocalDateTime,
     val dueDate: LocalDate,
     val link: LinkResponse,
-    val invoice: List<InvoiceDetailResponse>,
+    val details: List<InvoiceDetailResponse>,
 ) {
     companion object{
         fun of(invoice: Invoice, link: Link) =  InvoiceGetResponse(
@@ -29,7 +29,7 @@ data class InvoiceGetResponse(
             emission = invoice.emission,
             dueDate = invoice.dueDate,
             link = LinkResponse.of(link),
-            invoice = invoice.invoiceDetails.map { InvoiceDetailResponse.of(it)  }
+            details = invoice.invoiceDetails.map { InvoiceDetailResponse.of(it)  }
         )
     }
 }
@@ -49,14 +49,12 @@ data class InvoiceDetailResponse(
 }
 
 data class LinkResponse(
-    val id: String,
     val customer: CustomerInvoiceResponse,
     val address: AddressInvoiceResponse,
     val category: CategoryInvoiceResponse,
 ){
     companion object{
         fun of(link: Link) = LinkResponse(
-            id = link.id,
             customer = CustomerInvoiceResponse.of(link.customer),
             address = AddressInvoiceResponse.of(link.address),
             category = CategoryInvoiceResponse.of(link.category)
@@ -98,14 +96,12 @@ data class CategoryInvoiceResponse(
     val name: String,
     val type: String,
     val total: BigDecimal,
-    val values: List<CategoryValuesResponse>,
 ){
     companion object {
         fun of(category: Category) = CategoryInvoiceResponse(
             name = category.name,
             type = category.type.name,
             total = category.total,
-            values = category.values.map { CategoryValuesResponse.of(it) }
         )
     }
 }

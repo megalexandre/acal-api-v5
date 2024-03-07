@@ -4,10 +4,10 @@ import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.When
 import io.restassured.response.Response
 
-class StepDefs: SpringIT() {
+class RestStepDefs: SpringIT() {
 
     fun executeGet(url: String, filter: Map<String, String> = mapOf()): Response {
-        val header = mutableMapOf<String,String>()
+        val header = mutableMapOf<String, String>()
         header["Content-Type"] = "application/json"
 
         return Given {
@@ -19,7 +19,7 @@ class StepDefs: SpringIT() {
     }
 
     fun executePost(url: String, body: String): Response {
-        val header = mutableMapOf<String,String>()
+        val header = mutableMapOf<String, String>()
         header["Content-Type"] = "application/json"
 
         return Given {
