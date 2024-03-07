@@ -1,8 +1,11 @@
 package br.org.acal.apicore.steps
 
 import br.org.acal.apicore.resources.document.adapter.toDocument
+import io.cucumber.java.en.And
 import io.cucumber.java.en.Given
 import io.cucumber.java.en.When
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import stub.invoiceStub
 import stub.linkStub
 
@@ -31,4 +34,30 @@ class DatabaseStepDefs: RestStepDefs() {
         )
     }
 
+    @And("the database need has a {string} with returned id")
+    fun theDatabaseNeedHasAWithReturnedId(name: String) {
+
+        val id = stepShared.get("id")
+        when(name){
+
+            "category" ->{
+                assertTrue(categoryRepository.findById(id).isPresent)
+            }
+
+            else ->  throw RuntimeException()
+        }
+    }
+
+    @And("database the size of the {string} document should be {long}")
+    fun databaseTheSizeOfTheDocumentShouldBe(document: String, size: Long) {
+
+        when(document){
+            "category" ->{
+                assertEquals(size ,categoryRepository.count())
+            }
+
+            else ->  throw RuntimeException()
+        }
+
+    }
 }

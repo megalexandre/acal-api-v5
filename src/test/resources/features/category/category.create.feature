@@ -1,36 +1,31 @@
 Feature: creating a category
 
   Scenario: creating a new category
+
+    when we save a CATEGORY, the response must be CREATED/201
+    and there must be a record in the database
+
     When database is clean
     Given a category with name "socio" and type "EFFECTIVE" is send by post
     Then the status response should be 201
+    And the database need has a "category" with returned id
 
-  #Scenario: creating a new category
-  #  When o banco de dados está vazio
-  #  And uma categoria como nome "socio" e tipo "EFFECTIVE" é salva
-  #  Then o status de resposta deve ser 201
-  #  And deve haver uma categoria salva com nome "socio" e tipo "EFFECTIVE"
+  Scenario: trying create a duplicated category
 
-  #Scenario: criando uma categoria duplicada
-  #  When o banco de dados está vazio
-  #  When uma categoria como nome "socio" e tipo "EFFECTIVE" é salva
-  #  And  uma categoria como nome "socio" e tipo "EFFECTIVE" é salva
-  #  Then o status de resposta deve ser 400
-  #  And deve haver uma categoria salva com nome "socio" e tipo "EFFECTIVE"
+    A duplicate attempt to save a category must result in a BAD_REQUEST/400
+    and only one category can be registered
 
-  #Scenario: criando uma categoria com dois valores
-  #  When o banco de dados está vazio
-  #  When uma categoria com valor de agua de 20 e valor de categoria igual a 30 é salva
-  #  Then deve haver uma categoria salva com nome valor de 50
+    When database is clean
+    Given a category with name "socio" and type "EFFECTIVE" is send by post
+    And a category with name "socio" and type "EFFECTIVE" is send by post
+    Then the status response should be 400
+    And database the size of the "category" document should be 1
 
-  #Scenario: criando uma categoria sem valores
-  #  When o banco de dados está vazio
-  #  When uma categoria sem valores é enviada
-  #  Then o status de resposta deve ser 400
-  #  And o banco de dados deve estar vazio
+  Scenario: creating a category with two values
 
-  #Scenario: criando uma categoria com valores negativos
-  #  When o banco de dados está vazio
-  #  When uma categoria com valores negativos é enviada
-  #  Then o status de resposta deve ser 400
-  #  And o banco de dados deve estar vazio
+    when a category sent with two or more values,
+    the saved document must have the sum of the values
+
+    When database is clean
+    Given a category with water value of 20 and category value of 30 is sent
+    Then there must be a saved category with a name value of 50

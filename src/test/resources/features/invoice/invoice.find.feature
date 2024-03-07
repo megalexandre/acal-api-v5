@@ -5,8 +5,7 @@ Feature: find invoice
     When I find invoice by "01HQ34HQ2X27955TQ5YBJSVAC9"
     Then the status response should be 200
 
-  Scenario: finding no nonexistent invoice
+  Scenario: finding nonexistent invoice
     Given database is clean
     When I find invoice by "01HQ34HQ2X27955TQ5YBJSVAC9"
     Then the status response should be 204
-
