@@ -23,9 +23,10 @@ Feature: creating a category
 
   Scenario: creating a category with two values
 
-    when a category sent with two or more values,
+    when a category sent with two or more values, the response must be CREATED/200
     the saved document must have the sum of the values
 
     When database is clean
     Given a category with water value of 20 and category value of 30 is sent
     Then there must be a saved category with a name value of 50
+    And the status response should be 201

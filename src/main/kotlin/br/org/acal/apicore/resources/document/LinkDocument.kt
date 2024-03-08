@@ -15,4 +15,8 @@ data class LinkDocument(
 
     val category: CategoryDocument,
 
+    val suspended: Boolean? = false,
+
+    val active: Boolean? = true,
 )
+

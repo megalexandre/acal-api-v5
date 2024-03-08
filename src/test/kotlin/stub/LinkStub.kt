@@ -8,4 +8,6 @@ val linkStub = Link(
     customer = customerStub,
     address = addressStub,
     category = categoryStub,
+    suspended = true,
+    active = true,
 )

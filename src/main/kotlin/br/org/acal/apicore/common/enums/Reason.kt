@@ -6,5 +6,8 @@ enum class Reason {
     CATEGORY,
     WATER,
     HYDROMETER,
-
+    PARTNERSHIP;
+    companion object {
+        fun get(value: String?): Reason? = Reason.entries.find { it.name.lowercase() == value?.lowercase() }
+    }
 }

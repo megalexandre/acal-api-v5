@@ -9,6 +9,8 @@ fun Link.toDocument() = LinkDocument(
     customer = customer.toDocument(),
     address = address.toDocument(),
     category = category.toDocument() ,
+    suspended = suspended,
+    active = active,
 )
 
 fun LinkDocument.toEntity() = Link(
@@ -16,6 +18,8 @@ fun LinkDocument.toEntity() = Link(
     customer = customer.toEntity(),
     address = address.toEntity(),
     category = category.toEntity(),
+    suspended = suspended ?: false,
+    active = active ?: true,
 )
 
 fun Page<LinkDocument>.toEntity() = map { it.toEntity()  }

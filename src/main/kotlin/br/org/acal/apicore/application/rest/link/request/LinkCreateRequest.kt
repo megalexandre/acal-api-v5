@@ -22,6 +22,8 @@ data class LinkCreateRequest (
         customer = customer,
         address = address,
         category = category,
+        suspended = false,
+        active = true,
     )
 
 }

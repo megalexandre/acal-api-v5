@@ -7,4 +7,6 @@ data class Link (
     val address: Address,
     val category: Category,
 
+    val suspended: Boolean,
+    val active: Boolean,
 )

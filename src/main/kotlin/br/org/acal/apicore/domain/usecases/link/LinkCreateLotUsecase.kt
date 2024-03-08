@@ -8,7 +8,6 @@ import br.org.acal.apicore.domain.usecases.category.CategoryGetUsecase
 import br.org.acal.apicore.domain.usecases.customer.CustomerGetUsecase
 import br.org.acal.apicore.infrastructure.Sl4jLogger
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 
 
 @Service
@@ -28,6 +27,8 @@ class LinkCreateLotUsecase(
                         customer = customerGetUsecase.execute(link.customer),
                         address = addressGetUsecase.execute(link.address),
                         category = categoryGetUsecase.execute(link.category),
+                        suspended = false,
+                        active = true,
                     )
                 )
             }

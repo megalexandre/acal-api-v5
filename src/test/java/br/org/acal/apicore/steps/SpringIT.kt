@@ -1,5 +1,7 @@
 package br.org.acal.apicore.steps
 
+import adapter.LocalDateTimeTypeAdapter
+import adapter.LocalDateTypeAdapter
 import br.org.acal.apicore.ApiCoreApplication
 import br.org.acal.apicore.MongoDBTestContainerConfig
 import br.org.acal.apicore.resources.repository.CategoryRepository
@@ -11,6 +13,8 @@ import io.cucumber.spring.CucumberContextConfiguration
 import io.restassured.RestAssured
 import io.restassured.builder.RequestSpecBuilder
 import io.restassured.specification.RequestSpecification
+import java.time.LocalDate
+import java.time.LocalDateTime
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -62,7 +66,9 @@ class SpringIT {
         linkRepository.deleteAll()
     }
 
-    val gson: Gson = GsonBuilder()
+    val gson: Gson = GsonBuilder() //2024-03-08T17:23:20.0975182
+        .registerTypeAdapter(LocalDate::class.java, LocalDateTypeAdapter())
+        .registerTypeAdapter(LocalDateTime::class.java, LocalDateTimeTypeAdapter())
         .create()
 
 }
