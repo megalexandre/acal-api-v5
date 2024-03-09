@@ -7,14 +7,15 @@ import br.org.acal.apicore.application.rest.invoice.request.InvoiceMigrateReques
 import br.org.acal.apicore.application.rest.invoice.request.toEntity
 import br.org.acal.apicore.application.rest.invoice.response.InvoiceCreateResponse
 import br.org.acal.apicore.application.rest.invoice.response.InvoiceGetResponse
+import br.org.acal.apicore.application.rest.invoice.response.ProposalGroupResponse
 import br.org.acal.apicore.domain.entity.Reference
 import br.org.acal.apicore.domain.usecases.invoice.InvoiceCreateLotUsecase
 import br.org.acal.apicore.domain.usecases.invoice.InvoiceCreateUsecase
 import br.org.acal.apicore.domain.usecases.invoice.InvoiceGetUsecase
 import br.org.acal.apicore.domain.usecases.invoice.InvoiceMigrateUsecase
 import br.org.acal.apicore.domain.usecases.invoice.InvoicePayUsecase
-import br.org.acal.apicore.domain.usecases.invoice.InvoiceProposalUsecase
 import br.org.acal.apicore.domain.usecases.link.LinkGetUsecase
+import br.org.acal.apicore.domain.usecases.proposal.CreateProposalUsecase
 import br.org.acal.apicore.infrastructure.Sl4jLogger
 import br.org.acal.apicore.infrastructure.info
 import jakarta.validation.Valid
@@ -39,18 +40,13 @@ class InvoiceController(
     private val pay: InvoicePayUsecase,
     private val get: InvoiceGetUsecase,
     private val linkGet: LinkGetUsecase,
-    private val proposal: InvoiceProposalUsecase,
+    private val proposal: CreateProposalUsecase,
 ): Sl4jLogger() {
 
     @GetMapping("proposal/{reference}")
-    fun proposal(@Valid @PathVariable @ReferenceValid reference: String): ResponseEntity<List<InvoiceGetResponse>> {
-        val invoice = proposal.execute(Reference.of(reference))
-
-        val response = invoice.map {
-            InvoiceGetResponse.of(invoice = it, link = linkGet.execute(it.linkId))
-        }
-
-        return ok(response)
+    fun proposal(@Valid @PathVariable @ReferenceValid reference: String): ResponseEntity<List<ProposalGroupResponse>> {
+        logger.info { "starting getting proposal by reference: $reference" }
+        return ok(ProposalGroupResponse.of(proposal.execute(Reference.of(reference))))
     }
 
     @GetMapping("/{id}")

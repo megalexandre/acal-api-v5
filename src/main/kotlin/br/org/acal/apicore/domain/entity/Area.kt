@@ -1,6 +1,6 @@
 package br.org.acal.apicore.domain.entity
 
-class Area(
+data class Area(
     val id: String,
     val name: String,
 )
