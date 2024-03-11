@@ -47,8 +47,9 @@ dependencies {
 	implementation("com.google.code.gson:gson")
 
 	//database
-	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
-	implementation("org.springframework.data:spring-data-mongodb")
+	implementation("org.springframework.boot:spring-boot-starter-data-mongodb:3.2.3")
+	implementation("org.springframework.data:spring-data-mongodb:4.2.3")
+
 
 	//metrics
 	implementation("org.springframework.boot:spring-boot-starter-actuator")

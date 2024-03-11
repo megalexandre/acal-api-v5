@@ -17,9 +17,8 @@ import kotlin.jvm.optionals.getOrNull
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.mongodb.core.MongoTemplate
-import org.springframework.data.mongodb.core.aggregation.Aggregation
-import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.stereotype.Service
+
 
 @Service
 class LinkDataSourceImpl(
@@ -47,42 +46,9 @@ class LinkDataSourceImpl(
         return page.toEntity()
     }
 
-    override fun findFindAllWithoutInvoiceForReferenceUsecase(input: Reference): List<Link> {
 
-        val activeLinksOnly = Aggregation.match(Criteria.where("active").`is`(true))
-
-        val joinInvoices = Aggregation.lookup(
-            "invoice",
-            "_id",
-            "linkId",
-            "invoices"
-        )
-
-        val matchStage = Aggregation.match(
-            Criteria.where("invoices.reference").ne(input.value)
-        )
-
-        val projection = Aggregation.project(
-            "_id",
-            "customer",
-            "address",
-            "category",
-            "suspended",
-            "active",
-            "_class"
-        )
-
-        val aggregation = Aggregation.newAggregation(
-            activeLinksOnly,
-            joinInvoices,
-            matchStage,
-            projection
-        )
-
-        return mongoTemplate
-            .aggregate(aggregation, "link", LinkDocument::class.java)
-            .mappedResults.toList().map { it.toEntity() }
-    }
+    override fun findFindAllWithoutInvoiceForReferenceUsecase(input: Reference): List<Link> =
+        repository.findFindAllWithoutInvoiceForReference(input.value).map { it.toEntity() }
 
 
     override fun save(t: Link): Link =

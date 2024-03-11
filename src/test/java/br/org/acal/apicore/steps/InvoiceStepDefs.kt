@@ -31,18 +31,17 @@ class InvoiceStepDefs: RestStepDefs() {
 
     @Given("database has active link with invoice for reference {string}")
     fun databaseHasActiveLinkWithInvoiceForReference(referenceString: String) {
+        super.resetDatabase()
+
         val reference = Reference.of(referenceString)
-        val linkId = random()
-        val invoiceId = random()
+        val linkId = "01HRQHPF7NKD64PRQSC27PYW3C"
 
         val linkStub = linkStub.copy(
-            customer = customerStub.copy(name = "A | I have a invoice for reference :$referenceString"),
             id = linkId,
             active = true,
         )
 
         val invoiceStub = invoiceStub.copy(
-            id = invoiceId,
             linkId = linkId,
             reference = reference,
         )
@@ -55,7 +54,7 @@ class InvoiceStepDefs: RestStepDefs() {
     fun databaseHasTwoActiveLinkWithoutInvoiceForReference(referenceString: String) {
         val linkStubOne = linkStub.copy(
             id = random(),
-            customer = customerStub.copy(name = "C"),
+            customer = customerStub.copy(name = "C | I'm valid"),
             address = addressStub.copy(
                 area = areaStub.copy(
                     name = "Avenida Fernando Daltro"
@@ -67,7 +66,7 @@ class InvoiceStepDefs: RestStepDefs() {
 
         val linkStubTwo = linkStub.copy(
             id = random(),
-            customer = customerStub.copy(name = "D"),
+            customer = customerStub.copy(name = "D| I'm valid too"),
             address = addressStub.copy(
                 area = areaStub.copy(
                     name = "Avenida Morro do chapeu"
@@ -77,14 +76,16 @@ class InvoiceStepDefs: RestStepDefs() {
             active = true,
         )
 
-        linkRepository.save(linkStubOne.toDocument())
-        linkRepository.save(linkStubTwo.toDocument())
+        linkRepository.saveAll(listOf(
+            linkStubOne.toDocument(),
+            linkStubTwo.toDocument())
+        )
     }
 
     @Given("database has inactive link with invoice for reference {string}")
     fun databaseHasInactiveLinkWithInvoiceForReference(referenceString: String) {
         val linkStubInactive = linkStub.copy(
-            customer = customerStub.copy(name = "B"),
+            customer = customerStub.copy(name = "B | I'm inactive"),
             active = false,
         )
 
@@ -106,7 +107,6 @@ class InvoiceStepDefs: RestStepDefs() {
         val proposals = proposalGroupResponse.flatMap { it.links }
 
         assertEquals(size, proposals.size)
-
     }
 
     @And("the response should has two areas")

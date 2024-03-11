@@ -1,5 +1,24 @@
 Feature: find invoice proposal for reference
 
+  Scenario: Shouldn't return any link inactive
+
+    when all links is inactive we can't return anything
+
+    Given database has inactive link with invoice for reference "2025.01"
+
+    When I find invoice proposal by reference "2025.01"
+
+    Then the status response should be 200
+    And the response should has 0 invoices
+
+
+  Scenario: Shouldn't return link if him has invoice for reference
+
+    Given database has active link with invoice for reference "2025.01"
+    When I find invoice proposal by reference "2025.01"
+    Then the status response should be 200
+    And the response should has 0 invoices
+
   Scenario: finding invoice proposal for reference
 
     when we send a reference should, response with all active link's

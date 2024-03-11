@@ -1,6 +1,5 @@
 package br.org.acal.apicore.resources.datasourceimpl
 
-import br.org.acal.apicore.common.enums.Reason
 import br.org.acal.apicore.domain.datasource.InvoiceDataSource
 import br.org.acal.apicore.domain.datasource.SequenceDataSource
 import br.org.acal.apicore.domain.dto.pagination.invoice.InvoiceFilter
@@ -9,9 +8,6 @@ import br.org.acal.apicore.domain.dto.pagination.pages.DefaultFilter
 import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffset
 import br.org.acal.apicore.domain.dto.pagination.pages.PageFilter
 import br.org.acal.apicore.domain.entity.Invoice
-import br.org.acal.apicore.domain.entity.InvoiceDetail
-import br.org.acal.apicore.domain.entity.Proposal
-import br.org.acal.apicore.domain.entity.Reference
 import br.org.acal.apicore.resources.datasourceimpl.pagination.InvoiceQuery
 import br.org.acal.apicore.resources.datasourceimpl.pagination.LinkQuery
 import br.org.acal.apicore.resources.document.InvoiceDocument
@@ -19,7 +15,6 @@ import br.org.acal.apicore.resources.document.adapter.toDocument
 import br.org.acal.apicore.resources.document.adapter.toEntity
 import br.org.acal.apicore.resources.repository.InvoiceRepository
 import br.org.acal.apicore.resources.repository.LinkRepository
-import java.time.LocalDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
@@ -55,28 +50,6 @@ class InvoiceDataSourceImpl(
 
     override fun existsInvoiceForReferenceAndLink(invoice: Invoice): Boolean =
         repository.findByLinkIdAndReference(linkId = invoice.linkId, reference = invoice.reference.value).isPresent
-
-
-    fun findProposal(input: Reference): List<Proposal> {
-
-        return linkRepository.findAllByActiveTrue().filterNot {
-            repository.findByLinkIdAndReference(linkId = it.id, reference = input.value).isPresent
-        }.map { link ->
-            Proposal(
-                reference = input,
-                emission = LocalDateTime.now(),
-                link = link.toEntity(),
-                invoiceDetails = link.category.values.map { category ->
-                    InvoiceDetail(
-                        reason = Reason.get(category.name) ?: throw RuntimeException("this category has no reason $category"),
-                        value = category.value,
-                        dataPaid = null,
-                    )
-                },
-            )
-        }
-    }
-
 
     override fun save(t: Invoice): Invoice =
         repository.save(t.toDocument()).toEntity()
