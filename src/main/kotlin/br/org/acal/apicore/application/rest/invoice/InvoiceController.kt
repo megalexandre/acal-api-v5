@@ -46,7 +46,9 @@ class InvoiceController(
     @GetMapping("proposal/{reference}")
     fun proposal(@Valid @PathVariable @ReferenceValid reference: String): ResponseEntity<List<ProposalGroupResponse>> {
         logger.info { "starting getting proposal by reference: $reference" }
-        return ok(ProposalGroupResponse.of(proposal.execute(Reference.of(reference))))
+        return ok(ProposalGroupResponse.of(proposal.execute(Reference.of(reference))).also {
+            logger.info { "returning proposal ${it.map { it.links.size }.reduce{ acc, size -> acc + size}}" }
+        })
     }
 
     @GetMapping("/{id}")

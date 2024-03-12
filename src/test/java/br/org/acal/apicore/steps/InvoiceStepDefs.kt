@@ -84,6 +84,7 @@ class InvoiceStepDefs: RestStepDefs() {
 
     @Given("database has inactive link with invoice for reference {string}")
     fun databaseHasInactiveLinkWithInvoiceForReference(referenceString: String) {
+        super.resetDatabase()
         val linkStubInactive = linkStub.copy(
             customer = customerStub.copy(name = "B | I'm inactive"),
             active = false,
@@ -109,8 +110,8 @@ class InvoiceStepDefs: RestStepDefs() {
         assertEquals(size, proposals.size)
     }
 
-    @And("the response should has two areas")
-    fun theResponseShouldHasTwoAreas() {
+    @And("the response should has {int} areas")
+    fun theResponseShouldHasTwoAreas(size: Int) {
         val proposalGroupResponse = gson.fromJson(
             stepShared.response?.body?.asString(),
             Array<ProposalGroupResponse>::class.java

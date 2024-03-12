@@ -14,6 +14,8 @@ import java.time.LocalDateTime
 data class ProposalGroupResponse(
     val name: String,
     val links: List<ProposalResponse>,
+    val total: BigDecimal = links.map { it.total }.sum(),
+    val quantity: Int = links.size,
 ) {
     companion object {
         fun of(proposals: List<Proposal>): List<ProposalGroupResponse> =
@@ -41,7 +43,6 @@ data class ProposalGroupResponse(
                 }
     }
 
-    val total: BigDecimal = links.map { it.total }.sum()
 
 }
 
