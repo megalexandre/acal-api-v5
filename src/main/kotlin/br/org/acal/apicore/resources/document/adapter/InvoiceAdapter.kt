@@ -10,7 +10,7 @@ import org.springframework.data.domain.Page
 fun Invoice.toDocument() = InvoiceDocument(
     id = id,
     invoiceNumber = invoiceNumber.value,
-    reference = invoiceNumber.reference.value,
+    reference = reference.value,
     emission = emission,
     dueDate = dueDate,
     linkId = linkId,

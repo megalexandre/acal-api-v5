@@ -34,20 +34,20 @@ class InvoiceStepDefs: RestStepDefs() {
         super.resetDatabase()
 
         val reference = Reference.of(referenceString)
-        val linkId = "01HRQHPF7NKD64PRQSC27PYW3C"
+        val linkId = "01HQ34HPVK0RRA7CA2E2MNK37H"
 
         val linkStub = linkStub.copy(
             id = linkId,
             active = true,
-        )
+        ).toDocument()
 
         val invoiceStub = invoiceStub.copy(
             linkId = linkId,
             reference = reference,
-        )
+        ).toDocument()
 
-        linkRepository.save(linkStub.toDocument())
-        invoiceRepository.save(invoiceStub.toDocument())
+        invoiceRepository.save(invoiceStub)
+        linkRepository.save(linkStub)
     }
 
     @Given("database has two active in different areas link without invoice for reference {string}")

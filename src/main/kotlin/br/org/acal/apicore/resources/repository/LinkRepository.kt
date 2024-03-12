@@ -20,4 +20,10 @@ interface LinkRepository : MongoRepository<LinkDocument, String>{
     ])
     fun findFindAllWithoutInvoiceForReference(reference: String): List<LinkDocument>
 
+    /*
+    {$project: { _id: 1, customer: 1, address: 1, category: 1, suspended: 1, active: 1, _class: 1, references: { $map: { input: "$invoices", as: "invoice", in: "$$invoice.reference"}}}}
+    * */
+
+
+
 }
