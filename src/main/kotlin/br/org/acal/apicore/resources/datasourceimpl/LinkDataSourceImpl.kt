@@ -4,7 +4,7 @@ import br.org.acal.apicore.domain.datasource.LinkDataSource
 import br.org.acal.apicore.domain.dto.pagination.link.LinkFilter
 import br.org.acal.apicore.domain.dto.pagination.link.LinkPageFilter
 import br.org.acal.apicore.domain.dto.pagination.pages.DefaultFilter
-import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffset
+import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffsetAndSort
 import br.org.acal.apicore.domain.dto.pagination.pages.PageFilter
 import br.org.acal.apicore.domain.entity.Link
 import br.org.acal.apicore.domain.entity.Reference
@@ -35,7 +35,7 @@ class LinkDataSourceImpl(
     override fun paginateByFilter(filter: PageFilter): Page<Link> {
         val linkPageFilter: LinkPageFilter = filter as LinkPageFilter
         val linkQuery = LinkQuery()
-        val pageable = linkQuery.pageRequest(limitOffset = linkPageFilter.limitOffset ?: LimitOffset())
+        val pageable = linkQuery.pageRequest(limitOffsetAndSort = linkPageFilter.limitOffsetAndSort ?: LimitOffsetAndSort())
         val query = linkQuery.query(linkPageFilter.filter).with(pageable)
         val countTotalQuery = linkQuery.query(linkPageFilter.filter)
 

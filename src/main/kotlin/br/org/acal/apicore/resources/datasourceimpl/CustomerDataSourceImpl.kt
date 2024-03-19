@@ -4,9 +4,8 @@ import br.org.acal.apicore.domain.datasource.CustomerDataSource
 import br.org.acal.apicore.domain.dto.pagination.customer.CustomerFilter
 import br.org.acal.apicore.domain.dto.pagination.customer.CustomerPageFilter
 import br.org.acal.apicore.domain.dto.pagination.pages.DefaultFilter
-import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffset
+import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffsetAndSort
 import br.org.acal.apicore.domain.dto.pagination.pages.PageFilter
-import br.org.acal.apicore.domain.entity.Category
 import br.org.acal.apicore.domain.entity.Customer
 import br.org.acal.apicore.domain.entity.DocumentNumber
 import br.org.acal.apicore.resources.datasourceimpl.pagination.CustomerQuery
@@ -39,7 +38,7 @@ class CustomerDataSourceImpl(
         val customerPageFilter: CustomerPageFilter = filter as CustomerPageFilter
         val customerQuery = CustomerQuery()
 
-        val pageable = customerQuery.pageRequest(limitOffset = customerPageFilter.limitOffset ?: LimitOffset())
+        val pageable = customerQuery.pageRequest(limitOffsetAndSort = customerPageFilter.limitOffsetAndSort ?: LimitOffsetAndSort())
         val query = customerQuery.query(customerPageFilter.filter).with(pageable)
         val countTotalQuery = customerQuery.query(customerPageFilter.filter)
 

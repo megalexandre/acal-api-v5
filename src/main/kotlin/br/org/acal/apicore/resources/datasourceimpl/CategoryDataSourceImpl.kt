@@ -5,7 +5,7 @@ import br.org.acal.apicore.domain.datasource.CategoryDataSource
 import br.org.acal.apicore.domain.dto.pagination.category.CategoryFilter
 import br.org.acal.apicore.domain.dto.pagination.category.CategoryPageFilter
 import br.org.acal.apicore.domain.dto.pagination.pages.DefaultFilter
-import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffset
+import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffsetAndSort
 import br.org.acal.apicore.domain.dto.pagination.pages.PageFilter
 import br.org.acal.apicore.domain.entity.Category
 import br.org.acal.apicore.resources.datasourceimpl.pagination.CategoryQuery
@@ -33,7 +33,7 @@ class CategoryDataSourceImpl(
     override fun paginateByFilter(filter: PageFilter): Page<Category> {
         val categoryPageFilter: CategoryPageFilter = filter as CategoryPageFilter
         val categoryQuery = CategoryQuery()
-        val pageable = categoryQuery.pageRequest(limitOffset = categoryPageFilter.limitOffset ?: LimitOffset())
+        val pageable = categoryQuery.pageRequest(limitOffsetAndSort = categoryPageFilter.limitOffsetAndSort ?: LimitOffsetAndSort())
         val query = categoryQuery.query(categoryPageFilter.filter).with(pageable)
         val countTotalQuery = categoryQuery.query(categoryPageFilter.filter)
 

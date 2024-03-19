@@ -12,7 +12,7 @@ import br.org.acal.apicore.application.rest.customer.response.CustomerGetRespons
 import br.org.acal.apicore.application.rest.customer.response.CustomerPaginateResponse
 import br.org.acal.apicore.application.rest.customer.response.CustomerValidationDocumentResponse
 import br.org.acal.apicore.common.util.ResponseEntityUtil.Companion.created
-import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffset
+import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffsetAndSort
 import br.org.acal.apicore.domain.dto.pagination.pages.SortField
 import br.org.acal.apicore.domain.usecases.customer.CustomerCreateLotUsecase
 import br.org.acal.apicore.domain.usecases.customer.CustomerCreateUsecase
@@ -69,7 +69,7 @@ class CustomerController(
                 name = name,
                 documentNumber = documentNumber,
             ),
-            limitOffset = LimitOffset(offset = offset, size = size),
+            limitOffsetAndSort = LimitOffsetAndSort(offset = offset, size = size),
             sortField = SortField(field = field, direction = direction),
         ).also {
             logger.info {

@@ -5,7 +5,7 @@ import br.org.acal.apicore.domain.datasource.SequenceDataSource
 import br.org.acal.apicore.domain.dto.pagination.invoice.InvoiceFilter
 import br.org.acal.apicore.domain.dto.pagination.link.LinkPageFilter
 import br.org.acal.apicore.domain.dto.pagination.pages.DefaultFilter
-import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffset
+import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffsetAndSort
 import br.org.acal.apicore.domain.dto.pagination.pages.PageFilter
 import br.org.acal.apicore.domain.entity.Invoice
 import br.org.acal.apicore.resources.datasourceimpl.pagination.InvoiceQuery
@@ -37,7 +37,7 @@ class InvoiceDataSourceImpl(
     override fun paginateByFilter(filter: PageFilter): Page<Invoice> {
         val invoicePageFilter: LinkPageFilter = filter as LinkPageFilter
         val invoiceQuery = LinkQuery()
-        val pageable = invoiceQuery.pageRequest(limitOffset = invoicePageFilter.limitOffset ?: LimitOffset())
+        val pageable = invoiceQuery.pageRequest(limitOffsetAndSort = invoicePageFilter.limitOffsetAndSort ?: LimitOffsetAndSort())
         val query = invoiceQuery.query(invoicePageFilter.filter).with(pageable)
         val countTotalQuery = invoiceQuery.query(invoicePageFilter.filter)
 

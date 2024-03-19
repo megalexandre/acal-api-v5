@@ -4,7 +4,7 @@ import br.org.acal.apicore.domain.datasource.AddressDataSource
 import br.org.acal.apicore.domain.dto.pagination.address.AddressFilter
 import br.org.acal.apicore.domain.dto.pagination.link.LinkPageFilter
 import br.org.acal.apicore.domain.dto.pagination.pages.DefaultFilter
-import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffset
+import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffsetAndSort
 import br.org.acal.apicore.domain.dto.pagination.pages.PageFilter
 import br.org.acal.apicore.domain.entity.Address
 import br.org.acal.apicore.resources.datasourceimpl.pagination.AddressQuery
@@ -33,7 +33,7 @@ class AddressDataSourceImpl(
     override fun paginateByFilter(filter: PageFilter): Page<Address> {
         val addressPageFilter: LinkPageFilter = filter as LinkPageFilter
         val addressQuery = LinkQuery()
-        val pageable = addressQuery.pageRequest(limitOffset = addressPageFilter.limitOffset ?: LimitOffset())
+        val pageable = addressQuery.pageRequest(limitOffsetAndSort = addressPageFilter.limitOffsetAndSort ?: LimitOffsetAndSort())
         val query = addressQuery.query(addressPageFilter.filter).with(pageable)
         val countTotalQuery = addressQuery.query(addressPageFilter.filter)
 

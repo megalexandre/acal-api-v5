@@ -1,10 +1,10 @@
 package br.org.acal.apicore.application.rest.category.request
 
 import br.org.acal.apicore.application.rest.components.adapter.RequestAdapter
+import br.org.acal.apicore.common.util.DirectionUtil
 import br.org.acal.apicore.domain.dto.pagination.category.CategoryPageFilter
-import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffset
+import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffsetAndSort
 import br.org.acal.apicore.domain.dto.pagination.pages.SortField
-import org.springframework.data.domain.Sort.Direction
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.RequestParam
 
@@ -19,22 +19,28 @@ data class CategoryPaginateRequest (
     @RequestParam(required = false) val size: Int?,
 
     @RequestParam(required = false) val field: String?,
-    @RequestParam(required = false) val direction: Direction?,
+    @RequestParam(required = false) val direction: String?,
 
     private val filter: CategoryFilterRequest? = null,
-    private val limitOffset: LimitOffset? = null,
+    private val limitOffsetAndSort: LimitOffsetAndSort? = null,
     private val sortField: SortField? = null,
 
     ): RequestAdapter<CategoryPageFilter> {
 
     override fun toEntity(): CategoryPageFilter = CategoryPageFilter(
+
         filter = CategoryFilterRequest(
             id = id,
             name = name,
             type = type,
         ).toEntity(),
-        limitOffset = LimitOffset(offset = offset, size = size),
-        sortField = SortField(field = field, direction = direction),
+
+        limitOffsetAndSort = LimitOffsetAndSort(
+            offset = offset,
+            size = size,
+            field = field ?: "id",
+            direction = DirectionUtil.of(direction)
+        )
     )
 
 }
