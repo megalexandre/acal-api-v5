@@ -2,12 +2,15 @@ package br.org.acal.apicore.steps
 
 import br.org.acal.apicore.application.rest.category.request.CategoryCreateValuesRequest
 import br.org.acal.apicore.common.enums.CategoryType
+import br.org.acal.apicore.resources.document.adapter.toDocument
 import br.org.acal.apicore.resources.document.adapter.toEntity
 import io.cucumber.java.en.Given
 import io.cucumber.java.en.Then
+import io.cucumber.java.en.When
 import java.math.BigDecimal
 import org.junit.jupiter.api.Assertions.assertEquals
 import stub.categoryCreateStub
+import stub.categoryStub
 
 class CategoryStepDefs: RestStepDefs() {
 
@@ -45,4 +48,16 @@ class CategoryStepDefs: RestStepDefs() {
         assertEquals(totalValue, category.toEntity().total.intValueExact())
     }
 
+    @Given("the base has three categories one be type")
+    fun theBaseHasThreeCategoriesOneBeType() {
+        categoryRepository.saveAll(
+            CategoryType.entries.map {
+                categoryStub.copy(type = it).toDocument()
+            }
+        )
+    }
+    @When("i query paginate")
+    fun iQueryPaginate() {
+        stepShared.response = executeGet("category/paginate")
+    }
 }

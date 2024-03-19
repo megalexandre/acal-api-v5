@@ -10,4 +10,5 @@ import org.junit.runner.RunWith
     glue = ["classpath:steps"],
     plugin = ["pretty", "html:target/cucumber-html-report"]
 )
+
 class CucumberIT

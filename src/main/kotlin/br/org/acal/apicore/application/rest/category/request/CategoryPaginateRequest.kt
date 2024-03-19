@@ -14,8 +14,10 @@ data class CategoryPaginateRequest (
     @RequestParam(required = false) val id: String?,
     @RequestParam(required = false) val name: String?,
     @RequestParam(required = false) val type: String?,
+
     @RequestParam(required = false) val offset: Int?,
     @RequestParam(required = false) val size: Int?,
+
     @RequestParam(required = false) val field: String?,
     @RequestParam(required = false) val direction: Direction?,
 

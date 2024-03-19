@@ -17,7 +17,6 @@ import br.org.acal.apicore.common.util.ResponseEntityUtil.Companion.created
 import br.org.acal.apicore.domain.entity.Category
 import br.org.acal.apicore.domain.usecases.category.CategoryCreateUsecase
 import br.org.acal.apicore.domain.usecases.category.CategoryFindAllByFilterUsecase
-import br.org.acal.apicore.domain.usecases.category.CategoryFindAllUsecase
 import br.org.acal.apicore.domain.usecases.category.CategoryGetUsecase
 import br.org.acal.apicore.domain.usecases.category.CategoryPaginateByFilterUsecase
 import br.org.acal.apicore.infrastructure.Sl4jLogger
@@ -39,7 +38,6 @@ import org.springframework.web.bind.annotation.RestController
 class CategoryController(
     private val get: CategoryGetUsecase,
     private val create: CategoryCreateUsecase,
-    private val findAll: CategoryFindAllUsecase,
     private val paginate: CategoryPaginateByFilterUsecase,
     private val findAllByFilter: CategoryFindAllByFilterUsecase,
 ): Sl4jLogger() {
@@ -49,7 +47,7 @@ class CategoryController(
         request: CategoryPaginateRequest
     ): ResponseEntity<Page<CategoryPaginateResponse>> = run {
         logger.info { "Getting category /paginate by filter $request" }
-        ok(paginate.execute(input = request.toEntity()).map { CategoryPaginateResponse(it) } .also {
+        ok(paginate.execute(request.toEntity()).map { CategoryPaginateResponse(it) } .also {
             logger.info { "Returned category /paginate size: ${it.size}"}
         })
     }
@@ -80,14 +78,6 @@ class CategoryController(
             create.execute(request.toEntity())
         ).also {
             logger.info { "Migrated category $it" }
-        }
-    }
-
-    @GetMapping
-    fun findAll(): ResponseEntity<List<CategoryGetResponse>> = run{
-        logger.info { "Finding all categories" }
-        ok(findAll.execute(Unit).map { CategoryGetResponse(it) }).also {
-            logger.info { "Find all categories by size: $it" }
         }
     }
 

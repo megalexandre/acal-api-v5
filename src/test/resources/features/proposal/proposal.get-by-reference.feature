@@ -35,6 +35,9 @@ Feature: find invoices proposal
 
   Scenario: find invoices in different areas
 
+    when whe find invoices in many areas
+    we need return same number of areas
+
     Given database has two active in different areas link without invoice for reference "2025.01"
     When I find invoice proposal by reference "2025.01"
     Then the status response should be 200
