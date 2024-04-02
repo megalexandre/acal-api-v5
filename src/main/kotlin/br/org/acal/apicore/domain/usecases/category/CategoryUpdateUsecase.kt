@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional
 
 
 @Service
-class  CategoryCreateUsecase(
+class  CategoryUpdateUsecase(
     private val dataSource: CategoryDataSource
 ) : Usecase<Category, Category>, Sl4jLogger() {
 
@@ -20,12 +20,21 @@ class  CategoryCreateUsecase(
         dataSource.save(input)
     }
 
-    private fun valid(category: Category){
-        dataSource.findByNameAndType(category.name.trim(), category.type)?.let {
-            with(category){
-               throw InvalidUsecaseException("already exists a category with this name: $name and type $type")
-            }
-        }
+    private fun valid(actual: Category){
+        dataSource.findByNameAndType(actual.name.trim(), actual.type)
+            ?.let {
+
+                if(!isEquals(it, actual) && isDuplication(it, actual)){
+                    throw InvalidUsecaseException("This actions can't be realized because conflict with previous data")
+                }
+
+                it
+            } ?: throw InvalidUsecaseException("Category can't be updated because does not exists.")
     }
+    private fun isDuplication(previous: Category, actual: Category): Boolean =
+        previous.name == actual.name && previous.type == actual.type
+
+    private fun isEquals(previous: Category, actual: Category): Boolean =
+        previous.id == actual.id
 
 }

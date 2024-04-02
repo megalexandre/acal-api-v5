@@ -50,7 +50,7 @@ class CategoryDataSourceImpl(
     override fun save(t: Category): Category =
         repository.save(t.toDocument()).toEntity()
 
-    override fun save(t: List<Category>) {
+    override fun saveAll(t: List<Category>) {
         repository.saveAll(t.map { it.toDocument() })
     }
 

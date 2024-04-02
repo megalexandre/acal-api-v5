@@ -47,7 +47,7 @@ class AddressDataSourceImpl(
     override fun save(t: Address): Address =
         repository.save(t.toDocument()).toEntity()
 
-    override fun save(t: List<Address>) {
+    override fun saveAll(t: List<Address>) {
         repository.saveAll(t.map { it.toDocument() })
     }
 

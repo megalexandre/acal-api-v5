@@ -8,7 +8,6 @@ import br.org.acal.apicore.infrastructure.exception.InvalidUsecaseException
 import br.org.acal.apicore.infrastructure.info
 import org.springframework.stereotype.Service
 
-
 @Service
 class CustomerCreateUsecase(
     private val dataSource: CustomerDataSource

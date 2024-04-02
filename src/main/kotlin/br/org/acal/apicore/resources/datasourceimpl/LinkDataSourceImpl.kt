@@ -58,7 +58,7 @@ class LinkDataSourceImpl(
         repository.deleteById(id)
     }
 
-    override fun save(t: List<Link>) {
+    override fun saveAll(t: List<Link>) {
         repository.saveAll(t.map { it.toDocument() })
     }
 

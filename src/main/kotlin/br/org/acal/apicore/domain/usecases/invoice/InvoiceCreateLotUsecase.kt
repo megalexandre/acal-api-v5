@@ -22,7 +22,7 @@ class InvoiceCreateLotUsecase(
             throw InvalidUsecaseException("at least a invoice is not save")
         }
 
-        dataSource.save(input)
+        dataSource.saveAll(input)
     }
 
     private fun valid(invoice: Invoice): Boolean =

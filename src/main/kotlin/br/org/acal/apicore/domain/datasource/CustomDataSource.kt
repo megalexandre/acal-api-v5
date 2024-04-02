@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page
 
 interface CustomDataSource<T> {
     fun save(t: T): T
-    fun save(t: List<T>)
+    fun saveAll(t: List<T>)
     fun delete(id: String)
     fun findAll(): List<T>
     fun findById(id: String): T?

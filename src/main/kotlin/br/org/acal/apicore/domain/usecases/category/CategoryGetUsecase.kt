@@ -7,7 +7,6 @@ import br.org.acal.apicore.infrastructure.Sl4jLogger
 import br.org.acal.apicore.infrastructure.exception.DataNotFoundException
 import br.org.acal.apicore.infrastructure.info
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 
 
 @Service
@@ -15,7 +14,6 @@ class  CategoryGetUsecase(
     private val dataSource: CategoryDataSource
 ) : Usecase<String, Category>, Sl4jLogger() {
 
-    @Transactional
     override fun execute(input: String): Category =
         dataSource.findById(input) ?: throw DataNotFoundException("does not exists category with id: $input")
             .also {

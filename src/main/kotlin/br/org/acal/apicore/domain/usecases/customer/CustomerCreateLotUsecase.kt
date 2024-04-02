@@ -15,7 +15,7 @@ class CustomerCreateLotUsecase(
 
     @Transactional
     override fun execute(input: List<Customer>) {
-        dataSource.save(input)
+        dataSource.saveAll(input)
     }
 
 }

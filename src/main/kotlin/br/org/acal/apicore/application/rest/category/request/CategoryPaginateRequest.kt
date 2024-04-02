@@ -32,6 +32,7 @@ data class CategoryPaginateRequest (
         filter = CategoryFilterRequest(
             id = id,
             name = name,
+
             type = type,
         ).toEntity(),
 

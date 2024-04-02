@@ -52,7 +52,7 @@ class CustomerDataSourceImpl(
     override fun save(t: Customer): Customer =
         repository.save(t.toDocument()).toEntity()
 
-    override fun save(t: List<Customer>) {
+    override fun saveAll(t: List<Customer>) {
         repository.saveAll(t.map { it.toDocument() })
     }
 

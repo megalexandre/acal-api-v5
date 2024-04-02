@@ -54,7 +54,7 @@ class InvoiceDataSourceImpl(
     override fun save(t: Invoice): Invoice =
         repository.save(t.toDocument()).toEntity()
 
-    override fun save(t: List<Invoice>) {
+    override fun saveAll(t: List<Invoice>) {
         repository.saveAll(t.map { it.toDocument() })
     }
     override fun delete(id: String) {

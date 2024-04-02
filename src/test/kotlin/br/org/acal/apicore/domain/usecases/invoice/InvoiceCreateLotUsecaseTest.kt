@@ -32,7 +32,7 @@ class InvoiceCreateLotUsecaseTest {
     fun `when save a invoice first time by reference and link should do save`(){
         val invoice = invoiceStub
         every { dataSource.existsInvoiceForReferenceAndLink(invoice) } returns false
-        every { dataSource.save(any<List<Invoice>>()) } answers { invoice }
+        every { dataSource.saveAll(any<List<Invoice>>()) } answers { invoice }
 
         useCase.execute(listOf(invoice))
 
