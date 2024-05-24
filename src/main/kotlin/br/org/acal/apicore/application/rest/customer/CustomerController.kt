@@ -4,13 +4,12 @@ import br.org.acal.apicore.application.rest.customer.request.CustomerCreateReque
 import br.org.acal.apicore.application.rest.customer.request.CustomerFindByFilterRequest
 import br.org.acal.apicore.application.rest.customer.request.CustomerMigrateRequest
 import br.org.acal.apicore.application.rest.customer.request.CustomerPaginateByFilterRequest
-import br.org.acal.apicore.application.rest.customer.request.CustomerValidRequest
+import br.org.acal.apicore.application.rest.customer.request.CustomerUpdateRequest
 import br.org.acal.apicore.application.rest.customer.request.toEntity
 import br.org.acal.apicore.application.rest.customer.response.CustomerCreateResponse
 import br.org.acal.apicore.application.rest.customer.response.CustomerFindAllResponse
 import br.org.acal.apicore.application.rest.customer.response.CustomerGetResponse
 import br.org.acal.apicore.application.rest.customer.response.CustomerPaginateResponse
-import br.org.acal.apicore.application.rest.customer.response.CustomerValidationDocumentResponse
 import br.org.acal.apicore.common.util.ResponseEntityUtil.Companion.created
 import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffsetAndSort
 import br.org.acal.apicore.domain.dto.pagination.pages.SortField
@@ -20,6 +19,7 @@ import br.org.acal.apicore.domain.usecases.customer.CustomerFindAllByFilterUseca
 import br.org.acal.apicore.domain.usecases.customer.CustomerFindAllUsecase
 import br.org.acal.apicore.domain.usecases.customer.CustomerGetUsecase
 import br.org.acal.apicore.domain.usecases.customer.CustomerPaginateByFilterUsecase
+import br.org.acal.apicore.domain.usecases.customer.CustomerUpdateUsecase
 import br.org.acal.apicore.domain.usecases.customer.CustomerValidUsecase
 import br.org.acal.apicore.infrastructure.Sl4jLogger
 import br.org.acal.apicore.infrastructure.info
@@ -32,6 +32,7 @@ import org.springframework.http.ResponseEntity.ok
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -41,6 +42,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("customer", consumes = [APPLICATION_JSON_VALUE], produces = [APPLICATION_JSON_VALUE])
 class CustomerController(
     private val create: CustomerCreateUsecase,
+    private val update: CustomerUpdateUsecase,
     private val createLot: CustomerCreateLotUsecase,
     private val get: CustomerGetUsecase,
     private val findAll: CustomerFindAllUsecase,
@@ -48,10 +50,6 @@ class CustomerController(
     private val paginate: CustomerPaginateByFilterUsecase,
     private val valid: CustomerValidUsecase,
 ): Sl4jLogger() {
-
-    @PostMapping("valid")
-    fun valid(@Valid @RequestBody request: List<CustomerValidRequest>): ResponseEntity<CustomerValidationDocumentResponse> =
-        ok(CustomerValidationDocumentResponse(valid.execute(request.toEntity())))
 
     @GetMapping("paginate")
     fun paginateByFilter(
@@ -69,8 +67,12 @@ class CustomerController(
                 name = name,
                 documentNumber = documentNumber,
             ),
-            limitOffsetAndSort = LimitOffsetAndSort(offset = offset, size = size),
-            sortField = SortField(field = field, direction = direction),
+            limitOffsetAndSort = LimitOffsetAndSort(
+                offset = offset,
+                size = size,
+                sortField = SortField(field = field, direction = direction),
+            ),
+
         ).also {
             logger.info {
                 "Getting Paginate/ customer by: $it"
@@ -135,6 +137,16 @@ class CustomerController(
         )
     }
 
+    @PutMapping
+    fun update(@Valid @RequestBody request: CustomerUpdateRequest): ResponseEntity<CustomerCreateResponse> {
+        logger.info { "Updating Put/ customer $request" }
+        return created(
+            CustomerCreateResponse(update.execute(request.toEntity()).also {
+                logger.info { "Updated customer $it" }
+            })
+        )
+    }
+
     @PostMapping("lot")
     fun createLot(@Valid @RequestBody request: List<CustomerCreateRequest>) {
         logger.info { "Creating Post/ customer $request" }
@@ -146,5 +158,6 @@ class CustomerController(
         logger.info { "Creating Post/ customer $request" }
         createLot.execute(request.toEntity())
     }
+
 
 }

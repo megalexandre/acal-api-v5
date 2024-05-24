@@ -4,21 +4,24 @@ import br.org.acal.apicore.application.rest.category.request.CategoryCreateReque
 import br.org.acal.apicore.application.rest.category.request.CategoryFilterRequest
 import br.org.acal.apicore.application.rest.category.request.CategoryMigrateRequest
 import br.org.acal.apicore.application.rest.category.request.CategoryPaginateRequest
+import br.org.acal.apicore.application.rest.category.request.CategoryUpdateRequest
 import br.org.acal.apicore.application.rest.category.response.CategoryCreateResponse
 import br.org.acal.apicore.application.rest.category.response.CategoryFindResponse
 import br.org.acal.apicore.application.rest.category.response.CategoryGetResponse
 import br.org.acal.apicore.application.rest.category.response.CategoryPaginateResponse
+import br.org.acal.apicore.application.rest.category.response.CategoryUpdateResponse
 import br.org.acal.apicore.application.rest.components.validator.ulid.ULIDValidator
 import br.org.acal.apicore.common.enums.Fixtures.Companion.FIND
 import br.org.acal.apicore.common.enums.Fixtures.Companion.ID
 import br.org.acal.apicore.common.enums.Fixtures.Companion.MIGRATE
 import br.org.acal.apicore.common.enums.Fixtures.Companion.PAGINATE
 import br.org.acal.apicore.common.util.ResponseEntityUtil.Companion.created
-import br.org.acal.apicore.domain.entity.Category
 import br.org.acal.apicore.domain.usecases.category.CategoryCreateUsecase
+import br.org.acal.apicore.domain.usecases.category.CategoryDeleteUsecase
 import br.org.acal.apicore.domain.usecases.category.CategoryFindAllByFilterUsecase
 import br.org.acal.apicore.domain.usecases.category.CategoryGetUsecase
 import br.org.acal.apicore.domain.usecases.category.CategoryPaginateByFilterUsecase
+import br.org.acal.apicore.domain.usecases.category.CategoryUpdateUsecase
 import br.org.acal.apicore.infrastructure.Sl4jLogger
 import br.org.acal.apicore.infrastructure.info
 import jakarta.validation.Valid
@@ -26,9 +29,11 @@ import org.springframework.data.domain.Page
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.ok
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -38,6 +43,8 @@ import org.springframework.web.bind.annotation.RestController
 class CategoryController(
     private val get: CategoryGetUsecase,
     private val create: CategoryCreateUsecase,
+    private val delete: CategoryDeleteUsecase,
+    private val update: CategoryUpdateUsecase,
     private val paginate: CategoryPaginateByFilterUsecase,
     private val findAllByFilter: CategoryFindAllByFilterUsecase,
 ): Sl4jLogger() {
@@ -72,13 +79,19 @@ class CategoryController(
     }
 
     @PostMapping(MIGRATE)
-    fun migrate(@Valid @RequestBody request: CategoryMigrateRequest): ResponseEntity<Category> = run{
+    fun migrate(@Valid @RequestBody request: List<CategoryMigrateRequest>)= run{
         logger.info { "Migrating category $request" }
         created(
-            create.execute(request.toEntity())
+            request.map { create.execute( it.toEntity()) }
         ).also {
             logger.info { "Migrated category $it" }
         }
+    }
+
+    @DeleteMapping(ID)
+    fun delete(@Valid @PathVariable @ULIDValidator id: String){
+        logger.info { "Deleting category Get/$id" }
+        delete.execute(id)
     }
 
     @PostMapping
@@ -88,6 +101,15 @@ class CategoryController(
             CategoryCreateResponse(create.execute(request.toEntity()))).also {
                 logger.info { "Posted category $it" }
             }
+    }
+
+    @PutMapping
+    fun update(@Valid @RequestBody request: CategoryUpdateRequest): ResponseEntity<CategoryUpdateResponse> = run {
+        logger.info { "Putting category $request" }
+        created(
+            CategoryUpdateResponse(update.execute(request.toEntity()))).also {
+            logger.info { "Putted category $it" }
+        }
     }
 
 }

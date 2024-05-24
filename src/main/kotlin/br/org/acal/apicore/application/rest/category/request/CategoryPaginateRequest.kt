@@ -14,6 +14,8 @@ data class CategoryPaginateRequest (
     @RequestParam(required = false) val id: String?,
     @RequestParam(required = false) val name: String?,
     @RequestParam(required = false) val type: String?,
+    @RequestParam(required = false) val water: String?,
+    @RequestParam(required = false) val partner: String?,
 
     @RequestParam(required = false) val offset: Int?,
     @RequestParam(required = false) val size: Int?,
@@ -32,15 +34,15 @@ data class CategoryPaginateRequest (
         filter = CategoryFilterRequest(
             id = id,
             name = name,
-
             type = type,
+            water = water,
+            partner = partner,
         ).toEntity(),
 
         limitOffsetAndSort = LimitOffsetAndSort(
             offset = offset,
             size = size,
-            field = field ?: "id",
-            direction = DirectionUtil.of(direction)
+            sortField = SortField(field = field ?: "id", direction = DirectionUtil.of(direction))
         )
     )
 

@@ -16,7 +16,10 @@ abstract class PaginateAndSortQuery<T: DefaultFilter> {
         PageRequest.of(
             limitOffsetAndSort.offset ?: 0,
             limitOffsetAndSort.size ?: 10,
-            Sort.by(limitOffsetAndSort.direction, limitOffsetAndSort.field)
+            Sort.by(
+                limitOffsetAndSort.sortField?.direction ?: ASC,
+                limitOffsetAndSort.sortField?.field ?: id
+            )
 
         )
 

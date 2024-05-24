@@ -8,6 +8,8 @@ class CategoryFilter(
     val id: String? = null,
     val name: String? = null,
     val type: CategoryType? = null,
+    val water: String ?= null,
+    val partner: String ?= null,
 
 ): DefaultFilter
 

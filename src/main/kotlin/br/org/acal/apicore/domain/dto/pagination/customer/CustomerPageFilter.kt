@@ -9,4 +9,5 @@ class CustomerPageFilter(
     override val filter: CustomerFilter? = null,
     override val limitOffsetAndSort: LimitOffsetAndSort? = null,
     override val sortField: SortField? = null,
+
 ): PageFilter(limitOffsetAndSort, sortField)

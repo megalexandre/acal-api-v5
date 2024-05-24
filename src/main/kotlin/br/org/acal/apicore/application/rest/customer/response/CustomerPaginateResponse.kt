@@ -6,11 +6,13 @@ data class CustomerPaginateResponse (
     val id: String,
     val name: String,
     val documentNumber: String,
+    val active: Boolean,
 ) {
     constructor(customer: Customer) : this(
         id = customer.id,
         name = customer.name,
         documentNumber = customer.documentNumber.number,
+        active = customer.active
     )
 }
 

@@ -12,7 +12,7 @@ import java.math.BigDecimal
 import org.springframework.validation.annotation.Validated
 
 @Validated
-data class CategoryCreateRequest (
+data class CategoryUpdateRequest (
 
     @ULIDValidator
     val id: String,
@@ -24,7 +24,6 @@ data class CategoryCreateRequest (
     val values: List<CategoryCreateValuesRequest>,
 
 ): RequestAdapter<Category> {
-
     override fun toEntity(): Category = Category(
         id = id,
         name = name,
@@ -34,9 +33,7 @@ data class CategoryCreateRequest (
 }
 
 @Validated
-data class CategoryCreateValuesRequest(
+data class CategoryUpdateValuesRequest(
     val name: String,
     val value: BigDecimal,
 )
-
-fun List<CategoryCreateRequest>.toEntity(): List<Category> = map { it.toEntity() }

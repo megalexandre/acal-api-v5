@@ -11,9 +11,11 @@ import io.azam.ulidj.ULID
 import java.math.BigDecimal
 
 val categoryCreateStub = CategoryCreateRequest(
+    id = "1",
     name = "Sócio Efetivo",
     type = CategoryType.EFFECTIVE,
     values = listOf(
+
         CategoryCreateValuesRequest(
             name = "Water",
             value = BigDecimal.TEN
@@ -46,7 +48,10 @@ val categoryDocumentStub = CategoryDocument(
     id = ULID.random(),
     name = "Residente",
     type = CategoryType.EFFECTIVE,
-    values =
+
+    partner =  BigDecimal.TEN,
+    water = BigDecimal.TEN,
+        values =
     listOf(
         CategoryValuesDocument(
             name = "WATER",

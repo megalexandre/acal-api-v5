@@ -14,6 +14,8 @@ data class CategoryDocument (
     val type: CategoryType,
     val values: List<CategoryValuesDocument>,
 
+    val water: BigDecimal,
+    val partner: BigDecimal,
 )
 
 data class CategoryValuesDocument(

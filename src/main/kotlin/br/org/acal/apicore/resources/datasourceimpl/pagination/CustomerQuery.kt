@@ -2,7 +2,6 @@ package br.org.acal.apicore.resources.datasourceimpl.pagination
 
 
 import br.org.acal.apicore.domain.dto.pagination.customer.CustomerFilter
-import br.org.acal.apicore.domain.dto.pagination.link.LinkFilter
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
 
@@ -13,12 +12,27 @@ class CustomerQuery: PaginateAndSortQuery<CustomerFilter>() {
 
             if (!id.isNullOrEmpty()) {
                 addCriteria(
-                    Criteria
-                        .where("id").`is`(id)
+                    Criteria.where("id").`is`(id)
                 )
             }
 
-        }}
+            name?.let {
+                addCriteria(
+                    Criteria
+                        .where("name").regex("^$name", "i")
+                )
+            }
+
+            documentNumber?.let {
+                addCriteria(
+                    Criteria
+                        .where("documentNumber").regex("^$documentNumber", "i")
+                )
+            }
+
+        }
+
+        }
     }
 
 }

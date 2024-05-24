@@ -7,7 +7,9 @@ enum class CategoryType(val value: String) {
     TEMPORARY("Temporário");
 
     companion object{
-        fun get(value: String?): CategoryType? = entries.find { it.value.lowercase() == value?.lowercase() }
+        fun get(value: String?): CategoryType? =
+            entries.find { it.value.lowercase() == value?.lowercase() } ?:
+            entries.find { it.name.lowercase() == value?.lowercase() }
     }
 
 }

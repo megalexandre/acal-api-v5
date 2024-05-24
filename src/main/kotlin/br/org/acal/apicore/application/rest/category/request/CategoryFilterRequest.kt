@@ -10,6 +10,8 @@ class CategoryFilterRequest(
     @RequestParam(required = false) val id: String?,
     @RequestParam(required = false) val name: String?,
     @RequestParam(required = false) val type: String?,
+    @RequestParam(required = false) val water: String?,
+    @RequestParam(required = false) val partner: String?,
 
     ): RequestAdapter<CategoryFilter> {
 
@@ -17,6 +19,8 @@ class CategoryFilterRequest(
         id = id,
         name = name,
         type = get(type),
+        water = water,
+        partner = partner,
     )
 }
 

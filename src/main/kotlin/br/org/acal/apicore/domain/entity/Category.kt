@@ -5,11 +5,12 @@ import br.org.acal.apicore.common.util.sum
 import java.math.BigDecimal
 
 data class Category (
-
     val id: String,
     val name: String,
     val type: CategoryType,
     val values: List<CategoryValues>,
+
+
 ){
     val total: BigDecimal
         get() = values.map { it.value }.sum()

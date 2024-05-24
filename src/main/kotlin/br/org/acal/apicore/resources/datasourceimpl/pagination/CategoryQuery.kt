@@ -1,6 +1,8 @@
 package br.org.acal.apicore.resources.datasourceimpl.pagination
 
 
+import br.org.acal.apicore.common.enums.CategoryValueType.PARTNER
+import br.org.acal.apicore.common.enums.CategoryValueType.WATER
 import br.org.acal.apicore.domain.dto.pagination.category.CategoryFilter
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
@@ -24,13 +26,24 @@ class CategoryQuery: PaginateAndSortQuery<CategoryFilter>() {
                 )
             }
 
-            if (name != null) {
+            name?.let {
                 addCriteria(
                     Criteria
-                        .where("name").`is`(name)
+                        .where("name").regex("^$name", "i")
                 )
             }
 
+            water?.let {
+                addCriteria(
+                    Criteria.where(WATER.name.lowercase()).`is`(water)
+                )
+            }
+
+            partner?.let {
+                addCriteria(
+                    Criteria.where(PARTNER.name.lowercase()).`is`(partner)
+                )
+            }
         }}
     }
 

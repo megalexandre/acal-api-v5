@@ -15,10 +15,6 @@ inline fun Logger.error(lambda: () -> String) {
     }
 }
 
-
-
 abstract class Sl4jLogger {
-
     protected val logger: Logger = LoggerFactory.getLogger(javaClass)
-
 }
