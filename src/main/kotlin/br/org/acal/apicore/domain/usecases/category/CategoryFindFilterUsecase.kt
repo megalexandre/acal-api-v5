@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 
 
 @Service
-class CategoryFindAllByFilterUsecase(
+class CategoryFindFilterUsecase(
     private val dataSource: CategoryDataSource
 ) : Usecase<CategoryFilter, List<Category>> {
 

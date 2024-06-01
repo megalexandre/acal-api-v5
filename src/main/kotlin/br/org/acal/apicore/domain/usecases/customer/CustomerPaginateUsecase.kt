@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 
 
 @Service
-class CustomerPaginateByFilterUsecase(
+class CustomerPaginateUsecase(
     private val dataSource: CustomerDataSource
 ) : Usecase<CustomerPageFilter, Page<Customer>> {
 

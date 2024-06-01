@@ -18,7 +18,7 @@ import br.org.acal.apicore.common.enums.Fixtures.Companion.PAGINATE
 import br.org.acal.apicore.common.util.ResponseEntityUtil.Companion.created
 import br.org.acal.apicore.domain.usecases.category.CategoryCreateUsecase
 import br.org.acal.apicore.domain.usecases.category.CategoryDeleteUsecase
-import br.org.acal.apicore.domain.usecases.category.CategoryFindAllByFilterUsecase
+import br.org.acal.apicore.domain.usecases.category.CategoryFindFilterUsecase
 import br.org.acal.apicore.domain.usecases.category.CategoryGetUsecase
 import br.org.acal.apicore.domain.usecases.category.CategoryPaginateByFilterUsecase
 import br.org.acal.apicore.domain.usecases.category.CategoryUpdateUsecase
@@ -46,7 +46,7 @@ class CategoryController(
     private val delete: CategoryDeleteUsecase,
     private val update: CategoryUpdateUsecase,
     private val paginate: CategoryPaginateByFilterUsecase,
-    private val findAllByFilter: CategoryFindAllByFilterUsecase,
+    private val findAllByFilter: CategoryFindFilterUsecase,
 ): Sl4jLogger() {
 
     @GetMapping(PAGINATE)
