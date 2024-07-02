@@ -10,11 +10,7 @@ import org.springframework.validation.annotation.Validated
 data class AddressCreateRequest (
 
     val id: String?,
-    val area: Area?,
-
-    val areaId: String?,
-    val areaName: String?,
-
+    val area: AreaRequest?,
     val number: String,
     val letter: String?,
     val hasHydrometer: Boolean?,
@@ -27,9 +23,17 @@ data class AddressCreateRequest (
         number = number,
         letter = letter ?: "A",
         hasHydrometer = hasHydrometer ?: true,
-        area = area ?: Area(id = areaId ?: throw RuntimeException(), name = areaName ?: throw RuntimeException()),
+        area = area?.toArea() ?: throw RuntimeException(),
         active = active ?: true,
     )
 }
+
+data class AreaRequest(
+    val id: String,
+    val name: String,
+) {
+    fun toArea(): Area = Area(id = id, name = name)
+}
+
 
 fun List<AddressCreateRequest>.toEntity(): List<Address> = map { it.toEntity() }

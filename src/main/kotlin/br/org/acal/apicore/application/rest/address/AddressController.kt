@@ -5,11 +5,15 @@ import br.org.acal.apicore.application.rest.address.request.AddressFilterRequest
 import br.org.acal.apicore.application.rest.address.request.AreaPaginateRequestFilter
 import br.org.acal.apicore.application.rest.address.request.toEntity
 import br.org.acal.apicore.application.rest.address.response.AddressFindAllResponse
+import br.org.acal.apicore.application.rest.address.response.AddressFindByIdResponse
 import br.org.acal.apicore.application.rest.address.response.AddressPaginateResponse
+import br.org.acal.apicore.application.rest.components.validator.ulid.ULIDValidator
+import br.org.acal.apicore.common.enums.Fixtures.Companion.ID
 import br.org.acal.apicore.common.util.ResponseEntityUtil.Companion.created
 import br.org.acal.apicore.domain.entity.Address
 import br.org.acal.apicore.domain.usecases.address.AddressCreateLotUsecase
 import br.org.acal.apicore.domain.usecases.address.AddressCreateUsecase
+import br.org.acal.apicore.domain.usecases.address.AddressFindByIdUsecase
 import br.org.acal.apicore.domain.usecases.address.AddressFindFilterUsecase
 import br.org.acal.apicore.domain.usecases.address.AddressPaginateUsecase
 import br.org.acal.apicore.infrastructure.Sl4jLogger
@@ -18,7 +22,9 @@ import jakarta.validation.Valid
 import org.springframework.data.domain.Page
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.http.ResponseEntity
+import org.springframework.http.ResponseEntity.ok
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -31,6 +37,7 @@ class AddressController(
     private val createLot: AddressCreateLotUsecase,
     private val findAll: AddressFindFilterUsecase,
     private val paginate: AddressPaginateUsecase,
+    private val findById: AddressFindByIdUsecase
 ): Sl4jLogger() {
 
     @PostMapping
@@ -45,15 +52,13 @@ class AddressController(
 
      @GetMapping("paginate")
      fun paginateByFilter(
-         areaPaginateRequestFilter: AreaPaginateRequestFilter
-     ): ResponseEntity<Page<AddressPaginateResponse>> {
-         return ResponseEntity.ok(
-             paginate.execute(areaPaginateRequestFilter.toAreaPaginateRequest())
-                    .map { AddressPaginateResponse(it) }.also {
-                 logger.info { "Returning customer /paginate $it" }
-             }
-         )
-     }
+         @Valid request: AreaPaginateRequestFilter
+     ): ResponseEntity<Page<AddressPaginateResponse>> = ok(
+         paginate.execute(request.toAreaPaginateRequest())
+             .map { AddressPaginateResponse(it) }.also {
+             logger.info { "Returning customer /paginate $it" }
+         }
+     )
 
      @GetMapping("/find")
      fun findAllByFilter(
@@ -63,13 +68,18 @@ class AddressController(
              "Querying customer Post/address find by $addressFilterRequest"
          }
 
-         return ResponseEntity.ok(
+         return ok(
              findAll.execute(addressFilterRequest.toAddressFilter()).map { AddressFindAllResponse(it) }
                  .also {
                      logger.info { "Returning customer /find ${it.size}" }
                  }
          )
      }
+
+    @GetMapping(ID)
+    fun get(@Valid @PathVariable @ULIDValidator id: String): ResponseEntity<AddressFindByIdResponse> = run {
+        ok(AddressFindByIdResponse(findById.execute(id)))
+    }
 
 }
 

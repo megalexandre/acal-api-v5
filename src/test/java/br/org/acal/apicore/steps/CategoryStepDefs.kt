@@ -4,6 +4,7 @@ import br.org.acal.apicore.application.rest.category.request.CategoryCreateValue
 import br.org.acal.apicore.common.enums.CategoryType
 import br.org.acal.apicore.resources.document.adapter.toDocument
 import br.org.acal.apicore.resources.document.adapter.toEntity
+import io.cucumber.java.en.And
 import io.cucumber.java.en.Given
 import io.cucumber.java.en.Then
 import io.cucumber.java.en.When
@@ -59,5 +60,32 @@ class CategoryStepDefs: RestStepDefs() {
     @When("i query paginate")
     fun iQueryPaginate() {
         stepShared.response = executeGet("category/paginate")
+    }
+
+    @Given("database has category with id {string}")
+    fun databaseHasCategoryWithId(id: String) {
+        super.resetDatabase()
+        categoryRepository.save(categoryStub.copy(id = id).toDocument())
+    }
+
+    @When("delete category by {string}")
+    fun deleteCategoryBy(id: String) {
+        stepShared.response = executeDelete("category", id)
+    }
+
+    @And("database should has none category")
+    fun databaseShouldHasNoneCategory() {
+        assertEquals(0, categoryRepository.count())
+    }
+
+    @Given("database has no data")
+    fun databaseHasNoData() {
+        super.resetDatabase()
+    }
+
+    @When("I find category by id {string}")
+    fun iFindCategoryById(id: String) {
+        stepShared.response = executeGet("category/$id")
+
     }
 }

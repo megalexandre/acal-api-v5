@@ -4,6 +4,6 @@ enum class PersonType {
 
     LEGAL,
     INDIVIDUAL,
-    UNKNOWN,
+    UNKNOWN
     
 }

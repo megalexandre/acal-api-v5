@@ -1,6 +1,7 @@
 package br.org.acal.apicore.domain.entity
 
 import br.org.acal.apicore.common.util.LocalDateUtil.Companion.now
+import br.org.acal.apicore.domain.constants.Constants.LIMIT_OFF_DAYS_BEFORE_CANCELLATION
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -15,10 +16,6 @@ data class Invoice(
     val linkId: String,
     val invoiceDetails: List<InvoiceDetail>,
 ) {
-
-    companion object{
-        private const val LIMIT_OFF_DAYS_BEFORE_CANCELLATION = 59
-    }
 
     init {
         require(invoiceDetails.isNotEmpty()){

@@ -3,9 +3,9 @@ package br.org.acal.apicore.application.rest.address.response
 import br.org.acal.apicore.domain.entity.Address
 import br.org.acal.apicore.domain.entity.Area
 
-data class AddressPaginateResponse (
+data class AddressFindByIdResponse (
     val id: String,
-    val area: AreaResponse,
+    val area: Area,
     val number: String,
     val letter: String,
     val hasHydrometer: Boolean,
@@ -13,7 +13,7 @@ data class AddressPaginateResponse (
 ) {
     constructor(address: Address) : this(
         id = address.id,
-        area = AreaResponse.of(area = address.area),
+        area = address.area,
         number = address.number,
         letter = address.letter,
         hasHydrometer = address.hasHydrometer,
@@ -21,12 +21,5 @@ data class AddressPaginateResponse (
     )
 }
 
-data class AreaResponse(
-    val id: String,
-    val name: String,
-){
-    companion object{
-       fun of(area: Area): AreaResponse = AreaResponse(area.id, area.name)
-    }
 
-}
+

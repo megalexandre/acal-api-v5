@@ -1,14 +1,25 @@
 package br.org.acal.apicore.domain.entity
 
 data class CNPJ(
-    val number: String
+   val value: String
 ){
     companion object {
         private const val MAXIMUM_SIZE = 2
+        private const val CNPJ_SIZE = 14
+        private const val CHARACTER_COMPLETE = '0'
     }
 
+    val number: String
+        get() = when(number.length){
+            CNPJ_SIZE -> value
+            else -> value.padStart(CNPJ_SIZE, CHARACTER_COMPLETE)
+        }
+
     val valid: Boolean
-        get() = isValidCNPJ(number)
+        get() = isValidCNPJ(value)
+
+    val notValid: Boolean
+        get() = !isValidCNPJ(value)
 
     private fun isValidCNPJ(cnpj: String): Boolean {
         if (cnpj.length != 14) return false
@@ -39,8 +50,8 @@ data class CNPJ(
         return if (remainder < 2) 0 else 11 - remainder
     }
 
-    override fun toString(): String = when (number.length > MAXIMUM_SIZE) {
-        true ->  number.substring(0, MAXIMUM_SIZE) + "*".repeat(number.length - MAXIMUM_SIZE)
-        false -> number
+    override fun toString(): String = when (value.length > MAXIMUM_SIZE) {
+        true ->  value.substring(0, MAXIMUM_SIZE) + "*".repeat(value.length - MAXIMUM_SIZE)
+        false -> value
     }
 }

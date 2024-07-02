@@ -9,8 +9,6 @@ data class Category (
     val name: String,
     val type: CategoryType,
     val values: List<CategoryValues>,
-
-
 ){
     val total: BigDecimal
         get() = values.map { it.value }.sum()

@@ -15,7 +15,7 @@ data class Reference(
 
         fun of(value: String): Reference =
             runCatching {
-                val (year, month )= value.split(SEPARATOR).map { it.toInt() }
+                val (year, month)= value.split(SEPARATOR).map { it.toInt() }
 
                 Reference(
                     year = Year.of(year),
@@ -26,7 +26,6 @@ data class Reference(
                 throw RuntimeException("this $value is not a valid reference")
             }
     }
-
 
     val value: String
         get() = year.value.toString().padStart(YEAR_PAD_SIZE, PAD_CHAR) + SEPARATOR +

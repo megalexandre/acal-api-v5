@@ -7,6 +7,7 @@ import br.org.acal.apicore.application.rest.components.validator.ulid.ULIDValida
 import br.org.acal.apicore.common.enums.CategoryType
 import br.org.acal.apicore.domain.entity.Category
 import br.org.acal.apicore.domain.entity.CategoryValues
+import io.azam.ulidj.ULID.random
 import jakarta.validation.Valid
 import java.math.BigDecimal
 import org.springframework.validation.annotation.Validated
@@ -15,7 +16,7 @@ import org.springframework.validation.annotation.Validated
 data class CategoryCreateRequest (
 
     @ULIDValidator
-    val id: String,
+    val id: String?,
     val name: String,
     val type: CategoryType,
     @Valid
@@ -26,7 +27,7 @@ data class CategoryCreateRequest (
 ): RequestAdapter<Category> {
 
     override fun toEntity(): Category = Category(
-        id = id,
+        id = id ?: random(),
         name = name,
         type = type,
         values = values.map { CategoryValues(name = it.name, value = it.value ) }

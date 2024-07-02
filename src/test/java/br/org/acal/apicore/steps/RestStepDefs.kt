@@ -30,4 +30,15 @@ class RestStepDefs: SpringIT() {
         }
     }
 
+    fun executeDelete(url: String, id: String): Response {
+        val header = mutableMapOf<String, String>()
+        header["Content-Type"] = "application/json"
+
+        return Given {
+            headers(header)
+        } When {
+            delete("http://localhost:$serverPort/$url/$id")
+        }
+    }
+
 }

@@ -1,21 +1,32 @@
 package br.org.acal.apicore.domain.entity
 
 data class CPF(
-    val number: String
+    val value: String
 ){
     companion object{
         private const val MAXIMUM_SIZE = 3
         private const val CPF_SIZE = 11
         private const val CPF_REGEX = "[^0-9]"
         private const val EMPTY = ""
+        private const val CHARACTER_COMPLETE = '0'
     }
 
+    val number: String
+        get() = when(value.length){
+            CPF_SIZE -> value
+            else -> value.padStart(CPF_SIZE, CHARACTER_COMPLETE)
+        }
+
     val valid: Boolean
-        get() = this.validCPF()
+        get() = this.isValidCPF()
 
-    private fun validCPF(): Boolean {
+    val notValid: Boolean
+        get() = !this.isValidCPF()
 
-        val clean: String = number.replace(CPF_REGEX.toRegex(), EMPTY).also {
+
+    private fun isValidCPF(): Boolean {
+
+        val clean: String = value.replace(CPF_REGEX.toRegex(), EMPTY).also {
 
             if (it.length != CPF_SIZE) {
                 return false
@@ -37,8 +48,8 @@ data class CPF(
         return if (digit < 2) 0 else 11 - digit
     }
 
-    override fun toString(): String = when(number.length > MAXIMUM_SIZE){
-        true ->  number.substring(0, MAXIMUM_SIZE) + "*".repeat(number.length - MAXIMUM_SIZE)
-        false -> number
+    override fun toString(): String = when(value.length > MAXIMUM_SIZE){
+        true ->  value.substring(0, MAXIMUM_SIZE) + "*".repeat(value.length - MAXIMUM_SIZE)
+        false -> value
     }
 }
