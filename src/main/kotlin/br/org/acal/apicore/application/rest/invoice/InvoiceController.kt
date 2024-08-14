@@ -1,7 +1,7 @@
 package br.org.acal.apicore.application.rest.invoice
 
-import br.org.acal.apicore.application.rest.components.validator.reference.ReferenceValid
-import br.org.acal.apicore.application.rest.components.validator.ulid.ULIDValidator
+import br.org.acal.apicore.application.components.validator.reference.ReferenceValid
+import br.org.acal.apicore.application.components.validator.ulid.ULIDValidator
 import br.org.acal.apicore.application.rest.invoice.request.InvoiceCreateRequest
 import br.org.acal.apicore.application.rest.invoice.request.InvoiceMigrateRequest
 import br.org.acal.apicore.application.rest.invoice.request.toEntity

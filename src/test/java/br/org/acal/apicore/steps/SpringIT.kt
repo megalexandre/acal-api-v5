@@ -4,6 +4,7 @@ import adapter.LocalDateTimeTypeAdapter
 import adapter.LocalDateTypeAdapter
 import br.org.acal.apicore.ApiCoreApplication
 import br.org.acal.apicore.MongoDBTestContainerConfig
+import br.org.acal.apicore.resources.repository.AddressRepository
 import br.org.acal.apicore.resources.repository.CategoryRepository
 import br.org.acal.apicore.resources.repository.InvoiceRepository
 import br.org.acal.apicore.resources.repository.LinkRepository
@@ -39,6 +40,9 @@ class SpringIT {
     lateinit var categoryRepository: CategoryRepository
 
     @Autowired
+    lateinit var addressRepository: AddressRepository
+
+    @Autowired
     lateinit var invoiceRepository: InvoiceRepository
 
     @Autowired
@@ -66,7 +70,7 @@ class SpringIT {
         linkRepository.deleteAll()
     }
 
-    val gson: Gson = GsonBuilder() //2024-03-08T17:23:20.0975182
+    val gson: Gson = GsonBuilder()
         .registerTypeAdapter(LocalDate::class.java, LocalDateTypeAdapter())
         .registerTypeAdapter(LocalDateTime::class.java, LocalDateTimeTypeAdapter())
         .create()

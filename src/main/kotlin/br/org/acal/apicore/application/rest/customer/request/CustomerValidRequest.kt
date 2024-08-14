@@ -1,6 +1,5 @@
 package br.org.acal.apicore.application.rest.customer.request
 
-import br.org.acal.apicore.application.rest.components.adapter.RequestAdapter
 import br.org.acal.apicore.domain.entity.Customer
 import br.org.acal.apicore.domain.entity.DocumentNumber
 import br.org.acal.apicore.domain.entity.PhoneNumber
@@ -16,9 +15,9 @@ data class CustomerValidRequest (
     val document: String,
     val phoneNumbers: List<PhoneNumber>?,
 
-    ): RequestAdapter<Customer> {
+    ){
 
-    override fun toEntity(): Customer = Customer(
+    fun toEntity(): Customer = Customer(
         id = id,
         name = name,
         documentNumber = DocumentNumber(document),

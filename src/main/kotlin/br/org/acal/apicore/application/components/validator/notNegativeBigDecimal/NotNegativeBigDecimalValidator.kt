@@ -1,4 +1,4 @@
-package br.org.acal.apicore.application.rest.components.validator.notNegativeBigDecimal
+package br.org.acal.apicore.application.components.validator.notNegativeBigDecimal
 
 import jakarta.validation.ConstraintValidator
 import jakarta.validation.ConstraintValidatorContext

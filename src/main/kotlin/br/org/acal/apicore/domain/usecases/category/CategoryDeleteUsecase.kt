@@ -15,5 +15,4 @@ class  CategoryDeleteUsecase(
         dataSource.delete(input)
     }
 
-
 }

@@ -3,7 +3,9 @@ package br.org.acal.apicore.domain.usecases.invoice
 import br.org.acal.apicore.domain.datasource.InvoiceDataSource
 import br.org.acal.apicore.domain.entity.Invoice
 import br.org.acal.apicore.infrastructure.exception.InvalidUsecaseException
+import io.mockk.Runs
 import io.mockk.every
+import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -32,7 +34,7 @@ class InvoiceCreateLotUsecaseTest {
     fun `when save a invoice first time by reference and link should do save`(){
         val invoice = invoiceStub
         every { dataSource.existsInvoiceForReferenceAndLink(invoice) } returns false
-        every { dataSource.saveAll(any<List<Invoice>>()) } answers { invoice }
+        every { dataSource.saveAll(any<List<Invoice>>()) } just Runs
 
         useCase.execute(listOf(invoice))
 

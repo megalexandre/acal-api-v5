@@ -1,4 +1,4 @@
-package br.org.acal.apicore.application.rest.components.validator.phoneNumber
+package br.org.acal.apicore.application.components.validator.invoiceNumber
 
 import jakarta.validation.Constraint
 import jakarta.validation.Payload
@@ -10,9 +10,9 @@ import kotlin.reflect.KClass
 @MustBeDocumented
 @Target(FIELD, FUNCTION)
 @Retention(RUNTIME)
-@Constraint(validatedBy = [ValidPhoneNumber::class])
-annotation class PhoneNumberValidator(
-    val message: String = "Invalid phone number",
+@Constraint(validatedBy = [InvoiceNumberConstraint::class])
+annotation class InvoiceNumberValidator(
+    val message: String = "{}",
     val groups: Array<KClass<*>> = [],
     val payload: Array<KClass<out Payload>> = []
 )

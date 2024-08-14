@@ -28,7 +28,7 @@ class CategoryCreateUsecaseTest{
     @Test
     fun whenCategoryIsAlreadySaveShouldThrowException() {
         val category = categoryStub
-        every { dataSource.findByNameAndType(name = category.name, type = category.type) } returns categoryStub
+        every { dataSource.findByNameAndType(name = category.name, type = category.type) } returns listOf(categoryStub)
 
         val error = assertThrows<InvalidUsecaseException> {
             usecase.execute(category)

@@ -1,9 +1,8 @@
 package br.org.acal.apicore.application.rest.category.request
 
-import br.org.acal.apicore.application.rest.components.adapter.RequestAdapter
-import br.org.acal.apicore.application.rest.components.validator.catetoryvalues.CategoryValuesNotNegative
-import br.org.acal.apicore.application.rest.components.validator.notemptylist.NotEmptyList
-import br.org.acal.apicore.application.rest.components.validator.ulid.ULIDValidator
+import br.org.acal.apicore.application.components.validator.catetoryvalues.CategoryValuesNotNegative
+import br.org.acal.apicore.application.components.validator.notemptylist.NotEmptyList
+import br.org.acal.apicore.application.components.validator.ulid.ULIDValidator
 import br.org.acal.apicore.common.enums.CategoryType
 import br.org.acal.apicore.domain.entity.Category
 import br.org.acal.apicore.domain.entity.CategoryValues
@@ -24,9 +23,9 @@ data class CategoryCreateRequest (
     @CategoryValuesNotNegative
     val values: List<CategoryCreateValuesRequest>,
 
-): RequestAdapter<Category> {
+) {
 
-    override fun toEntity(): Category = Category(
+    fun toEntity(): Category = Category(
         id = id ?: random(),
         name = name,
         type = type,

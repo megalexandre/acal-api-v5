@@ -1,4 +1,4 @@
-package br.org.acal.apicore.application.rest.components.validator.ulid
+package br.org.acal.apicore.application.components.validator.ulid
 
 import jakarta.validation.Constraint
 import jakarta.validation.Payload

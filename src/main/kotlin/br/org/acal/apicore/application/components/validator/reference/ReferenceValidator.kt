@@ -1,4 +1,4 @@
-package br.org.acal.apicore.application.rest.components.validator.reference
+package br.org.acal.apicore.application.components.validator.reference
 
 import br.org.acal.apicore.domain.entity.Reference
 import jakarta.validation.ConstraintValidator

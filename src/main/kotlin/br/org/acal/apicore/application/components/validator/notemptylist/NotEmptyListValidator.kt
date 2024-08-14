@@ -1,4 +1,4 @@
-package br.org.acal.apicore.application.rest.components.validator.notemptylist
+package br.org.acal.apicore.application.components.validator.notemptylist
 
 import jakarta.validation.ConstraintValidator
 import jakarta.validation.ConstraintValidatorContext

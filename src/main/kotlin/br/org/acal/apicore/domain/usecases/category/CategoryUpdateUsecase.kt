@@ -21,7 +21,7 @@ class  CategoryUpdateUsecase(
     }
 
     private fun valid(actual: Category){
-        dataSource.findByNameAndType(actual.name.trim(), actual.type)
+        dataSource.findByNameAndType(actual.name.trim(), actual.type)?.first()
             ?.let {
 
                 if(!isEquals(it, actual) && isDuplication(it, actual)){

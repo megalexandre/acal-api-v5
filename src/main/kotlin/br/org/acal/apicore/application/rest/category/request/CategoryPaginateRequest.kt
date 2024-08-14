@@ -1,6 +1,5 @@
 package br.org.acal.apicore.application.rest.category.request
 
-import br.org.acal.apicore.application.rest.components.adapter.RequestAdapter
 import br.org.acal.apicore.common.util.DirectionUtil
 import br.org.acal.apicore.domain.dto.pagination.category.CategoryPageFilter
 import br.org.acal.apicore.domain.dto.pagination.pages.LimitOffsetAndSort
@@ -27,9 +26,9 @@ data class CategoryPaginateRequest (
     private val limitOffsetAndSort: LimitOffsetAndSort? = null,
     private val sortField: SortField? = null,
 
-    ): RequestAdapter<CategoryPageFilter> {
+    ){
 
-    override fun toEntity(): CategoryPageFilter = CategoryPageFilter(
+    fun toEntity(): CategoryPageFilter = CategoryPageFilter(
 
         filter = CategoryFilterRequest(
             id = id,

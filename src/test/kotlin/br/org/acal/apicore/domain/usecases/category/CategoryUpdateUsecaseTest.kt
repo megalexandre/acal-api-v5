@@ -36,7 +36,7 @@ class CategoryUpdateUsecaseTest{
         val categoryOriginal = categoryStub.copy(id = ULID.random())
         val categoryNewVersion = categoryStub.copy(id = ULID.random())
 
-        every { dataSource.findByNameAndType(name = categoryOriginal.name, type = categoryOriginal.type) } returns categoryOriginal
+        every { dataSource.findByNameAndType(name = categoryOriginal.name, type = categoryOriginal.type) } returns listOf(categoryOriginal)
 
         val error = assertThrows<InvalidUsecaseException> {
             usecase.execute(categoryNewVersion)
@@ -50,7 +50,7 @@ class CategoryUpdateUsecaseTest{
     fun whenCategoryExistsAndHasSameIdShouldIgnoreDuplications(){
         val category = categoryStub.copy(id = ULID.random())
 
-        every { dataSource.findByNameAndType(name = category.name, type = category.type) } returns category
+        every { dataSource.findByNameAndType(name = category.name, type = category.type) } returns listOf(category)
         every { dataSource.save(category) } returns category
 
         usecase.execute(category)

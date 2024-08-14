@@ -7,7 +7,9 @@ import br.org.acal.apicore.domain.entity.CategoryValues
 import br.org.acal.apicore.resources.document.CategoryDocument
 import br.org.acal.apicore.resources.document.CategoryValuesDocument
 import java.math.BigDecimal.ZERO
+import org.mapstruct.Mapper
 import org.springframework.data.domain.Page
+
 
 fun Category.toDocument() = CategoryDocument(
     id = id,

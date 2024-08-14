@@ -1,6 +1,6 @@
 package br.org.acal.apicore.application.rest.customer
 
-import br.org.acal.apicore.application.rest.components.validator.ulid.ULIDValidator
+import br.org.acal.apicore.application.components.validator.ulid.ULIDValidator
 import br.org.acal.apicore.application.rest.customer.request.CustomerCreateRequest
 import br.org.acal.apicore.application.rest.customer.request.CustomerFilterRequest
 import br.org.acal.apicore.application.rest.customer.request.CustomerMigrateRequest
@@ -52,14 +52,13 @@ class CustomerController(
     @GetMapping("paginate")
     fun paginateByFilter(
         customerPaginateRequest: CustomerPaginateRequest,
-    ): ResponseEntity<Page<CustomerPaginateResponse>> {
-
-        return ok(
-            paginate.execute(input = customerPaginateRequest.toCustomerPageFilter()).map { CustomerPaginateResponse(it) } .also {
+    ): ResponseEntity<Page<CustomerPaginateResponse>> = ok(
+        paginate.execute(input = customerPaginateRequest.toCustomerPageFilter())
+            .map { CustomerPaginateResponse(it) }
+            .also {
                 logger.info { "Returning customer /paginate $it"}
             }
-        )
-    }
+    )
 
     @GetMapping("/find")
     fun findAllByFilter(
@@ -98,14 +97,12 @@ class CustomerController(
     }
 
     @PostMapping
-    fun create(@Valid @RequestBody request: CustomerCreateRequest): ResponseEntity<CustomerCreateResponse> {
-        logger.info { "Creating Post/ customer $request" }
-        return created(
+    fun create(@Valid @RequestBody request: CustomerCreateRequest): ResponseEntity<CustomerCreateResponse> =
+        created(
             CustomerCreateResponse(create.execute(request.toEntity()).also {
                 logger.info { "Created customer $it" }
             })
         )
-    }
 
     @PutMapping
     fun update(@Valid @RequestBody request: CustomerUpdateRequest): ResponseEntity<CustomerCreateResponse> {

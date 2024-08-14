@@ -7,7 +7,7 @@ import br.org.acal.apicore.application.rest.address.request.toEntity
 import br.org.acal.apicore.application.rest.address.response.AddressFindAllResponse
 import br.org.acal.apicore.application.rest.address.response.AddressFindByIdResponse
 import br.org.acal.apicore.application.rest.address.response.AddressPaginateResponse
-import br.org.acal.apicore.application.rest.components.validator.ulid.ULIDValidator
+import br.org.acal.apicore.application.components.validator.ulid.ULIDValidator
 import br.org.acal.apicore.common.enums.Fixtures.Companion.ID
 import br.org.acal.apicore.common.util.ResponseEntityUtil.Companion.created
 import br.org.acal.apicore.domain.entity.Address
@@ -37,7 +37,7 @@ class AddressController(
     private val createLot: AddressCreateLotUsecase,
     private val findAll: AddressFindFilterUsecase,
     private val paginate: AddressPaginateUsecase,
-    private val findById: AddressFindByIdUsecase
+    private val findById: AddressFindByIdUsecase,
 ): Sl4jLogger() {
 
     @PostMapping

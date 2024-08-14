@@ -1,4 +1,4 @@
-package br.org.acal.apicore.application.rest.components.validator.ulid
+package br.org.acal.apicore.application.components.validator.ulid
 
 import br.org.acal.apicore.infrastructure.Sl4jLogger
 import br.org.acal.apicore.infrastructure.info

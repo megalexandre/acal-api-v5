@@ -1,4 +1,4 @@
-package br.org.acal.apicore.application.rest.components.validator.phoneNumber
+package br.org.acal.apicore.application.components.validator.phoneNumber
 
 import br.org.acal.apicore.domain.entity.PhoneNumber
 import br.org.acal.apicore.infrastructure.Sl4jLogger

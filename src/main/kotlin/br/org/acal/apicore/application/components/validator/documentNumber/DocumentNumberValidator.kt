@@ -1,4 +1,4 @@
-package br.org.acal.apicore.application.rest.components.validator.invoiceNumber
+package br.org.acal.apicore.application.components.validator.documentNumber
 
 import jakarta.validation.Constraint
 import jakarta.validation.Payload
@@ -10,8 +10,8 @@ import kotlin.reflect.KClass
 @MustBeDocumented
 @Target(FIELD, FUNCTION)
 @Retention(RUNTIME)
-@Constraint(validatedBy = [InvoiceNumberConstraint::class])
-annotation class InvoiceNumberValidator(
+@Constraint(validatedBy = [DocumentNumberConstraint::class])
+annotation class DocumentNumberValidator(
     val message: String = "{}",
     val groups: Array<KClass<*>> = [],
     val payload: Array<KClass<out Payload>> = []

@@ -53,7 +53,11 @@ class DatabaseStepDefs: RestStepDefs() {
 
         when(document){
             "category" ->{
-                assertEquals(size ,categoryRepository.count())
+                assertEquals(size, categoryRepository.count())
+            }
+
+            "address" -> {
+                assertEquals(size, addressRepository.count())
             }
 
             else ->  throw RuntimeException()

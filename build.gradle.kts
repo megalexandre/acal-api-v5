@@ -5,6 +5,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.4"
 	kotlin("jvm") version "1.9.22"
 	kotlin("plugin.spring") version "1.9.22"
+	kotlin("kapt") version "1.7.21"
 }
 
 group = "br.org.acal"
@@ -12,6 +13,7 @@ version = "0.0.1-SNAPSHOT"
 val cumcumber_version = "7.15.0"
 val wiremock_version = "3.4.0"
 val test_container_version = "3.2.3"
+val mapstructVersion = "1.5.5.Final"
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_17
@@ -50,6 +52,10 @@ dependencies {
 	implementation("org.springframework.data:spring-data-mongodb:4.2.3")
 
 
+	implementation("org.mapstruct:mapstruct:${mapstructVersion}")
+	annotationProcessor("org.mapstruct:mapstruct-processor:${mapstructVersion}")
+	testAnnotationProcessor("org.mapstruct:mapstruct-processor:${mapstructVersion}")
+
 	//metrics
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 
@@ -57,6 +63,9 @@ dependencies {
 	//test startup
 	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 
+	implementation("org.mapstruct.extensions.spring:mapstruct-spring-annotations:0.1.2")
+	implementation("org.mapstruct:mapstruct:1.5.3.Final")
+	kapt("org.mapstruct:mapstruct-processor:1.5.3.Final")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.rest-assured:kotlin-extensions")

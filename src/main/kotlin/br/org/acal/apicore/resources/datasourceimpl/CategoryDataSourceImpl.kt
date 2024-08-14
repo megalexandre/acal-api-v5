@@ -44,8 +44,8 @@ class CategoryDataSourceImpl(
         return page.toEntity()
     }
 
-    override fun findByNameAndType(name: String, type: CategoryType): Category? =
-        repository.findByNameAndType(name = name, type = type)
+    override fun findByNameAndType(name: String, type: CategoryType): Collection<Category>? =
+        repository.findByNameAndType(name = name, type = type)?.map { it.toEntity() }
 
     override fun save(t: Category): Category =
         repository.save(t.toDocument()).toEntity()

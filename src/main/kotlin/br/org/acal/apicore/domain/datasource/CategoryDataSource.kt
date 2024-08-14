@@ -4,5 +4,5 @@ import br.org.acal.apicore.common.enums.CategoryType
 import br.org.acal.apicore.domain.entity.Category
 
 interface CategoryDataSource: CustomDataSource<Category>{
-    fun findByNameAndType(name: String, type: CategoryType): Category ?
+    fun findByNameAndType(name: String, type: CategoryType): Collection<Category> ?
 }

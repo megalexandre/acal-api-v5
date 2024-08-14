@@ -1,5 +1,6 @@
 package br.org.acal.apicore.application.rest.category
 
+import br.org.acal.apicore.application.components.validator.ulid.ULIDValidator
 import br.org.acal.apicore.application.rest.category.request.CategoryCreateRequest
 import br.org.acal.apicore.application.rest.category.request.CategoryFilterRequest
 import br.org.acal.apicore.application.rest.category.request.CategoryMigrateRequest
@@ -10,7 +11,6 @@ import br.org.acal.apicore.application.rest.category.response.CategoryFindRespon
 import br.org.acal.apicore.application.rest.category.response.CategoryGetResponse
 import br.org.acal.apicore.application.rest.category.response.CategoryPaginateResponse
 import br.org.acal.apicore.application.rest.category.response.CategoryUpdateResponse
-import br.org.acal.apicore.application.rest.components.validator.ulid.ULIDValidator
 import br.org.acal.apicore.common.enums.Fixtures.Companion.FIND
 import br.org.acal.apicore.common.enums.Fixtures.Companion.ID
 import br.org.acal.apicore.common.enums.Fixtures.Companion.MIGRATE
@@ -26,6 +26,8 @@ import br.org.acal.apicore.infrastructure.Sl4jLogger
 import br.org.acal.apicore.infrastructure.info
 import jakarta.validation.Valid
 import org.springframework.data.domain.Page
+import org.springframework.http.HttpStatus.CREATED
+import org.springframework.http.HttpStatus.OK
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.ok
@@ -36,6 +38,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -48,15 +51,15 @@ class CategoryController(
     private val paginate: CategoryPaginateByFilterUsecase,
     private val findAllByFilter: CategoryFindFilterUsecase,
 ): Sl4jLogger() {
-
     @GetMapping(PAGINATE)
+    @ResponseStatus(OK)
     fun paginateByFilter(
         request: CategoryPaginateRequest
-    ): ResponseEntity<Page<CategoryPaginateResponse>> = run {
+    ): Page<CategoryPaginateResponse> {
         logger.info { "Getting category /paginate by filter $request" }
-        ok(paginate.execute(request.toEntity()).map { CategoryPaginateResponse(it) } .also {
+        return paginate.execute(request.toEntity()).map { CategoryPaginateResponse(it) } .also {
             logger.info { "Returned category /paginate size: ${it.size}"}
-        })
+        }
     }
 
     @GetMapping(FIND)
@@ -95,19 +98,19 @@ class CategoryController(
     }
 
     @PostMapping
-    fun create(@Valid @RequestBody request: CategoryCreateRequest): ResponseEntity<CategoryCreateResponse> = run {
+    @ResponseStatus(CREATED)
+    fun create(@Valid @RequestBody request: CategoryCreateRequest): CategoryCreateResponse = run {
         logger.info { "Posting category $request" }
-        created(
-            CategoryCreateResponse(create.execute(request.toEntity()))).also {
-                logger.info { "Posted category $it" }
-            }
+        CategoryCreateResponse(create.execute(request.toEntity())).also {
+            logger.info { "Posted category $it" }
+        }
     }
 
     @PutMapping
-    fun update(@Valid @RequestBody request: CategoryUpdateRequest): ResponseEntity<CategoryUpdateResponse> = run {
+    @ResponseStatus(OK)
+    fun update(@Valid @RequestBody request: CategoryUpdateRequest): CategoryUpdateResponse = run {
         logger.info { "Putting category $request" }
-        created(
-            CategoryUpdateResponse(update.execute(request.toEntity()))).also {
+        CategoryUpdateResponse(update.execute(request.toEntity())).also {
             logger.info { "Putted category $it" }
         }
     }

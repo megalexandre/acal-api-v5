@@ -13,7 +13,6 @@ class LinkPaginateRequestFilter(
     @RequestParam(required = false) val id: String?,
     @RequestParam(required = false) val active: Boolean?,
     @RequestParam(required = false) val categoryId: String?,
-
     @RequestParam(required = false) val offset: Int?,
     @RequestParam(required = false) val size: Int?,
     @RequestParam(required = false) val field: String?,

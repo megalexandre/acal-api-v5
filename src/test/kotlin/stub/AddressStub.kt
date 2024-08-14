@@ -1,5 +1,6 @@
 package stub
 
+import br.org.acal.apicore.application.rest.address.request.AddressCreateRequest
 import br.org.acal.apicore.domain.entity.Address
 import br.org.acal.apicore.domain.entity.Area
 import io.azam.ulidj.ULID.random
@@ -16,4 +17,11 @@ val addressStub = Address(
     letter = "A",
     hasHydrometer = true,
     active = true,
+)
+
+val addressCreateRequest = AddressCreateRequest(
+    number = "1",
+    letter =  "A",
+    hasHydrometer = true,
+    area = null
 )

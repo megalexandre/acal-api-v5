@@ -1,7 +1,5 @@
 package br.org.acal.apicore.application.rest.link.request
 
-import br.org.acal.apicore.application.rest.components.adapter.RequestAdapter
-import br.org.acal.apicore.domain.entity.Link
 import br.org.acal.apicore.domain.entity.LinkCreate
 import org.springframework.validation.annotation.Validated
 
@@ -13,9 +11,9 @@ data class LinkCreateLotRequest (
     val address: String,
     val category: String,
 
-): RequestAdapter<LinkCreate> {
+) {
 
-    override fun toEntity(): LinkCreate = LinkCreate(
+    fun toEntity(): LinkCreate = LinkCreate(
         id = id,
         customer = customer,
         address = address,

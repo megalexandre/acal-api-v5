@@ -1,6 +1,5 @@
 package br.org.acal.apicore.application.rest.category.request
 
-import br.org.acal.apicore.application.rest.components.adapter.RequestAdapter
 import br.org.acal.apicore.common.enums.CategoryType
 import br.org.acal.apicore.common.enums.CategoryValueType.PARTNER
 import br.org.acal.apicore.common.enums.CategoryValueType.WATER
@@ -19,8 +18,8 @@ data class CategoryMigrateRequest (
     val water: BigDecimal?,
     val partnership: BigDecimal?
 
-): RequestAdapter<Category> {
-    override fun toEntity(): Category = Category(
+) {
+    fun toEntity(): Category = Category(
         id = id ?: random(),
         name = name,
         type = type,

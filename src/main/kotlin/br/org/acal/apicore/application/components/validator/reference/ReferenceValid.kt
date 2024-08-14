@@ -1,17 +1,15 @@
-package br.org.acal.apicore.application.rest.components.validator.documentNumber
+package br.org.acal.apicore.application.components.validator.reference
 
 import jakarta.validation.Constraint
 import jakarta.validation.Payload
 import kotlin.annotation.AnnotationRetention.RUNTIME
 import kotlin.annotation.AnnotationTarget.FIELD
-import kotlin.annotation.AnnotationTarget.FUNCTION
 import kotlin.reflect.KClass
 
-@MustBeDocumented
-@Target(FIELD, FUNCTION)
+@Target(FIELD, AnnotationTarget.VALUE_PARAMETER)
 @Retention(RUNTIME)
-@Constraint(validatedBy = [DocumentNumberConstraint::class])
-annotation class DocumentNumberValidator(
+@Constraint(validatedBy = [ReferenceValidator::class])
+annotation class ReferenceValid(
     val message: String = "{}",
     val groups: Array<KClass<*>> = [],
     val payload: Array<KClass<out Payload>> = []

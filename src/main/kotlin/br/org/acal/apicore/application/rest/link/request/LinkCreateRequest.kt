@@ -1,6 +1,5 @@
 package br.org.acal.apicore.application.rest.link.request
 
-import br.org.acal.apicore.application.rest.components.adapter.RequestAdapter
 import br.org.acal.apicore.domain.entity.Address
 import br.org.acal.apicore.domain.entity.Category
 import br.org.acal.apicore.domain.entity.Customer
@@ -15,9 +14,9 @@ data class LinkCreateRequest (
     val address: Address,
     val category: Category,
 
-): RequestAdapter<Link> {
+){
 
-    override fun toEntity(): Link = Link(
+    fun toEntity(): Link = Link(
         id = random(),
         customer = customer,
         address = address,

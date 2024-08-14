@@ -1,6 +1,5 @@
 package br.org.acal.apicore.application.rest.invoice.request
 
-import br.org.acal.apicore.application.rest.components.adapter.RequestAdapter
 import br.org.acal.apicore.common.enums.Reason.CATEGORY
 import br.org.acal.apicore.common.enums.Reason.WATER
 import br.org.acal.apicore.domain.entity.InvoiceDetail
@@ -16,7 +15,6 @@ import org.springframework.validation.annotation.Validated
 
 @Validated
 data class InvoiceMigrateRequest (
-
     val id: String?,
     val linkId: String,
     val reference: String,
@@ -26,9 +24,9 @@ data class InvoiceMigrateRequest (
     val water: BigDecimal,
     val category: BigDecimal?,
     val dataPaid: LocalDateTime?,
-): RequestAdapter<InvoiceMigrate> {
+){
 
-    override fun toEntity(): InvoiceMigrate = InvoiceMigrate(
+    fun toEntity(): InvoiceMigrate = InvoiceMigrate(
         id = id ?: random(),
         reference = Reference.of(reference),
         invoiceNumber = invoiceNumber?.let { InvoiceNumber.of(it) },

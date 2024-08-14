@@ -20,12 +20,12 @@ class  CategoryCreateUsecase(
         dataSource.save(input)
     }
 
-    private fun valid(category: Category){
-        dataSource.findByNameAndType(category.name.trim(), category.type)?.let {
-            with(category){
-               throw InvalidUsecaseException("already exists a category with this name: $name and type $type")
+    private fun valid(category: Category) {
+        dataSource.findByNameAndType(category.name.trim(), category.type)
+            .takeIf { it?.isNotEmpty() == true }
+            ?.let {
+                throw InvalidUsecaseException("Already exists a category with this name: ${category.name} and type ${category.type}")
             }
-        }
     }
 
 }

@@ -9,7 +9,6 @@ data class DocumentNumber(
 ){
     companion object{
         private const val MAXIMUM_LOG_SIZE = 3
-        private const val CPF_SIZE = 11
     }
 
     private val cpf = CPF(value)
@@ -36,4 +35,5 @@ data class DocumentNumber(
         true -> value.substring(0, MAXIMUM_LOG_SIZE) + "*".repeat(value.length - 3)
         false -> value
     }
+
 }

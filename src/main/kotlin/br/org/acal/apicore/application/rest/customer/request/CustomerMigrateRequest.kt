@@ -1,8 +1,7 @@
 package br.org.acal.apicore.application.rest.customer.request
 
-import br.org.acal.apicore.application.rest.components.adapter.RequestAdapter
-import br.org.acal.apicore.application.rest.components.validator.phoneNumber.PhoneNumberValidator
-import br.org.acal.apicore.application.rest.components.validator.ulid.ULIDValidator
+import br.org.acal.apicore.application.components.validator.phoneNumber.PhoneNumberValidator
+import br.org.acal.apicore.application.components.validator.ulid.ULIDValidator
 import br.org.acal.apicore.domain.entity.Customer
 import br.org.acal.apicore.domain.entity.DocumentNumber
 import br.org.acal.apicore.domain.entity.PhoneNumber
@@ -22,9 +21,9 @@ data class CustomerMigrateRequest (
     val phoneNumbers: List<PhoneNumber>?,
     val active: Boolean?,
 
-): RequestAdapter<Customer> {
+) {
 
-    override fun toEntity(): Customer = Customer(
+   fun toEntity(): Customer = Customer(
         id = id ?: random(),
         name = name,
         documentNumber = DocumentNumber(document),

@@ -1,4 +1,4 @@
-package br.org.acal.apicore.application.rest.components.validator.catetoryvalues
+package br.org.acal.apicore.application.components.validator.catetoryvalues
 
 import br.org.acal.apicore.application.rest.category.request.CategoryCreateValuesRequest
 import jakarta.validation.ConstraintValidator

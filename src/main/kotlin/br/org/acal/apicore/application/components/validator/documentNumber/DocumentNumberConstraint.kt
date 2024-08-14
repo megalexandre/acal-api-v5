@@ -1,4 +1,4 @@
-package br.org.acal.apicore.application.rest.components.validator.documentNumber
+package br.org.acal.apicore.application.components.validator.documentNumber
 
 import br.org.acal.apicore.domain.entity.DocumentNumber
 import br.org.acal.apicore.infrastructure.Sl4jLogger

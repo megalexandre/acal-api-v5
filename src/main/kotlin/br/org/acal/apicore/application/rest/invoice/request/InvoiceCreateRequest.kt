@@ -1,7 +1,6 @@
 package br.org.acal.apicore.application.rest.invoice.request
 
-import br.org.acal.apicore.application.rest.components.adapter.RequestAdapter
-import br.org.acal.apicore.application.rest.components.validator.invoiceNumber.InvoiceNumberValidator
+import br.org.acal.apicore.application.components.validator.invoiceNumber.InvoiceNumberValidator
 import br.org.acal.apicore.common.enums.Reason
 import br.org.acal.apicore.domain.entity.Invoice
 import br.org.acal.apicore.domain.entity.InvoiceDetail
@@ -27,9 +26,9 @@ data class InvoiceCreateRequest (
     val dueDate: LocalDate,
     val invoiceDetails: List<InvoiceDetailRequest>,
 
-    ): RequestAdapter<Invoice> {
+    ) {
 
-    override fun toEntity(): Invoice = Invoice(
+    fun toEntity(): Invoice = Invoice(
         id = id ?: random(),
         reference = Reference.of(reference),
         invoiceNumber = InvoiceNumber.of(invoiceNumber),
@@ -47,9 +46,9 @@ data class InvoiceDetailRequest(
     val value: BigDecimal,
     val dataPaid: LocalDateTime?,
 
-): RequestAdapter<InvoiceDetail> {
+) {
 
-    override fun toEntity(): InvoiceDetail = InvoiceDetail(
+    fun toEntity(): InvoiceDetail = InvoiceDetail(
         reason = reason,
         value = value,
         dataPaid = dataPaid,

@@ -1,5 +1,6 @@
 package br.org.acal.apicore.application.rest.components.validator.notNegativeBigDecimal
 
+import br.org.acal.apicore.application.components.validator.notNegativeBigDecimal.NotNegativeBigDecimalValidator
 import java.math.BigDecimal
 import java.math.BigDecimal.ONE
 import java.math.BigDecimal.ZERO

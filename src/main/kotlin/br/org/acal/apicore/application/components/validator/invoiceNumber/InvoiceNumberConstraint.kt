@@ -1,4 +1,4 @@
-package br.org.acal.apicore.application.rest.components.validator.invoiceNumber
+package br.org.acal.apicore.application.components.validator.invoiceNumber
 
 import br.org.acal.apicore.common.enums.Fixtures.Companion.SEPARATOR
 import br.org.acal.apicore.infrastructure.Sl4jLogger
