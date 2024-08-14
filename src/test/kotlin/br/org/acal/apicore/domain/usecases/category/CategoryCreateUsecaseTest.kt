@@ -34,7 +34,7 @@ class CategoryCreateUsecaseTest{
             usecase.execute(category)
         }
 
-        assertEquals("already exists a category with this name: ${category.name} and type ${category.type}",error.message )
+        assertEquals("Already exists a category with this name: ${category.name} and type ${category.type}",error.message )
 
     }
 }

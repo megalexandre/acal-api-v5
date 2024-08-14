@@ -11,12 +11,7 @@ class CustomerDeleteUsecase(
 ): Usecase<String, Unit>, Sl4jLogger()  {
 
     override fun execute(input: String){
-        valid(input).let {
-            dataSource.delete(input)
-        }
-    }
-
-    private fun valid(input: String) {
+        dataSource.delete(input)
     }
 
 }

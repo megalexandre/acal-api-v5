@@ -12,11 +12,7 @@ class CustomerUpdateUsecase(
 ) : Usecase<Customer, Customer>, Sl4jLogger() {
 
     override fun execute(input: Customer): Customer =
-        valid(input).let {
-            dataSource.save(input)
-        }
+        dataSource.save(input)
 
-    private fun valid(customer: Customer) {
-    }
 
 }
