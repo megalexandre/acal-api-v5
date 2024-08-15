@@ -78,6 +78,7 @@ class SpringIT {
         linkRepository.deleteAll()
         addressRepository.deleteAll()
         areaRepository.deleteAll()
+        customerRepository.deleteAll()
     }
 
     val gson: Gson = GsonBuilder()

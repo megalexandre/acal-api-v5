@@ -61,4 +61,15 @@ class AddressStepdefs: RestStepDefs() {
     }
 
 
+    @Given("database has a address with number {string} and areaId {string}")
+    fun databaseHasAAddressWithNumberAndAreaId(number: String, areaId: String) {
+        val request = AddressCreateRequest(
+            number = number,
+            area = AreaRequest(id = areaId, name = "anyName" ),
+            hasHydrometer = null,
+            letter = null,
+        )
+
+        addressRepository.save(request.toEntity().toDocument())
+    }
 }

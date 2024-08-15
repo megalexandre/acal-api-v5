@@ -21,7 +21,6 @@ class ResponseStepDefs: RestStepDefs() {
     @And("and response has {string} equal to {string}")
     fun andResponseHasEqualTo(field: String, message: String) {
         val response = stepShared.response?.asString() ?: ""
-
         assertTrue(response.contains(message), "response should contain $field as $message but wat $response ")
     }
 }

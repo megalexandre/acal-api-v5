@@ -1,5 +1,8 @@
 Feature: find invoices proposal
 
+  Background:
+    Given database is clean
+
   Scenario: when all links is inactive shouldn't return link
 
     when all links is inactive we can't return anything

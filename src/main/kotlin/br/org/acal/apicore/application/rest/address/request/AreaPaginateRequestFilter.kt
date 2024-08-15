@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam
 @Validated
 class AreaPaginateRequestFilter(
     @RequestParam(required = false) val id: String?,
-    @RequestParam(required = false) val area: String?,
+    @RequestParam(required = false) val areaId: String?,
+    @RequestParam(required = false) val areaName: String?,
     @RequestParam(required = false) val number: String?,
     @RequestParam(required = false) val letter: String? = null,
     @RequestParam(required = false) val hasHydrometer: Boolean? = null,
@@ -26,7 +27,8 @@ class AreaPaginateRequestFilter(
         AddressPageFilter(
             filter = AddressFilter(
                 id = id,
-                area = area,
+                areaId = areaId,
+                areaName = areaName,
                 number = number,
                 letter = letter,
                 hasHydrometer = hasHydrometer,

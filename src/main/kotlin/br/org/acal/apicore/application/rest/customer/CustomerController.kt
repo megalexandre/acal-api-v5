@@ -24,6 +24,7 @@ import br.org.acal.apicore.infrastructure.Sl4jLogger
 import br.org.acal.apicore.infrastructure.info
 import jakarta.validation.Valid
 import org.springframework.data.domain.Page
+import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.ok
@@ -34,6 +35,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -97,12 +99,11 @@ class CustomerController(
     }
 
     @PostMapping
-    fun create(@Valid @RequestBody request: CustomerCreateRequest): ResponseEntity<CustomerCreateResponse> =
-        created(
-            CustomerCreateResponse(create.execute(request.toEntity()).also {
-                logger.info { "Created customer $it" }
-            })
-        )
+    @ResponseStatus(HttpStatus.CREATED)
+    fun create(@Valid @RequestBody request: CustomerCreateRequest): CustomerCreateResponse =
+        CustomerCreateResponse(create.execute(request.toEntity()).also {
+            logger.info { "Created customer $it" }
+        })
 
     @PutMapping
     fun update(@Valid @RequestBody request: CustomerUpdateRequest): ResponseEntity<CustomerCreateResponse> {

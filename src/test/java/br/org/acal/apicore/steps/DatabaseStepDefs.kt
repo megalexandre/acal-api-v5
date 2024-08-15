@@ -45,7 +45,9 @@ class DatabaseStepDefs: RestStepDefs() {
             } "link" -> {
                 assertTrue(linkRepository.findById(id).isPresent)
             } "address" -> {
-            assertTrue(addressRepository.findById(id).isPresent)
+                assertTrue(addressRepository.findById(id).isPresent)
+            } "customer" -> {
+                assertTrue(customerRepository.findById(id).isPresent)
             }
             else ->  throw RuntimeException()
         }
