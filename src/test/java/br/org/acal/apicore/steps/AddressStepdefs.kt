@@ -7,16 +7,20 @@ import io.cucumber.java.en.And
 import io.cucumber.java.en.Given
 import io.cucumber.java.en.When
 import org.junit.jupiter.api.Assertions
-import stub.addressCreateRequest
 import stub.addressStub
 
 class AddressStepdefs: RestStepDefs() {
 
     @Given("a address without area is send by post")
     fun aAddressWithoutAreaIsSendByPost() {
-        stepShared.response = executePost("address", gson.toJson(
-            addressCreateRequest
-        ))
+        val request = "{\"number\":\"1\",\"letter\":\"A\",\"hasHydrometer\":true}"
+        stepShared.response = executePost("address", request)
+    }
+
+    @Given("a address without number is send by post")
+    fun aAddressWithoutNumberIsSendByPost() {
+        val request = "{\"id\":\"01J5B4JPCYTDE6JDBD3MG0FWQG\",\"area\":{\"id\":\"01J5B4JPCXX4KQ9BHWMRJTJ9HX\",\"name\":\"AVENIDA\"},\"letter\":\"A\",\"hasHydrometer\":true,\"active\":true}"
+        stepShared.response = executePost("address", request)
     }
 
     @And("database has address id {string}")
@@ -55,4 +59,6 @@ class AddressStepdefs: RestStepDefs() {
         Assertions.assertEquals(hasHydrometer.toBoolean(), address.hasHydrometer)
         Assertions.assertEquals(letter, address.letter)
     }
+
+
 }

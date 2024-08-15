@@ -16,6 +16,7 @@ import com.fasterxml.jackson.module.kotlin.KotlinFeature.NullToEmptyMap
 import com.fasterxml.jackson.module.kotlin.KotlinFeature.SingletonSupport
 import com.fasterxml.jackson.module.kotlin.KotlinFeature.StrictNullChecks
 import com.fasterxml.jackson.module.kotlin.KotlinModule.Builder
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -40,6 +41,7 @@ class ObjectMapperConfig{
     fun objectMapper(): ObjectMapper = ObjectMapper()
         .disable(FAIL_ON_UNKNOWN_PROPERTIES)
         .disable(FAIL_ON_EMPTY_BEANS)
+        .registerKotlinModule()
         .registerModule(createSerializer())
         .registerModule(
             Builder()

@@ -41,6 +41,7 @@ class AddressController(
     private val findById: AddressFindByIdUsecase,
 ): Sl4jLogger() {
 
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun create(@Valid @RequestBody request: AddressCreateRequest): AddressCreateResponse =
