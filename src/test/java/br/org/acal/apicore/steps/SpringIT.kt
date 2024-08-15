@@ -5,7 +5,9 @@ import adapter.LocalDateTypeAdapter
 import br.org.acal.apicore.ApiCoreApplication
 import br.org.acal.apicore.MongoDBTestContainerConfig
 import br.org.acal.apicore.resources.repository.AddressRepository
+import br.org.acal.apicore.resources.repository.AreaRepository
 import br.org.acal.apicore.resources.repository.CategoryRepository
+import br.org.acal.apicore.resources.repository.CustomerRepository
 import br.org.acal.apicore.resources.repository.InvoiceRepository
 import br.org.acal.apicore.resources.repository.LinkRepository
 import com.google.gson.Gson
@@ -40,6 +42,9 @@ class SpringIT {
     lateinit var categoryRepository: CategoryRepository
 
     @Autowired
+    lateinit var areaRepository: AreaRepository
+
+    @Autowired
     lateinit var addressRepository: AddressRepository
 
     @Autowired
@@ -48,9 +53,12 @@ class SpringIT {
     @Autowired
     lateinit var linkRepository: LinkRepository
 
+    @Autowired
+    lateinit var customerRepository: CustomerRepository
+
 
     @LocalServerPort
-    var serverPort = -1;
+    var serverPort = -1
 
     @BeforeEach
     fun setup(){
@@ -68,6 +76,8 @@ class SpringIT {
         categoryRepository.deleteAll()
         invoiceRepository.deleteAll()
         linkRepository.deleteAll()
+        addressRepository.deleteAll()
+        areaRepository.deleteAll()
     }
 
     val gson: Gson = GsonBuilder()

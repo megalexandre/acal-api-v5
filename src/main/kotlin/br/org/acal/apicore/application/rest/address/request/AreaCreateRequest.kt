@@ -2,13 +2,12 @@ package br.org.acal.apicore.application.rest.address.request
 
 import br.org.acal.apicore.domain.entity.Address
 import br.org.acal.apicore.domain.entity.Area
-import br.org.acal.apicore.infrastructure.exception.InvalidRequestException
 import io.azam.ulidj.ULID.random
 import org.springframework.validation.annotation.Validated
 
 @Validated
 data class AddressCreateRequest (
-    val area: AreaRequest?,
+    val area: AreaRequest,
     val number: String,
     val letter: String?,
     val hasHydrometer: Boolean?,
@@ -18,7 +17,7 @@ data class AddressCreateRequest (
         number = number,
         letter = letter ?: "A",
         hasHydrometer = hasHydrometer ?: false,
-        area = area?.toArea() ?: throw InvalidRequestException("Can't create an Address with an Area"),
+        area = area.toArea(),
         active = true,
     )
 

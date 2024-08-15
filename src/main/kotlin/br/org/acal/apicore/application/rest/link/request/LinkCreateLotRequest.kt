@@ -6,18 +6,16 @@ import org.springframework.validation.annotation.Validated
 @Validated
 data class LinkCreateLotRequest (
 
-    val id: String,
-    val customer: String,
-    val address: String,
-    val category: String,
+    val customerId: String,
+    val addressId: String,
+    val categoryId: String,
 
 ) {
 
     fun toEntity(): LinkCreate = LinkCreate(
-        id = id,
-        customer = customer,
-        address = address,
-        category = category,
+        customerId = customerId,
+        addressId = addressId,
+        categoryId = categoryId,
     )
 
 }

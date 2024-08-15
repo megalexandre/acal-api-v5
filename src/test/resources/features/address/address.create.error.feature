@@ -1,8 +1,10 @@
 Feature: creating a address
 
-  Scenario: creating a address without an area
+  Background:
+    database is clean
 
-    When database is clean
+  Scenario: creating a address
+
     Given a address without area is send by post
     Then the status response should be 400
     And and response has "message" equal to "Can't create an Address with an Area"

@@ -31,8 +31,6 @@ class InvoiceStepDefs: RestStepDefs() {
 
     @Given("database has active link with invoice for reference {string}")
     fun databaseHasActiveLinkWithInvoiceForReference(referenceString: String) {
-        super.resetDatabase()
-
         val reference = Reference.of(referenceString)
         val linkId = "01HQ34HPVK0RRA7CA2E2MNK37H"
 
@@ -84,7 +82,6 @@ class InvoiceStepDefs: RestStepDefs() {
 
     @Given("database has inactive link with invoice for reference {string}")
     fun databaseHasInactiveLinkWithInvoiceForReference(referenceString: String) {
-        super.resetDatabase()
         val linkStubInactive = linkStub.copy(
             customer = customerStub.copy(name = "B | I'm inactive"),
             active = false,
@@ -129,4 +126,6 @@ class InvoiceStepDefs: RestStepDefs() {
 
         assertEquals(total, invoiceList.map { it.total }.sum().intValueExact())
     }
+
+
 }

@@ -1,30 +1,27 @@
 package br.org.acal.apicore.application.rest.link.request
 
-import br.org.acal.apicore.domain.entity.Address
-import br.org.acal.apicore.domain.entity.Category
-import br.org.acal.apicore.domain.entity.Customer
-import br.org.acal.apicore.domain.entity.Link
-import io.azam.ulidj.ULID.random
+import br.org.acal.apicore.application.components.validator.ulid.ULIDValidator
+import br.org.acal.apicore.domain.entity.LinkCreate
 import org.springframework.validation.annotation.Validated
 
 @Validated
 data class LinkCreateRequest (
 
-    val customer: Customer,
-    val address: Address,
-    val category: Category,
+    @ULIDValidator
+    val customerId: String,
+
+    @ULIDValidator
+    val addressId: String,
+
+    @ULIDValidator
+    val categoryId: String,
 
 ){
 
-    fun toEntity(): Link = Link(
-        id = random(),
-        customer = customer,
-        address = address,
-        category = category,
-        suspended = false,
-        active = true,
+    fun toEntity(): LinkCreate = LinkCreate(
+        customerId = customerId,
+        addressId = addressId,
+        categoryId = categoryId,
     )
 
 }
-
-fun List<LinkCreateRequest>.toEntity(): List<Link> = map { it.toEntity() }

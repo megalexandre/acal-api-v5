@@ -9,7 +9,7 @@ import java.time.LocalDate
 val customerStub = Customer(
     id = ULID.random(),
     name = "Jonh Doe",
-    documentNumber =  DocumentNumber("32672576033"),
+    documentNumber =  DocumentNumber("29695487041"),
     birthDay = LocalDate.now(),
     phoneNumbers = null,
     active = true,

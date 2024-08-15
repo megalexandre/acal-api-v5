@@ -88,4 +88,12 @@ class CategoryStepDefs: RestStepDefs() {
         stepShared.response = executeGet("category/$id")
 
     }
+
+    @And("database has category id {string}")
+    fun databaseHasCategoryId(id: String) {
+        categoryRepository.save(categoryStub.copy(id = id).toDocument())
+
+    }
+
+
 }

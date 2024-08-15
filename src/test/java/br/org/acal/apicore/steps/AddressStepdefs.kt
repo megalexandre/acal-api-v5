@@ -1,7 +1,14 @@
 package br.org.acal.apicore.steps
 
+import br.org.acal.apicore.application.rest.address.request.AddressCreateRequest
+import br.org.acal.apicore.application.rest.address.request.AreaRequest
+import br.org.acal.apicore.resources.document.adapter.toDocument
+import io.cucumber.java.en.And
 import io.cucumber.java.en.Given
+import io.cucumber.java.en.When
+import org.junit.jupiter.api.Assertions
 import stub.addressCreateRequest
+import stub.addressStub
 
 class AddressStepdefs: RestStepDefs() {
 
@@ -10,5 +17,42 @@ class AddressStepdefs: RestStepDefs() {
         stepShared.response = executePost("address", gson.toJson(
             addressCreateRequest
         ))
+    }
+
+    @And("database has address id {string}")
+    fun databaseHasAddressId(id: String) {
+        val address = addressStub.copy(id = id)
+        addressRepository.save(address.toDocument())
+    }
+
+    @When("an address with area {string} and number {string} is send by post")
+    fun aAddressWithAreaAndNumberIsSendByPost(areaId: String, number: String) {
+
+        val request = AddressCreateRequest(
+            number = number,
+            area = AreaRequest(id = areaId, name = "anyName" ),
+            hasHydrometer = null,
+            letter = null,
+        )
+
+        stepShared.response = executePost("address", gson.toJson(request))
+    }
+
+    @When("an address with the following data is sent by POST")
+    fun aAddressWithFollowingDataIsSentByPost(jsonData: String) {
+        val request = gson.fromJson(jsonData, AddressCreateRequest::class.java)
+        stepShared.response = executePost("address", gson.toJson(request))
+    }
+
+    @And("the database needs to have an address with hasHydrometer {string} and letter {string}")
+    fun theDatabaseNeedsToHaveAnAddressWithHasHydrometerTrueAndLetter(hasHydrometer: String, letter: String) {
+        val addresses = addressRepository.findAll()
+
+        Assertions.assertEquals(1, addresses.size);
+
+        val address = addresses.first()
+
+        Assertions.assertEquals(hasHydrometer.toBoolean(), address.hasHydrometer)
+        Assertions.assertEquals(letter, address.letter)
     }
 }
