@@ -25,4 +25,10 @@ class CustomerStepdefs: RestStepDefs() {
     fun theDatabaseNeedsToHaveAnCustomerWithNameAndDocument(name: String, document: String) {
         assertTrue(customerRepository.findAll().any { it.name == name && it.documentNumber == document })
     }
+
+    @When("a {string} is send by post")
+    fun aIsSendByPost(route: String, jsonData: String) {
+        stepShared.response = executePost(route, jsonData)
+
+    }
 }

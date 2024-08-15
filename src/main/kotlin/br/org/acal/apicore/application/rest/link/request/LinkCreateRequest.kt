@@ -7,13 +7,13 @@ import org.springframework.validation.annotation.Validated
 @Validated
 data class LinkCreateRequest (
 
-    @ULIDValidator
+    @field:ULIDValidator
     val customerId: String,
 
-    @ULIDValidator
+    @field:ULIDValidator
     val addressId: String,
 
-    @ULIDValidator
+    @field:ULIDValidator
     val categoryId: String,
 
 ){
