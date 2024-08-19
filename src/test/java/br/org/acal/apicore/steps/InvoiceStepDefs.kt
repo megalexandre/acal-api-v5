@@ -134,4 +134,9 @@ class InvoiceStepDefs: RestStepDefs() {
         stepShared.response = executePost(path, gson.toJson(request))
     }
 
+    @And("link has a invoice with linkId = {string} and reference {string}")
+    fun linkHasAInvoiceWithLinkIdAndReference(linkId: String, reference: String) {
+        val invoice = invoiceStub.copy(linkId = linkId, reference = Reference.of(reference))
+        invoiceRepository.save(invoice.toDocument())
+    }
 }

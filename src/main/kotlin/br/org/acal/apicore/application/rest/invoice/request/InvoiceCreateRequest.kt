@@ -1,6 +1,7 @@
 package br.org.acal.apicore.application.rest.invoice.request
 
 import br.org.acal.apicore.application.components.validator.invoiceNumber.InvoiceNumberValidator
+import br.org.acal.apicore.application.components.validator.notemptylist.NotEmptyList
 import br.org.acal.apicore.common.enums.Reason
 import br.org.acal.apicore.domain.entity.Invoice
 import br.org.acal.apicore.domain.entity.InvoiceDetail
@@ -23,8 +24,9 @@ data class InvoiceCreateRequest (
 
     val emission: LocalDateTime?,
     val dueDate: LocalDate,
-    val invoiceDetails: List<InvoiceDetailRequest>,
 
+    @NotEmptyList(message = "Can't create a invoice without details")
+    val invoiceDetails: List<InvoiceDetailRequest>,
     ) {
 
     fun toEntity(): Invoice = Invoice(

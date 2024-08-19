@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class InvoiceCreateUsecase(
-    private val dataSource: InvoiceDataSource
+    private val dataSource: InvoiceDataSource,
 ) : Usecase<Invoice, Invoice>, Sl4jLogger() {
 
     @Transactional
