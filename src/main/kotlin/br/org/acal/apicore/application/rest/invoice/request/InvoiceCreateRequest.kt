@@ -15,21 +15,20 @@ import org.springframework.validation.annotation.Validated
 @Validated
 data class InvoiceCreateRequest (
 
-    val id: String?,
     val linkId: String,
     val reference: String,
 
     @InvoiceNumberValidator
     val invoiceNumber: String,
 
-    val emission: LocalDateTime,
+    val emission: LocalDateTime?,
     val dueDate: LocalDate,
     val invoiceDetails: List<InvoiceDetailRequest>,
 
     ) {
 
     fun toEntity(): Invoice = Invoice(
-        id = id ?: random(),
+        id = random(),
         reference = Reference.of(reference),
         invoiceNumber = InvoiceNumber.of(invoiceNumber),
         emission = emission,

@@ -1,5 +1,6 @@
 package br.org.acal.apicore.steps
 
+import br.org.acal.apicore.application.rest.invoice.request.InvoiceCreateRequest
 import br.org.acal.apicore.application.rest.invoice.response.ProposalGroupResponse
 import br.org.acal.apicore.common.util.sum
 import br.org.acal.apicore.domain.entity.Reference
@@ -127,5 +128,10 @@ class InvoiceStepDefs: RestStepDefs() {
         assertEquals(total, invoiceList.map { it.total }.sum().intValueExact())
     }
 
+    @When("I send a post to {string}")
+    fun iSendAPostTo(path: String, jsonData: String) {
+        val request = gson.fromJson(jsonData, InvoiceCreateRequest::class.java)
+        stepShared.response = executePost(path, gson.toJson(request))
+    }
 
 }

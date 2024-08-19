@@ -19,6 +19,7 @@ import br.org.acal.apicore.domain.usecases.proposal.CreateProposalUsecase
 import br.org.acal.apicore.infrastructure.Sl4jLogger
 import br.org.acal.apicore.infrastructure.info
 import jakarta.validation.Valid
+import org.springframework.http.HttpStatus.CREATED
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.ok
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 
@@ -78,6 +80,7 @@ class InvoiceController(
     }
 
     @PostMapping
+    @ResponseStatus(CREATED)
     fun create(@Valid @RequestBody request: InvoiceCreateRequest): InvoiceCreateResponse =
         InvoiceCreateResponse(create.execute(request.toEntity()))
 

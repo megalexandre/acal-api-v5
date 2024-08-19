@@ -1,5 +1,6 @@
 package stub
 
+import br.org.acal.apicore.application.rest.invoice.request.InvoiceCreateRequest
 import br.org.acal.apicore.domain.entity.Invoice
 import br.org.acal.apicore.resources.document.InvoiceDocument
 import br.org.acal.apicore.resources.document.adapter.toDocument
@@ -57,3 +58,14 @@ val invoiceDocumentStub = InvoiceDocument(
     linkId = random(),
     invoiceDetails = listOf(invoiceDetailPaidStub.toDocument())
 )
+
+val invoiceCreateRequestStub = InvoiceCreateRequest(
+    linkId = random(),
+    reference = "202401",
+    invoiceNumber = invoiceNumberStub.value,
+    dueDate = LocalDate.now(),
+    emission = null,
+    invoiceDetails = listOf(invoiceDetailRequestStub)
+)
+
+

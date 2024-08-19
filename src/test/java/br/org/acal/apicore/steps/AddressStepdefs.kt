@@ -42,12 +42,6 @@ class AddressStepdefs: RestStepDefs() {
         stepShared.response = executePost("address", gson.toJson(request))
     }
 
-    @When("an address with the following data is sent by POST")
-    fun aAddressWithFollowingDataIsSentByPost(jsonData: String) {
-        val request = gson.fromJson(jsonData, AddressCreateRequest::class.java)
-        stepShared.response = executePost("address", gson.toJson(request))
-    }
-
     @And("the database needs to have an address with hasHydrometer {string} and letter {string}")
     fun theDatabaseNeedsToHaveAnAddressWithHasHydrometerTrueAndLetter(hasHydrometer: String, letter: String) {
         val addresses = addressRepository.findAll()

@@ -65,8 +65,15 @@ class DatabaseStepDefs: RestStepDefs() {
                 assertEquals(size, addressRepository.count())
             }
 
+            "link" -> {
+                assertEquals(size, linkRepository.count())
+            }
+
+
             else ->  throw RuntimeException()
         }
 
     }
+
+
 }

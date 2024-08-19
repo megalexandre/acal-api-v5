@@ -22,7 +22,7 @@ Feature: creating a address
     address has a composed-key with area and number, we can't duplicate it
 
     Given database has a address with number "1" and areaId "01HQ34HQ2X27955TQ5YBJSVAC9"
-    When an address with the following data is sent by POST
+    When a "address" is send by post
       """
       {
         "area": {

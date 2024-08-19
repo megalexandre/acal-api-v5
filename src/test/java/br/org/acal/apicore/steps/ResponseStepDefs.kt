@@ -23,4 +23,5 @@ class ResponseStepDefs: RestStepDefs() {
         val response = stepShared.response?.asString() ?: ""
         assertTrue(response.contains(message), "response should contain $field as $message but wat $response ")
     }
+
 }

@@ -11,7 +11,7 @@ data class Invoice(
     val id: String,
     val reference: Reference,
     val invoiceNumber: InvoiceNumber,
-    val emission: LocalDateTime,
+    val emission: LocalDateTime?,
     val dueDate: LocalDate,
     val linkId: String,
     val invoiceDetails: List<InvoiceDetail>,

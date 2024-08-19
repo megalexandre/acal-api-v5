@@ -16,7 +16,7 @@ data class InvoiceGetResponse(
     val id: String,
     val reference: String,
     val invoiceNumber: String,
-    val emission: LocalDateTime,
+    val emission: LocalDateTime?,
     val dueDate: LocalDate,
     val link: LinkResponse,
     val details: List<InvoiceDetailResponse>,

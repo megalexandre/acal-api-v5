@@ -19,6 +19,5 @@ Feature: create link
       "addressId": "01J1R1MSRFHNVPC65B6JXYBH6A"
     }
     """
-
     Then the status response should be 201
     And the database need has a "link" with returned id

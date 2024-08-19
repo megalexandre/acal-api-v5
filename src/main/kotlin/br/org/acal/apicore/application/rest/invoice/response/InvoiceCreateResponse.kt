@@ -8,7 +8,7 @@ data class InvoiceCreateResponse(
     val id: String,
     val reference: String,
     val invoiceNumber: String,
-    val emission: LocalDateTime,
+    val emission: LocalDateTime?,
     val dueDate: LocalDate,
     val linkId: String,
 ) {
